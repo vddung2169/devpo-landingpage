@@ -16,7 +16,7 @@ import { Videos } from "./components/video";
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <PromoModal />
+      {/* <PromoModal /> */}
       <Hero />
       <QuestionIPLock />
       <IphoneLockGuides />
