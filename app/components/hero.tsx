@@ -3,7 +3,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-20 md:py-12">
+    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-8 md:py-12">
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
@@ -79,7 +79,7 @@ export function Hero() {
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl" />
             <div className="relative aspect-square overflow-hidden rounded-2xl bg-card">
               <img
-                src="/home.jpg"
+                src="/background-2.jpg"
                 alt="Latest smartphones"
                 className="h-full w-full object-cover"
               />

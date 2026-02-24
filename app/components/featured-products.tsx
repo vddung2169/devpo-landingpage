@@ -150,7 +150,7 @@ const tiktokGuides: TikTokGuide[] = [
   },
 ];
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 4;
 
 export function IphoneLockGuides(): React.ReactElement {
   const [currentPage, setCurrentPage] = useState(1);

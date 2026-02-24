@@ -6,6 +6,7 @@ import { Ticker } from "./components/ticker";
 import { Footer } from "react-day-picker";
 import { FloatingContacts } from "./components/floating-contacts";
 import { SiteFooter } from "./components/footer";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,14 @@ export default function RootLayout({
 
         <SiteFooter />
         <FloatingContacts />
+        <Script
+          src="https://app.preny.ai/embed-global.js"
+          strategy="lazyOnload"
+          data-name-bot="bot-devpo"
+          data-button-style="width:300px;height:300px;"
+          data-language="vi"
+          data-preny-bot-id="699c17a7ba152736d058318e"
+        />
       </body>
     </html>
   );
