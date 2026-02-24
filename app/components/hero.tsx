@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 export function Hero() {
   return (
@@ -78,10 +79,17 @@ export function Hero() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl" />
             <div className="relative aspect-square overflow-hidden rounded-2xl bg-card">
-              <img
+              {/* <img
                 src="/background-2.jpg"
                 alt="Latest smartphones"
                 className="h-full w-full object-cover"
+              /> */}
+              <Image
+                src="/background-2.jpg"
+                alt="Latest smartphones"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
               />
             </div>
           </div>

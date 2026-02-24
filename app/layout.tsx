@@ -42,7 +42,7 @@ export default function RootLayout({
           src="https://app.preny.ai/embed-global.js"
           strategy="lazyOnload"
           data-name-bot="bot-devpo"
-          data-button-style="width:300px;height:300px;"
+          data-button-style="width:200px;height:200px;"
           data-language="vi"
           data-preny-bot-id="699c17a7ba152736d058318e"
         />

@@ -2,7 +2,7 @@
 
 export function FloatingContacts() {
   return (
-    <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
+    <div className="fixed right-6 bottom-42 z-50 flex flex-col gap-3">
       {/* Messenger */}
       <a
         href="https://www.facebook.com/share/1H5cf45rLH/?mibextid=wwXIfr"

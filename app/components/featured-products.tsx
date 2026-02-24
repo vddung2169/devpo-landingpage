@@ -24,6 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 // Định nghĩa kiểu dữ liệu cho từng đường link
 interface GuideLink {
@@ -199,11 +200,18 @@ export function IphoneLockGuides(): React.ReactElement {
               )}
 
               {/* Vùng chứa ảnh tràn viền - Nằm trực tiếp trong Card */}
-              <div className="relative w-full bg-secondary">
-                <img
+              <div className="relative w-full aspect-video overflow-hidden bg-secondary rounded-t-xl">
+                {/* <img
                   src={guide.image}
                   alt={guide.title}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-102"
+                /> */}
+                <Image
+                  src={guide.image} // Lưu ý: Nếu dùng link ảnh ngoài (https://...), bạn phải cấu hình trong next.config.ts nhé
+                  alt={guide.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {/* Lớp phủ khi hover */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">

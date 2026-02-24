@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image"; // 1. Import component Image của Next.js
 
 const imageFiles = [
   "IMG_2326.JPG",
@@ -26,8 +27,8 @@ const imageFiles = [
 // Map mảng tên file thành mảng object chứa đường dẫn đầy đủ
 const customerImages = imageFiles.map((filename, i) => ({
   id: i + 1,
-  src: `/feedback/${filename}`, // Mặc định ảnh nằm ở thư mục gốc /public.
-  alt: `Khách hàng DevpoStore ${i + 1}`,
+  src: `/feedback/${filename}`, // Ảnh cần được đặt trong thư mục: public/feedback/
+  alt: `Khách hàng DEV PỒ ${i + 1}`,
 }));
 
 export function CustomerGallery(): React.ReactElement {
@@ -49,7 +50,6 @@ export function CustomerGallery(): React.ReactElement {
       {/* Vùng chứa Gallery */}
       <div
         className="relative flex w-full flex-col items-center justify-center overflow-hidden"
-        // Lớp mask-image tạo hiệu ứng mờ dần (fade) ở 2 bên mép trái/phải cực kỳ ảo diệu
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
@@ -57,13 +57,12 @@ export function CustomerGallery(): React.ReactElement {
             "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
         }}
       >
-        {/* Style tag nhúng trực tiếp keyframes để không phải sửa file tailwind.config */}
         <style
           dangerouslySetInnerHTML={{
             __html: `
           @keyframes scroll-gallery {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 0.75rem)); } /* 0.75rem là một nửa của gap-6 */
+            100% { transform: translateX(calc(-50% - 0.75rem)); } 
           }
           .animate-scroll-gallery {
             animation: scroll-gallery 40s linear infinite;
@@ -82,11 +81,12 @@ export function CustomerGallery(): React.ReactElement {
               key={`${img.id}-${idx}`}
               className="relative h-60 w-44 shrink-0 overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-xl hover:z-10 md:h-72 md:w-56 bg-slate-200 dark:bg-slate-800"
             >
-              <img
+              <Image
                 src={img.src}
                 alt={img.alt}
-                className="h-full w-full object-cover"
-                loading="lazy"
+                fill
+                sizes="(max-width: 768px) 176px, 224px"
+                className="object-cover"
               />
             </div>
           ))}
