@@ -1,127 +1,124 @@
 "use client";
 
-import React from "react";
-import {
-  MapPin,
-  Phone,
-  Facebook,
-  Youtube,
-  Instagram,
-  Smartphone,
-} from "lucide-react";
+import Link from "next/link";
+// Nhớ import thêm icon từ lucide-react nhé
+import { Phone, MapPin, ChevronRight } from "lucide-react";
 
-export function SiteFooter(): React.ReactElement {
+export function SiteFooter() {
   return (
-    <footer className="bg-[#0b0f19] py-12 text-slate-300 border-t border-slate-800">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3 lg:gap-12">
-          {/* Cột 1: Logo và Mô tả */}
-          <div className="flex flex-col gap-4">
-            <div className="flex cursor-pointer">
+    <footer className="w-full border-t border-border  dark:bg-background">
+      <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12">
+          {/* CỘT 1: Giới thiệu chung (Chiếm 4/12 cột) */}
+          <div className="flex flex-col gap-4 md:col-span-4">
+            <Link href="/" className="flex items-center gap-2">
+              {/* Thay /devpo_logo.jpg bằng đúng tên file logo của bạn */}
               <img
-                src="/devpo_logo_white.png"
-                alt="App Logo Light"
-                className="h-12 dark:hidden"
+                src="/devpo_logo.jpg"
+                alt="Dev Pồ Logo"
+                className="h-14 w-auto rounded-lg shadow-sm"
               />
-            </div>
-
-            <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
+            </Link>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Chuyên cung cấp các dòng iPhone Lock, Quốc tế chính hãng. Uy tín,
               chất lượng, giá tốt nhất thị trường kèm dịch vụ hỗ trợ trọn đời.
             </p>
+          </div>
 
-            {/* Icons Mạng xã hội */}
-            <div className="mt-4 flex gap-5">
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-4 w-4 text-slate-400 hover:text-white transition-colors" />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-4 w-4 text-slate-400 hover:text-white transition-colors" />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Youtube"
-              >
-                <Youtube className="h-4 w-4 text-slate-400 hover:text-white transition-colors" />
-              </a>
+          {/* CỘT 2: Thông tin liên hệ & Chính sách (Chiếm 4/12 cột) */}
+          <div className="flex flex-col gap-6 md:col-span-4">
+            {/* Khối Liên hệ */}
+            <div className="flex flex-col gap-3">
+              <h3 className="text-lg font-bold text-foreground">
+                Thông tin liên hệ
+              </h3>
+              <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <span>3/39A Bình Giã, P.Tân Bình, TP. Hồ Chí Minh</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 shrink-0 text-primary" />
+                  <div className="flex flex-col gap-1">
+                    <a
+                      href="tel:0399208037"
+                      className="hover:text-primary transition-colors"
+                    >
+                      0399 208 037
+                    </a>
+                    <a
+                      href="tel:0909097177"
+                      className="hover:text-primary transition-colors"
+                    >
+                      09 09 09 7177
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Khối Chính sách */}
+            <div className="flex flex-col gap-3">
+              <h3 className="text-lg font-bold text-foreground">
+                Chính sách & Hỗ trợ
+              </h3>
+              <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <li>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                  >
+                    <ChevronRight className="h-4 w-4" /> Chính sách bảo hành
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                  >
+                    <ChevronRight className="h-4 w-4" /> Chính sách đổi trả
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                  >
+                    <ChevronRight className="h-4 w-4" /> Hướng dẫn mua trả góp
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
 
-          {/* Cột 2: Thông tin liên hệ */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-base font-semibold text-white">
-              Thông tin liên hệ
+          {/* CỘT 3: Bản đồ Google Maps (Chiếm 4/12 cột) */}
+          <div className="flex flex-col gap-3 md:col-span-4">
+            <h3 className="text-lg font-bold text-foreground">
+              Bản đồ cửa hàng
             </h3>
-            <ul className="flex flex-col gap-4 text-sm mt-2 text-slate-400">
-              <li className="flex items-start gap-3">
-                <Phone className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
-                <div className="flex flex-col gap-1">
-                  <a
-                    href="tel:0399208037"
-                    className="transition-colors hover:text-white"
-                  >
-                    0399 208 037
-                  </a>
-                  <a
-                    href="tel:0909097177"
-                    className="transition-colors hover:text-white"
-                  >
-                    09 09 09 7177
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
-                <span className="leading-relaxed transition-colors hover:text-white">
-                  Địa chỉ: 3/39A Bình Giã, P.Tân Bình, <br /> TP. Hồ Chí Minh
-                </span>
-              </li>
-            </ul>
+            {/* Vùng chứa iframe được bo góc và có bóng đổ đẹp mắt */}
+            <div className="relative h-56 w-full overflow-hidden rounded-xl border border-border shadow-md md:h-full md:min-h-[220px]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.153647580557!2d106.64109797609562!3d10.799541789350657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752900420eacc5%3A0xaf29110ccb4bcf5d!2sDEV%20P%E1%BB%92%20-%20Chuy%C3%AAn%20iPhone%20Lock!5e0!3m2!1svi!2s!4v1771994390407!5m2!1svi!2s"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Bản đồ đường đi đến Dev Pồ"
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
+            </div>
           </div>
+        </div>
 
-          {/* Cột 3: Chính sách & Hỗ trợ */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-base font-semibold text-white">
-              Chính sách & Hỗ trợ
-            </h3>
-            <ul className="flex flex-col gap-3 text-sm mt-2 text-slate-400">
-              <li>
-                <a href="#" className="transition-colors hover:text-white">
-                  Chính sách bảo hành
-                </a>
-              </li>
-              <li>
-                <a href="#" className="transition-colors hover:text-white">
-                  Chính sách đổi trả
-                </a>
-              </li>
-              <li>
-                <a href="#" className="transition-colors hover:text-white">
-                  Hướng dẫn mua trả góp
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#guides"
-                  className="transition-colors hover:text-white"
-                >
-                  Cẩm nang iPhone Lock
-                </a>
-              </li>
-            </ul>
-          </div>
+        {/* Phần dòng chữ bản quyền cuối trang */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
+          <p className="text-center text-sm text-muted-foreground md:text-left">
+            &copy; {new Date().getFullYear()} Dev Pồ (DevpoStore). All rights
+            reserved.
+          </p>
         </div>
       </div>
     </footer>
