@@ -128,7 +128,7 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-500"
                   />
                 </div>
 

@@ -175,7 +175,7 @@ export function IphoneLockGuides(): React.ReactElement {
     >
       <div className="container mx-auto px-4">
         {/* Header section giữ nguyên */}
-        <div className="mb-12 flex flex-col gap-4 text-center">
+        <div className="mb-6 flex flex-col gap-4 text-center">
           <h2 className="text-balance font-sans text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             CẨM NANG iPHONE LOCK
           </h2>
@@ -185,8 +185,7 @@ export function IphoneLockGuides(): React.ReactElement {
           </p>
         </div>
 
-        {/* Lưới danh sách video */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-12">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 mb-12">
           {currentGuides.map((guide) => (
             <Card
               key={guide.id}

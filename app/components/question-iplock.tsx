@@ -4,7 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 export function QuestionIPLock() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-0 md:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-0 md:py-24 md:pb-0">
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="relative">
@@ -58,12 +58,12 @@ export function QuestionIPLock() {
       {/* ƯU ĐIỂM */}
       <div className="container mx-auto px-4 mt-12 md:mt-24">
         <div className="flex flex-col gap-6 w-full">
-          <h1 className="text-balance font-sans text-2xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-5xl">
+          <h1 className="text-balance font-sans text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl lg:text-3xl">
             Ưu điểm iPhone Lock
           </h1>
 
           {/* Grid layout cho 4 card */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full mb-1">
             {/* 1️⃣ Giá cả phải chăng */}
             <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-6 shadow-sm transition-all hover:shadow-md">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
