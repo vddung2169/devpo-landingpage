@@ -1,6 +1,6 @@
 import { CarrierTable } from "./components/carrier-table";
 import { CustomerGallery } from "./components/custom-gallery";
-import { IphoneLockGuides } from "./components/featured-products";
+import { IphoneLockGuides } from "./components/guides";
 
 import { Features } from "./components/features";
 import { FloatingContacts } from "./components/floating-contacts";
@@ -12,6 +12,7 @@ import { PromoModal } from "./components/promo-modal";
 import { QuestionIPLock } from "./components/question-iplock";
 import { Ticker } from "./components/ticker";
 import { Videos } from "./components/video";
+import { FeaturedProducts } from "./components/featured-products";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       {/* <PromoModal /> */}
       <Hero />
       <QuestionIPLock />
+      <FeaturedProducts limit={4} />
       <IphoneLockGuides />
 
       <CarrierTable />

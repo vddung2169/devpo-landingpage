@@ -1,96 +1,68 @@
-import { Calendar, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
 
-const newsArticles = [
-  {
-    title: "iPhone 16 Pro Max: Everything You Need to Know",
-    excerpt:
-      "Apple's latest flagship brings revolutionary camera technology and unprecedented performance to your pocket.",
-    date: "March 15, 2024",
-    image: "/news-iphone-16-pro-announcement.jpg",
-    category: "Product Launch",
-  },
-  {
-    title: "5G Technology: The Future is Here",
-    excerpt:
-      "Discover how 5G connectivity is transforming mobile experiences with lightning-fast speeds and ultra-low latency.",
-    date: "March 12, 2024",
-    image: "/news-5g-technology-future.jpg",
-    category: "Technology",
-  },
-  {
-    title: "Best Budget Smartphones of 2024",
-    excerpt:
-      "Get flagship features without breaking the bank. Our expert picks for the best value smartphones this year.",
-    date: "March 10, 2024",
-    image: "/news-budget-smartphones-2024.jpg",
-    category: "Buying Guide",
-  },
-  {
-    title: "Wireless Charging: Tips and Tricks",
-    excerpt:
-      "Maximize your wireless charging efficiency and extend your battery life with these expert recommendations.",
-    date: "March 8, 2024",
-    image: "/news-wireless-charging-tips.jpg",
-    category: "Tips & Tricks",
-  },
-];
+import Image from "next/image";
+import Link from "next/link";
+import { Calendar, ChevronRight } from "lucide-react";
+import { newsArticles } from "@/lib/data";
 
 export function News() {
   return (
-    <section className="bg-background py-20">
+    <section className="py-2 md:py-4">
       <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-balance text-4xl font-bold text-foreground lg:text-5xl">
-            Latest News & Updates
-          </h2>
-          <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
-            Stay informed with the latest mobile technology news, product
-            launches, and expert insights
+        <div className="mb-10 text-center md:text-left">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Tin Tức & <span className="text-primary">Thủ Thuật</span>
+          </h1>
+          <p className="mt-4 text-muted-foreground">
+            Cập nhật những thông tin mới nhất và hướng dẫn chi tiết dành cho
+            cộng đồng iPhone Lock.
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {newsArticles.map((article, index) => (
-            <Card
-              key={index}
-              className="group overflow-hidden transition-all hover:shadow-lg"
+        {/* Lưới danh sách bài viết */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {newsArticles.map((article) => (
+            <article
+              key={article.id}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition-all hover:shadow-md"
             >
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src={article.image || "/placeholder.svg"}
+              <Link
+                href={`/news/${article.slug}`}
+                className="relative h-56 w-full overflow-hidden"
+              >
+                <Image
+                  src={article.image}
                   alt={article.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
-                  {article.category}
+              </Link>
+
+              <div className="flex flex-1 flex-col p-6">
+                <div className="mb-3 flex items-center text-sm text-muted-foreground">
+                  <Calendar className="mr-2 h-4 w-4" />
+                  {article.date}
                 </div>
-              </div>
-              <CardContent className="p-6">
-                <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4" />
-                  <span>{article.date}</span>
-                </div>
-                <h3 className="mb-2 text-balance text-xl font-semibold text-foreground">
-                  {article.title}
+
+                <h3 className="mb-3 text-xl font-bold leading-tight text-foreground transition-colors group-hover:text-primary">
+                  <Link href={`/news/${article.slug}`}>{article.title}</Link>
                 </h3>
-                <p className="mb-4 text-pretty text-sm text-muted-foreground">
+
+                <p className="mb-6 line-clamp-3 flex-1 text-sm text-muted-foreground">
                   {article.excerpt}
                 </p>
-                <Button variant="link" className="group/btn p-0 text-primary">
-                  Read More
-                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
 
-        <div className="mt-12 text-center">
-          <Button size="lg" variant="outline">
-            View All News
-          </Button>
+                <div className="mt-auto">
+                  <Link
+                    href={`/news/${article.slug}`}
+                    className="inline-flex items-center font-medium text-primary hover:underline"
+                  >
+                    Đọc tiếp <ChevronRight className="ml-1 h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

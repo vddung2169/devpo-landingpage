@@ -1,323 +1,253 @@
 "use client";
 
-import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  PlayCircle,
-  ExternalLink,
-  Smartphone,
-  ChevronDown,
-} from "lucide-react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+// Nhớ import thêm icon Search từ lucide-react nhé
+import {
+  Check,
+  MessageCircle,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+} from "lucide-react";
+import { products } from "@/lib/products";
 
-// Định nghĩa kiểu dữ liệu cho từng đường link
-interface GuideLink {
-  label: string;
-  url: string;
+interface FeaturedProductsProps {
+  limit?: number;
 }
 
-// Định nghĩa kiểu dữ liệu cho mỗi thẻ cẩm nang
-interface TikTokGuide {
-  id: number;
-  title: string;
-  image: string;
-  links: GuideLink[];
-  badge?: string;
-}
+const categories = ["Tất cả", "iPhone Lock", "iPhone Quốc tế", "iPad"];
+const ITEMS_PER_PAGE = 8;
 
-const tiktokGuides: TikTokGuide[] = [
-  {
-    id: 1,
-    title: "Thông tin về iPhone Lock năm 2026",
-    image: "/tiktok-videos/image1.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdmpfqtc/" }],
-    badge: "Mới nhất",
-  },
-
-  {
-    id: 3,
-    title: "Tin mới về iPhone Lock",
-    image: "/tiktok-videos/image2.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdag3vH1/" }],
-    badge: "Hot",
-  },
-  {
-    id: 4,
-    title: "Giải đáp 999 câu hỏi",
-    image: "/tiktok-videos/image3.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdacdk2v/" }],
-  },
-  {
-    id: 5,
-    title: "Fix lỗi iPhone Lock EID mới",
-    image: "/tiktok-videos/image4.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdasxNv2/" }],
-    badge: "Thủ thuật",
-  },
-  {
-    id: 6,
-    title: "Fix lỗi KHÔNG UPDATE IOS được",
-    image: "/tiktok-videos/image5.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdaEsA6V/" }],
-  },
-  {
-    id: 7,
-    title: "Thiết bị MDM là gì",
-    image: "/tiktok-videos/image6.png",
-    links: [
-      { label: "Phần 1", url: "https://vt.tiktok.com/ZGHG2EArnrJCM-nmfMq/" },
-      { label: "Phần 2", url: "https://vt.tiktok.com/ZGdarcKm8/" },
-    ],
-  },
-  {
-    id: 8,
-    title: "Quốc tế nửa mùa là gì?",
-    image: "/tiktok-videos/image7.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGda7hWTw/" }],
-  },
-  {
-    id: 9,
-    title: "Fix lỗi danh bạ ghép sim TMSI/QPE",
-    image: "/tiktok-videos/image8.png",
-    links: [
-      { label: "Xem video", url: "https://vt.tiktok.com/ZGHGj1exrQmnG-9LxD9/" },
-    ],
-  },
-  {
-    id: 10,
-    title: "Fix lỗi điểm truy cập cá nhân",
-    image: "/tiktok-videos/image9.png",
-    links: [
-      { label: "Xem video", url: "https://vt.tiktok.com/ZGHGj1eXuxoBP-lIIel/" },
-    ],
-  },
-  {
-    id: 11,
-    title: "Thông tin, kiến thức về iPhone Lock",
-    image: "/tiktok-videos/image10.png",
-    links: [
-      { label: "Phần 1", url: "https://vt.tiktok.com/ZGdarKKf8/" },
-      { label: "Phần 2", url: "https://vt.tiktok.com/ZGHGj1RNJC14K-HCqB5/" },
-      { label: "Phần 3", url: "https://vt.tiktok.com/ZGHGj1RNJC1qo-KPg62/" },
-      { label: "Phần 4", url: "https://vt.tiktok.com/ZGdarcEmK/" },
-      { label: "Phần 5", url: "https://vt.tiktok.com/ZGdahrfgt/" },
-    ],
-  },
-  {
-    id: 12,
-    title: "Cách lắp sim EID 1 sim",
-    image: "/tiktok-videos/image11.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdarohGf/" }],
-  },
-  {
-    id: 13,
-    title: "Cách lắp sim EID 2 sim",
-    image: "/tiktok-videos/image12.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdahFSgG/" }],
-  },
-  {
-    id: 14,
-    title: "Cách lắp sim ghép 2 mảnh đúng cách",
-    image: "/tiktok-videos/image13.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdarTtWT/" }],
-  },
-  {
-    id: 15,
-    title: "Tái sử dụng sim ghép khi hỏng 1 mặt",
-    image: "/tiktok-videos/image14.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdaroWe3/" }],
-  },
-  {
-    id: 16,
-    title: "Respring iOS 26",
-    image: "/tiktok-videos/image15.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdaxrPNP/" }],
-  },
-];
-
-const ITEMS_PER_PAGE = 4;
-
-export function IphoneLockGuides(): React.ReactElement {
+export function FeaturedProducts({ limit }: FeaturedProductsProps) {
+  const [activeTab, setActiveTab] = useState("Tất cả");
   const [currentPage, setCurrentPage] = useState(1);
+  // Thêm State để lưu từ khóa tìm kiếm
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const totalPages = Math.ceil(tiktokGuides.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentGuides = tiktokGuides.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE,
-  );
+  // BƯỚC 1: LỌC SẢN PHẨM THEO CẢ TAB VÀ TỪ KHÓA TÌM KIẾM
+  const filteredProducts = products.filter((product) => {
+    const matchCategory = activeTab === "Tất cả" || product.type === activeTab;
 
-  const handlePageChange = (page: number) => {
-    document.getElementById("guides")?.scrollIntoView({ behavior: "smooth" });
-    setCurrentPage(page);
+    const targetString = `${product.name} ${product.type} ${product.capacity}`
+      .toLowerCase()
+      .replace(/\s+/g, "");
+
+    const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/);
+
+    const matchSearch = searchTerms.every((term) =>
+      targetString.includes(term),
+    );
+
+    return matchCategory && matchSearch;
+  });
+
+  const isPaginated = !limit;
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+
+  // BƯỚC 2: CẮT MẢNG ĐÃ LỌC ĐỂ HIỂN THỊ
+  const displayProducts = isPaginated
+    ? filteredProducts.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE,
+      )
+    : filteredProducts.slice(0, limit);
+
+  // Hàm xử lý khi bấm chuyển Tab
+  const handleTabChange = (category: string) => {
+    setActiveTab(category);
+    setCurrentPage(1);
+  };
+
+  // Hàm xử lý khi gõ tìm kiếm
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Gõ tìm kiếm thì cũng phải tự động về Trang 1
   };
 
   return (
-    <section
-      className="py-10 md:py-16 bg-slate-50 dark:bg-slate-900"
-      id="guides"
-    >
-      <div className="container mx-auto px-4">
-        {/* Header section giữ nguyên */}
-        <div className="mb-12 flex flex-col gap-4 text-center">
-          <h2 className="text-balance font-sans text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            CẨM NANG iPHONE LOCK
+    <section className="py-12" id="products">
+      <div className="container mx-auto px-2 sm:px-4">
+        <div className="mb-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Sản phẩm <span className="text-primary">Nổi Bật</span>
           </h2>
-          <p className="text-pretty text-lg text-muted-foreground max-w-4xl mx-auto">
-            Tổng hợp toàn bộ kiến thức, cách ghép sim, và hướng dẫn fix lỗi chi
-            tiết trên iPhone Lock cập nhật mới nhất.
+          <p className="mt-2 sm:mt-4 text-sm sm:text-base text-muted-foreground">
+            Các dòng máy nguyên zin, chất lượng cao tại DEV PỒ
           </p>
         </div>
 
-        {/* Lưới danh sách video */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-12">
-          {currentGuides.map((guide) => (
-            <Card
-              key={guide.id}
-              className="group relative flex flex-col justify-between overflow-hidden transition-all hover:shadow-lg"
-            >
-              {/* Badge nằm đè lên ảnh */}
-              {guide.badge && (
-                <div className="absolute left-2 top-2 z-20 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm backdrop-blur-sm">
-                  {guide.badge}
+        {/* CỤM THANH TÌM KIẾM VÀ TABS */}
+        <div className="mb-8 flex flex-col items-center gap-4">
+          {/* Thanh tìm kiếm */}
+          <div className="relative w-full max-w-sm md:max-w-md">
+            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Tìm kiếm iPhone, iPad..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="flex h-10 sm:h-12 w-full rounded-full border border-input bg-background px-10 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground"
+            />
+          </div>
+
+          {/* Cụm Tabs Filter */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={activeTab === category ? "default" : "outline"}
+                className="rounded-full h-8 px-3 text-xs sm:h-10 sm:px-6 sm:text-sm transition-all duration-300"
+                onClick={() => handleTabChange(category)}
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        {/* LƯỚI SẢN PHẨM */}
+        {displayProducts.length > 0 ? (
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+            {displayProducts.map((product) => (
+              <div
+                key={product.id}
+                className="group relative flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-background shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                {product.badge && (
+                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 rounded-full bg-red-500 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-bold text-white shadow-sm">
+                    {product.badge}
+                  </div>
+                )}
+
+                <div className="relative aspect-square w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
-              )}
 
-              {/* Vùng chứa ảnh tràn viền - Nằm trực tiếp trong Card */}
-              <div className="relative w-full aspect-video overflow-hidden bg-secondary rounded-t-xl">
-                {/* <img
-                  src={guide.image}
-                  alt={guide.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-102"
-                /> */}
-                <Image
-                  src={guide.image} // Lưu ý: Nếu dùng link ảnh ngoài (https://...), bạn phải cấu hình trong next.config.ts nhé
-                  alt={guide.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                {/* Lớp phủ khi hover */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  {/* <PlayCircle className="h-12 w-12 text-white drop-shadow-lg" /> */}
-                </div>
-              </div>
+                <div className="flex flex-1 flex-col p-3 sm:p-5">
+                  <h3 className="text-sm sm:text-lg font-bold text-foreground line-clamp-1">
+                    {product.name}
+                  </h3>
 
-              <CardTitle className="px-4 line-clamp-2 text-lg leading-snug">
-                {guide.title}
-              </CardTitle>
+                  <div className="mt-1 flex items-center gap-1 sm:gap-2 text-[11px] sm:text-sm font-medium text-muted-foreground">
+                    <span>{product.type}</span>
+                    <span className="h-1 w-1 rounded-full bg-muted-foreground/50"></span>
+                    <span className="text-foreground">{product.capacity}</span>
+                  </div>
 
-              <CardContent className="flex flex-col gap-2 pt-2 pb-4 px-4 mt-auto">
-                {guide.links.length === 1 ? (
-                  // Nếu chỉ có 1 link: Hiển thị 1 nút bình thường
+                  <div className="mt-2 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2">
+                    <span className="text-base sm:text-xl font-bold text-red-500">
+                      {product.price}
+                    </span>
+                    {product.oldPrice && (
+                      <span className="text-[11px] sm:text-sm text-muted-foreground line-through">
+                        {product.oldPrice}
+                      </span>
+                    )}
+                  </div>
+
+                  <hr className="my-3 sm:my-4 border-border" />
+
+                  <ul className="mb-3 sm:mb-6 flex flex-1 flex-col gap-1 sm:gap-2 text-[11px] sm:text-sm text-muted-foreground">
+                    {product.specs.map((spec, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-1.5 sm:gap-2"
+                      >
+                        <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-500 shrink-0 mt-0.5" />
+                        <span>{spec}</span>
+                      </li>
+                    ))}
+                  </ul>
+
                   <Button
-                    className="w-full flex items-center justify-between group/btn"
                     asChild
+                    className="w-full font-semibold text-xs sm:text-base h-9 sm:h-11"
+                    size="sm"
                   >
                     <a
-                      href={guide.links[0].url}
+                      href={product.zaloLink}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {guide.links[0].label}
-                      <ExternalLink className="h-4 w-4 ml-2 opacity-70 transition-transform group-hover/btn:scale-110" />
+                      <MessageCircle className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                      Tư vấn & Báo giá
                     </a>
                   </Button>
-                ) : (
-                  // Nếu có nhiều link: Hiển thị Dropdown Menu
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button className="w-full flex items-center justify-between group/btn">
-                        <span>Danh sách phần ({guide.links.length})</span>
-                        <ChevronDown className="h-4 w-4 ml-2 opacity-70 transition-transform group-data-[state=open]:rotate-180" />
-                      </Button>
-                    </DropdownMenuTrigger>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="py-16 text-center text-muted-foreground flex flex-col items-center gap-2">
+            <Search className="h-12 w-12 text-muted-foreground/50 mb-2" />
+            <p className="text-lg font-medium">Không tìm thấy sản phẩm nào</p>
+            <p className="text-sm">
+              Vui lòng thử lại với từ khóa khác (VD: Pro Max, iPad...)
+            </p>
+          </div>
+        )}
 
-                    {/* align="end" giúp menu căn lề phải, w-[--radix-dropdown-menu-trigger-width] ép dropdown rộng bằng đúng nút trigger */}
-                    <DropdownMenuContent
-                      align="end"
-                      className="w-[var(--radix-dropdown-menu-trigger-width)]"
-                    >
-                      {guide.links.map((link, index) => (
-                        <DropdownMenuItem
-                          key={index}
-                          asChild
-                          className="cursor-pointer"
-                        >
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between w-full"
-                          >
-                            {link.label}
-                            <ExternalLink className="h-3.5 w-3.5 opacity-50" />
-                          </a>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {/* XEM TẤT CẢ VÀ PHÂN TRANG */}
+        {limit && filteredProducts.length > limit && (
+          <div className="mt-12 flex justify-center">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="rounded-full px-8"
+            >
+              <Link href="/featured-products">
+                Xem tất cả sản phẩm <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
 
-        {/* Pagination giữ nguyên */}
-        {totalPages > 1 && (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                  className={
-                    currentPage === 1
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
-                />
-              </PaginationItem>
-              {[...Array(totalPages)].map((_, i) => (
-                <PaginationItem key={i}>
-                  <PaginationLink
-                    onClick={() => handlePageChange(i + 1)}
-                    isActive={currentPage === i + 1}
-                    className="cursor-pointer"
-                  >
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() =>
-                    handlePageChange(Math.min(totalPages, currentPage + 1))
-                  }
-                  className={
-                    currentPage === totalPages
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+        {isPaginated && totalPages > 1 && (
+          <div className="mt-12 flex items-center justify-center gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="rounded-full"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <Button
+                key={i}
+                variant={currentPage === i + 1 ? "default" : "outline"}
+                size="icon"
+                onClick={() => setCurrentPage(i + 1)}
+                className={`rounded-full ${currentPage === i + 1 ? "font-bold" : ""}`}
+              >
+                {i + 1}
+              </Button>
+            ))}
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="rounded-full"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
         )}
       </div>
     </section>

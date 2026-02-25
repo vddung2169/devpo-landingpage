@@ -32,17 +32,29 @@ export function Header() {
           {/* Menu Desktop (Ẩn trên mobile) */}
           <nav className="hidden items-center gap-8 md:flex">
             <Link
-              href="#guides"
+              href="/#guides"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Sổ tay iPhone Lock
             </Link>
             <Link
-              href="#carriers"
+              href="/#carriers"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Mã IMSI
             </Link>
+            <Link
+              href="/featured-products"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Sản phẩm
+            </Link>
+            {/* <Link
+              href="/news"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Tin tức
+            </Link> */}
           </nav>
         </div>
 
@@ -70,7 +82,19 @@ export function Header() {
                 className="p-3 text-base cursor-pointer rounded-lg"
               >
                 <Link
-                  href="#guides"
+                  href="/"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-medium"
+                >
+                  Trang chủ
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                asChild
+                className="p-3 text-base cursor-pointer rounded-lg"
+              >
+                <Link
+                  href="/#guides"
                   onClick={() => setIsOpen(false)}
                   className="w-full font-medium"
                 >
@@ -83,11 +107,20 @@ export function Header() {
                 className="p-3 text-base cursor-pointer rounded-lg mt-1"
               >
                 <Link
-                  href="#carriers"
+                  href="/#carriers"
                   onClick={() => setIsOpen(false)}
                   className="w-full font-medium"
                 >
                   Mã IMSI
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                asChild
+                className="p-3 text-base cursor-pointer rounded-lg mt-1"
+              >
+                <Link href="/featured-products" className="w-full font-medium">
+                  Sản phẩm
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

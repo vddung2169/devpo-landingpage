@@ -41,7 +41,7 @@ export function FloatingContacts() {
         <img
           src="/tiktok.svg" // Đảm bảo bạn đã có file tiktok.png (hoặc .jpg) trong thư mục public
           alt="TikTok"
-          className="absolute rounded-full p-1 h-32 w-32"
+          className="absolute rounded-full p-1 h-12 w-12"
         />
       </a>
     </div>
