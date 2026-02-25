@@ -28,6 +28,22 @@ export function FloatingContacts() {
       >
         <img src="/zalo.jpg" alt="Zalo" className="absolute rounded-full p-1" />
       </a>
+
+      {/* TikTok */}
+      <a
+        // THAY LINK TIKTOK CỦA SHOP VÀO DÒNG BÊN DƯỚI:
+        href="https://www.tiktok.com/@devpo_iphone?_r=1&_t=ZG-94CpQsluzJY"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-gray-400 shadow-lg transition-all hover:scale-110 hover:shadow-xl animate-wiggle"
+        aria-label="Follow us on TikTok"
+      >
+        <img
+          src="/tiktok.svg" // Đảm bảo bạn đã có file tiktok.png (hoặc .jpg) trong thư mục public
+          alt="TikTok"
+          className="absolute rounded-full p-1 h-32 w-32"
+        />
+      </a>
     </div>
   );
 }
