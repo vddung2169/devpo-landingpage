@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 // Nhớ import thêm icon từ lucide-react nhé
-import { Phone, MapPin, ChevronRight } from "lucide-react";
+import {
+  Phone,
+  MapPin,
+  ChevronRight,
+  Facebook,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -12,7 +19,6 @@ export function SiteFooter() {
           {/* CỘT 1: Giới thiệu chung (Chiếm 4/12 cột) */}
           <div className="flex flex-col gap-4 md:col-span-4">
             <Link href="/" className="flex items-center gap-2">
-              {/* Thay /devpo_logo.jpg bằng đúng tên file logo của bạn */}
               <img
                 src="/devpo_logo.jpg"
                 alt="Dev Pồ Logo"
@@ -23,6 +29,79 @@ export function SiteFooter() {
               Chuyên cung cấp các dòng iPhone Lock, Quốc tế chính hãng. Uy tín,
               chất lượng, giá tốt nhất thị trường kèm dịch vụ hỗ trợ trọn đời.
             </p>
+
+            {/* DÀN ICON MẠNG XÃ HỘI */}
+            <div className="mt-2 flex items-center gap-4">
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/profile.php?id=61576332353912"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-blue-600"
+              >
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/dev_po2002?igsh=MXBjbjBmejlrb3J1MQ%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-pink-600"
+              >
+                <Instagram className="h-5 w-5" />
+                <span className="sr-only">Instagram</span>
+              </a>
+
+              {/* TikTok (Dùng SVG tuỳ chỉnh) */}
+              <a
+                href="https://www.tiktok.com/@devpo_iphone?_r=1&_t=ZG-94EYLi1dPH6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-black dark:hover:text-white"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                </svg>
+                <span className="sr-only">TikTok</span>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://youtube.com/@devpo-iphonehcm?si=v3cJvDxSPUJHHoV1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-red-600"
+              >
+                <Youtube className="h-5 w-5" />
+                <span className="sr-only">YouTube</span>
+              </a>
+
+              {/* Threads (Dùng SVG tuỳ chỉnh) */}
+              <a
+                href="https://www.threads.com/@dev_po2002?igshid=NTc4MTIwNjQ2YQ=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-black dark:hover:text-white"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-.802.756-1.081 1.753-1.502 3.132-1.502.975 0 1.803.327 2.394.948s.928 1.509 1.005 2.644q.492.207.905.484c1.109.745 1.719 1.86 1.719 3.137 0 2.716-2.226 5.075-6.256 5.075C4.594 16 1 13.987 1 7.994 1 2.034 4.482 0 8.044 0 9.69 0 13.55.243 15 5.036l-1.36.353C12.516 1.974 10.163 1.43 8.006 1.43c-3.565 0-5.582 2.171-5.582 6.79 0 4.143 2.254 6.343 5.63 6.343 2.777 0 4.847-1.443 4.847-3.556 0-1.438-1.208-2.127-1.27-2.127-.236 1.234-.868 3.31-3.644 3.31-1.618 0-3.013-1.118-3.013-2.582 0-2.09 1.984-2.847 3.55-2.847.586 0 1.294.04 1.663.114 0-.637-.54-1.728-1.9-1.728-1.25 0-1.566.405-1.967.868ZM8.716 8.19c-2.04 0-2.304.87-2.304 1.416 0 .878 1.043 1.168 1.6 1.168 1.02 0 2.067-.282 2.232-2.423a6.2 6.2 0 0 0-1.528-.161" />
+                </svg>
+                <span className="sr-only">Threads</span>
+              </a>
+            </div>
           </div>
 
           {/* CỘT 2: Thông tin liên hệ & Chính sách (Chiếm 4/12 cột) */}
