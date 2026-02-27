@@ -176,12 +176,12 @@ export function IphoneLockGuides(): React.ReactElement {
       <div className="container mx-auto px-4">
         {/* Header section giữ nguyên */}
         <div className="mb-6 flex flex-col gap-4 text-center">
-          <h2 className="text-balance font-sans text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+          <h2 className="text-balance font-sans text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             CẨM NANG iPHONE LOCK
           </h2>
           <p className="text-pretty text-lg text-muted-foreground max-w-4xl mx-auto">
             Tổng hợp toàn bộ kiến thức, cách ghép sim, và hướng dẫn fix lỗi chi
-            tiết trên iPhone Lock cập nhật mới nhất.
+            tiết trên iPhone Lock
           </p>
         </div>
 

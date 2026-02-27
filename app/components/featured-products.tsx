@@ -73,7 +73,7 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
       <div className="container mx-auto px-2 sm:px-4">
         <div className="mb-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Sản phẩm <span className="text-primary">Nổi Bật</span>
+            SẢN PHẨM <span className="text-primary">NỔI BẬT</span>
           </h2>
           <p className="mt-2 sm:mt-4 text-sm sm:text-base text-muted-foreground">
             Các dòng máy nguyên zin, chất lượng cao tại DEV PỒ

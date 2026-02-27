@@ -65,14 +65,16 @@ export function QuestionIPLock() {
           {/* Grid layout cho 4 card */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full mb-1">
             {/* 1️⃣ Giá cả phải chăng */}
-            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-6 shadow-sm transition-all hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Check className="h-8 w-8 text-green-500" />
-              </div>
+            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-4 shadow-sm transition-all hover:shadow-md">
               <div className="flex-1">
-                <h3 className="mb-2 font-semibold text-foreground text-lg">
-                  Giá cả phải chăng
-                </h3>
+                <div className="flex justify-start items-center gap-4 mb-4">
+                  <div className="h-10 w-10 items-center justify-center rounded-full bg-primary/10 hidden md:flex">
+                    <Check className="h-6 w-6 text-green-500" />
+                  </div>
+                  <h3 className="font-semibold text-foreground text-md">
+                    Giá cả phải chăng
+                  </h3>
+                </div>
                 <p className="text-pretty leading-relaxed text-muted-foreground">
                   iPhone Lock có giá rẻ hơn nhiều so với iPhone quốc tế, tiết
                   kiệm từ 3–10 triệu đồng.
@@ -81,14 +83,19 @@ export function QuestionIPLock() {
             </div>
 
             {/* 2️⃣ Sóng ổn định */}
-            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-6 shadow-sm transition-all hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-4 shadow-sm transition-all hover:shadow-md">
+              {/* <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                 <Check className="h-8 w-8 text-green-500" />
-              </div>
+              </div> */}
               <div className="flex-1">
-                <h3 className="mb-2 font-semibold text-foreground text-lg">
-                  Sóng ổn định
-                </h3>
+                <div className="flex justify-start items-center gap-4 mb-4">
+                  <div className="h-10 w-10 items-center justify-center rounded-full bg-primary/10 hidden md:flex">
+                    <Check className="h-6 w-6 text-green-500" />
+                  </div>
+                  <h3 className="font-semibold text-foreground text-md">
+                    Sóng sánh ổn định
+                  </h3>
+                </div>
                 <p className="text-pretty leading-relaxed text-muted-foreground">
                   Không cần sử dụng SIM ghép, sóng ổn định như quốc tế, có thể
                   xài 2 SIM 2 sóng.
@@ -97,14 +104,16 @@ export function QuestionIPLock() {
             </div>
 
             {/* 3️⃣ Chất lượng tương đương */}
-            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-6 shadow-sm transition-all hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Check className="h-8 w-8 text-green-500" />
-              </div>
+            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-4 shadow-sm transition-all hover:shadow-md">
               <div className="flex-1">
-                <h3 className="mb-2 font-semibold text-foreground text-lg">
-                  Chất lượng tương đương
-                </h3>
+                <div className="flex justify-start items-center gap-4 mb-4">
+                  <div className="h-10 w-10 items-center justify-center rounded-full bg-primary/10 hidden md:flex">
+                    <Check className="h-6 w-6 text-green-500" />
+                  </div>
+                  <h3 className="font-semibold text-foreground text-md">
+                    Chất lượng tương đương
+                  </h3>
+                </div>
                 <p className="text-pretty leading-relaxed text-muted-foreground">
                   Cấu hình, phần cứng, tính năng giống hệt iPhone quốc tế 100%.
                 </p>
@@ -112,14 +121,16 @@ export function QuestionIPLock() {
             </div>
 
             {/* 4️⃣ Bảo hành trọn đời */}
-            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-6 shadow-sm transition-all hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Check className="h-8 w-8 text-green-500" />
-              </div>
+            <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-4 shadow-sm transition-all hover:shadow-md">
               <div className="flex-1">
-                <h3 className="mb-2 font-semibold text-foreground text-lg">
-                  Bảo hành trọn đời
-                </h3>
+                <div className="flex justify-start items-center gap-4 mb-4">
+                  <div className="h-10 w-10 items-center justify-center rounded-full bg-primary/10 hidden md:flex">
+                    <Check className="h-6 w-6 text-green-500" />
+                  </div>
+                  <h3 className="font-semibold text-foreground text-md">
+                    Bảo hành trọn đời
+                  </h3>
+                </div>
                 <p className="text-pretty leading-relaxed text-muted-foreground">
                   DEV PỒ bao khoá máy trọn đời, hỗ trợ 24/7.
                 </p>

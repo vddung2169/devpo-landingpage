@@ -79,7 +79,7 @@ export function CarrierTable() {
   return (
     <section className="flex justify-center" id="carriers">
       <div className="container max-w-4xl px-4 py-8">
-        <h2 className="text-4xl font-bold mb-8 text-center text-foreground">
+        <h2 className="text-3xl font-bold mb-8 text-center text-foreground">
           Danh sách mã IMSI nhà mạng iPhone Lock
         </h2>
         <div className="overflow-x-auto rounded-lg border">
