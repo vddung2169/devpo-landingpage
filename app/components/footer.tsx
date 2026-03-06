@@ -160,6 +160,14 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <Link
+                    href="/imsi-codes"
+                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                  >
+                    <ChevronRight className="h-4 w-4" /> Mã IMSI mới nhất
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="#"
                     className="flex items-center gap-1 hover:text-primary transition-colors"
                   >

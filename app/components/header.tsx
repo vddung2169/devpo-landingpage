@@ -38,7 +38,7 @@ export function Header() {
               Sổ tay iPhone Lock
             </Link>
             <Link
-              href="/#carriers"
+              href="/imsi-codes"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Mã IMSI
@@ -107,7 +107,7 @@ export function Header() {
                 className="p-3 text-base cursor-pointer rounded-lg mt-1"
               >
                 <Link
-                  href="/#carriers"
+                  href="/imsi-codes"
                   onClick={() => setIsOpen(false)}
                   className="w-full font-medium"
                 >

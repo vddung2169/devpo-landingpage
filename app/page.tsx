@@ -25,6 +25,19 @@ export default function Home() {
 
       <CarrierTable />
       <CustomerGallery />
+
+      {/* SEO Section */}
+      <section className="py-12 bg-white dark:bg-[#0b0f19]">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">
+            Dev Pồ - Cửa hàng bán iPhone Lock, Quốc tế, iPad uy tín hàng đầu tại TP. Hồ Chí Minh (iPhone Ho Chi Minh)
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+            Chúng tôi tự hào là đơn vị cung cấp các dòng iPhone Lock, Quốc tế, iPad với chất lượng zin nguyên bản, 
+            cam kết giá tốt nhất thị trường và dịch vụ hỗ trợ fix lỗi sim ghép trọn đời tại Sài Gòn.
+          </p>
+        </div>
+      </section>
     </main>
   );
 }

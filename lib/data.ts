@@ -56,4 +56,15 @@ export const newsArticles = [
     image: "/home.jpg",
     slug: "top-3-sim-ghep-tot-nhat",
   },
+  {
+    id: 6,
+    title: "Top địa chỉ mua bán iPhone uy tín, giá tốt tại TP. Hồ Chí Minh",
+    excerpt:
+      "Bạn đang tìm kiếm địa chỉ mua bán iPhone Ho Chi Minh uy tín? Khám phá ngay danh sách các cửa hàng iPhone Lock và Quốc tế tốt nhất tại TP.HCM hiện nay.",
+    content:
+      "Thành phố Hồ Chí Minh là thị trường sôi động nhất cả nước về các thiết bị di động, đặc biệt là iPhone. Tuy nhiên, để tìm được một địa chỉ mua bán iPhone Ho Chi Minh thực sự uy tín không phải là điều dễ dàng.\n\nTại sao nên chọn mua iPhone tại các cửa hàng chuyên nghiệp?\n1. Chất lượng đảm bảo: Các cửa hàng uy tín luôn có quy trình kiểm tra đầu vào khắt khe, đảm bảo máy zin nguyên bản.\n2. Bảo hành hậu mãi: Dịch vụ bảo hành lỗi 1 đổi 1 và hỗ trợ phần mềm trọn đời là điểm cộng lớn.\n3. Giá cả cạnh tranh: iPhone Lock tại TP.HCM thường có mức giá cực kỳ hấp dẫn, tiết kiệm từ 3-5 triệu so với máy quốc tế.\n\nDev Pồ (DevpoStore) tự hào là một trong những đơn vị dẫn đầu trong mảng iPhone Lock tại Sài Gòn. Với kinh nghiệm nhiều năm fix lỗi sim ghép và cung cấp các dòng máy chất lượng cao, chúng tôi cam kết mang đến trải nghiệm tốt nhất cho khách hàng. Nếu bạn đang tìm kiếm iPhone Ho Chi Minh, đừng ngần ngại ghé thăm cửa hàng của chúng tôi để được tư vấn tận tình nhất.",
+    date: "06/03/2026",
+    image: "/home.jpg",
+    slug: "top-dia-chi-mua-ban-iphone-uy-tin-ho-chi-minh",
+  },
 ];

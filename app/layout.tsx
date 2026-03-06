@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dev Pồ (DevpoStore) - Chuyên iPhone Lock, Quốc tế giá tốt",
   description:
-    "Cửa hàng điện thoại Dev Pồ. Chuyên cung cấp các dòng iPhone Lock, Quốc tế chính hãng, uy tín. Hướng dẫn fix lỗi, ghép sim iPhone Lock chi tiết nhất.",
+    "Chuyên cung cấp iPhone Lock và iPhone Quốc tế chính hãng, giá tốt tại TP. Hồ Chí Minh. Dev Pồ (DevpoStore) là địa chỉ mua bán iPhone uy tín, chuyên fix lỗi, ghép sim iPhone Lock chuyên nghiệp.",
   keywords: [
     "Dev Pồ",
     "devpo",
@@ -40,6 +40,8 @@ export const metadata: Metadata = {
     "iphone uy tín",
     "iphone chất lượng",
     "iphone bảo hành trọn đời",
+    "iPhone Ho Chi Minh",
+    "iPhone Lock Ho Chi Minh",
   ],
 };
 
