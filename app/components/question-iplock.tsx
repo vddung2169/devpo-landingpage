@@ -23,11 +23,15 @@ export function QuestionIPLock() {
             </h1>
 
             <p className="text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-              iPhone Lock là phiên bản iPhone được nhà mạng khóa SIM. Nhưng hiện
-              nay đã có thể mở khoá để xài sim sóng bình thường. Mọi tính năng,
+              {`iPhone Lock (hay iPhone khóa mạng) là những thiết bị được sản xuất
+              riêng cho một nhà mạng (như AT&T, Verizon, Softbank).
+              Bạn chỉ có thể sử dụng SIM của chính nhà mạng đó nếu không có các
+              biện pháp can thiệp phần cứng hoặc phần mềm.
+
+              \nNhưng hiện nay đã có thể mở khoá để xài sim sóng bình thường. Mọi tính năng,
               cấu tạo, phần cứng đều giống iPhone quốc tế 100% vì đều được Apple
               sản xuất chính hãng. Giá iPhone Lock rẻ hơn từ 3-10 triệu so với
-              iPhone quốc tế.
+              iPhone quốc tế.`}
             </p>
 
             <div className="flex flex-col gap-4 sm:flex-row">

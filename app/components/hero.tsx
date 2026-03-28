@@ -31,8 +31,8 @@ export function Hero() {
                 <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-blue-500 via-primary to-purple-600 opacity-60 blur-md animate-pulse transition duration-500 group-hover:opacity-100 group-hover:blur-lg group-hover:duration-200"></div>
 
                 <Button
-                  size="lg"
-                  className="relative w-full sm:w-auto overflow-hidden bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+                  // size="lg"
+                  className="relative w-full sm:w-auto overflow-hidden bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.2) h-16 w-40"
                   asChild
                 >
                   <a
@@ -45,7 +45,7 @@ export function Hero() {
                     <span className="absolute left-[-100%] top-0 z-10 h-full w-full skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-[200%]"></span>
 
                     {/* Nội dung nút */}
-                    <span className="relative z-20 font-semibold">
+                    <span className="relative z-20 font-semibold text-[20px]">
                       Nhận báo giá Sale ngay
                     </span>
 

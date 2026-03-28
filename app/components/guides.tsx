@@ -25,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import Link from "next/link";
 
 // Định nghĩa kiểu dữ liệu cho từng đường link
 interface GuideLink {
@@ -46,7 +47,7 @@ const tiktokGuides: TikTokGuide[] = [
     id: 1,
     title: "Thông tin về iPhone Lock năm 2026",
     image: "/tiktok-videos/image1.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdmpfqtc/" }],
+    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGduqTg8w/" }],
     badge: "Mới nhất",
   },
 
@@ -54,14 +55,14 @@ const tiktokGuides: TikTokGuide[] = [
     id: 3,
     title: "Tin mới về iPhone Lock",
     image: "/tiktok-videos/image2.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdag3vH1/" }],
+    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdub1SFc/" }],
     badge: "Hot",
   },
   {
     id: 4,
     title: "Giải đáp 999 câu hỏi",
     image: "/tiktok-videos/image3.png",
-    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGdacdk2v/" }],
+    links: [{ label: "Xem video", url: "https://vt.tiktok.com/ZGduqE1jj/" }],
   },
   {
     id: 5,
@@ -151,16 +152,20 @@ const tiktokGuides: TikTokGuide[] = [
   },
 ];
 
-const ITEMS_PER_PAGE = 4;
-
-export function IphoneLockGuides(): React.ReactElement {
+export function IphoneLockGuides({ 
+  hideViewAll = false,
+  itemsPerPage = 4
+}: { 
+  hideViewAll?: boolean;
+  itemsPerPage?: number;
+} = {}): React.ReactElement {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(tiktokGuides.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const totalPages = Math.ceil(tiktokGuides.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
   const currentGuides = tiktokGuides.slice(
     startIndex,
-    startIndex + ITEMS_PER_PAGE,
+    startIndex + itemsPerPage,
   );
 
   const handlePageChange = (page: number) => {
@@ -226,17 +231,14 @@ export function IphoneLockGuides(): React.ReactElement {
                 {guide.links.length === 1 ? (
                   // Nếu chỉ có 1 link: Hiển thị 1 nút bình thường
                   <Button
-                    className="w-full flex items-center justify-between group/btn"
+                    className="cursor-pointer w-full flex items-center justify-between group/btn"
                     asChild
+                    onClick={() => window.open(guide.links[0].url, "_blank")}
                   >
-                    <a
-                      href={guide.links[0].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <p>
                       {guide.links[0].label}
                       <ExternalLink className="h-4 w-4 ml-2 opacity-70 transition-transform group-hover/btn:scale-110" />
-                    </a>
+                    </p>
                   </Button>
                 ) : (
                   // Nếu có nhiều link: Hiển thị Dropdown Menu
@@ -317,6 +319,14 @@ export function IphoneLockGuides(): React.ReactElement {
               </PaginationItem>
             </PaginationContent>
           </Pagination>
+        )}
+
+        {!hideViewAll && (
+          <div className="flex justify-center mt-6">
+            <Button asChild className="cursor-pointer px-8">
+              <Link href="/guides">Xem chi tiết</Link>
+            </Button>
+          </div>
         )}
       </div>
     </section>

@@ -56,7 +56,7 @@ export default function RootLayout({
         <Header />
         <Ticker />
 
-        <main className="min-h-screen">{children}</main>
+        <main className="h-full">{children}</main>
 
         <SiteFooter />
         <FloatingContacts />
