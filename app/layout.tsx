@@ -60,14 +60,7 @@ export default function RootLayout({
 
         <SiteFooter />
         <FloatingContacts />
-        <Script
-          src="https://app.preny.ai/embed-global.js"
-          strategy="lazyOnload"
-          data-name-bot="bot-devpo"
-          data-button-style="width:150px;height:150px;"
-          data-language="vi"
-          data-preny-bot-id="699c17a7ba152736d058318e"
-        />
+
       </body>
     </html>
   );

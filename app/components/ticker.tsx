@@ -5,6 +5,7 @@ export function Ticker() {
     "Cam kết hàng zin chuẩn",
     "iPhone Lock",
     "Hỗ trợ trả góp bao đậu",
+    "Lên đời 0Đ"
   ];
 
   return (

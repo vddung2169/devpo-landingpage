@@ -58,12 +58,12 @@ export function Hero() {
             {/* Thống kê (Stats) - Responsive tối ưu */}
             <div className="flex flex-wrap items-center gap-6 pt-4 md:gap-10">
               <div className="min-w-[80px]">
-                <div className="text-2xl font-bold text-foreground md:text-3xl">20+</div>
+                <div className="text-2xl font-bold text-foreground md:text-3xl">30+</div>
                 <div className="text-xs text-muted-foreground md:text-sm">Sản phẩm</div>
               </div>
               <div className="hidden h-10 w-px bg-border md:block" />
               <div className="min-w-[80px]">
-                <div className="text-2xl font-bold text-foreground md:text-3xl">1000+</div>
+                <div className="text-2xl font-bold text-foreground md:text-3xl">1800+</div>
                 <div className="text-xs text-muted-foreground md:text-sm">Khách hàng</div>
               </div>
               <div className="hidden h-10 w-px bg-border md:block" />
