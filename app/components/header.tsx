@@ -23,8 +23,10 @@ export function Header() {
             <Link href="/">
               <img
                 src="/devpo_logo.jpg"
-                alt="App Logo Light"
-                className="h-14 block dark:hidden"
+                alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
+                width={137}
+                height={56}
+                className="h-14 w-auto block dark:hidden"
               />
             </Link>
           </div>

@@ -1,19 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 // Nhớ import thêm icon Search từ lucide-react nhé
-import {
-  Check,
-  MessageCircle,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Search,
-} from "lucide-react";
-import { products } from "@/lib/products";
+import { ArrowRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { categoryLabel, products } from "@/data/products";
+import { ProductCard } from "./product-card";
 
 interface FeaturedProductsProps {
   limit?: number;
@@ -30,11 +23,13 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
 
   // BƯỚC 1: LỌC SẢN PHẨM THEO CẢ TAB VÀ TỪ KHÓA TÌM KIẾM
   const filteredProducts = products.filter((product) => {
-    const matchCategory = activeTab === "Tất cả" || product.type === activeTab;
+    const matchCategory =
+      activeTab === "Tất cả" || categoryLabel[product.category] === activeTab;
 
-    const targetString = `${product.name} ${product.type} ${product.capacity}`
-      .toLowerCase()
-      .replace(/\s+/g, "");
+    const targetString =
+      `${product.name} ${categoryLabel[product.category]} ${product.storage}`
+        .toLowerCase()
+        .replace(/\s+/g, "");
 
     const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/);
 
@@ -113,77 +108,7 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
         {displayProducts.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {displayProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group relative flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-background shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-              >
-                {product.badge && (
-                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 rounded-full bg-red-500 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-bold text-white shadow-sm">
-                    {product.badge}
-                  </div>
-                )}
-
-                <div className="relative aspect-square w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-transform duration-500"
-                  />
-                </div>
-
-                <div className="flex flex-1 flex-col p-3 sm:p-5">
-                  <h3 className="text-sm sm:text-lg font-bold text-foreground line-clamp-1">
-                    {product.name}
-                  </h3>
-
-                  <div className="mt-1 flex items-center gap-1 sm:gap-2 text-[11px] sm:text-sm font-medium text-muted-foreground">
-                    <span>{product.type}</span>
-                    <span className="h-1 w-1 rounded-full bg-muted-foreground/50"></span>
-                    <span className="text-foreground">{product.capacity}</span>
-                  </div>
-
-                  <div className="mt-2 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2">
-                    <span className="text-base sm:text-xl font-bold text-red-500">
-                      {product.price}
-                    </span>
-                    {product.oldPrice && (
-                      <span className="text-[11px] sm:text-sm text-muted-foreground line-through">
-                        {product.oldPrice}
-                      </span>
-                    )}
-                  </div>
-
-                  <hr className="my-3 sm:my-4 border-border" />
-
-                  <ul className="mb-3 sm:mb-6 flex flex-1 flex-col gap-1 sm:gap-2 text-[11px] sm:text-sm text-muted-foreground">
-                    {product.specs.map((spec, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-1.5 sm:gap-2"
-                      >
-                        <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-500 shrink-0 mt-0.5" />
-                        <span>{spec}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    asChild
-                    className="w-full font-semibold text-xs sm:text-base h-9 sm:h-11"
-                    size="sm"
-                  >
-                    <a
-                      href={product.zaloLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MessageCircle className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                      Tư vấn & Báo giá
-                    </a>
-                  </Button>
-                </div>
-              </div>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (

@@ -13,6 +13,12 @@ import { QuestionIPLock } from "./components/question-iplock";
 import { Ticker } from "./components/ticker";
 import { Videos } from "./components/video";
 import { FeaturedProducts } from "./components/featured-products";
+import type { Metadata } from "next";
+import { FaqSection } from "@/components/FaqSection";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
@@ -39,6 +45,9 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* FAQ — đặt sau đánh giá khách hàng, trước footer (footer render trong layout) */}
+      <FaqSection />
     </main>
   );
 }

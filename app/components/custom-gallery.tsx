@@ -24,11 +24,38 @@ const imageFiles = [
   "IMG_2961.JPG",
 ];
 
+// Alt text mô tả + chứa từ khóa SEO cho từng ảnh feedback (18 ảnh, mỗi alt một ý nghĩa)
+const altTexts = [
+  "Khách hàng mua iPhone Lock tại Dev Pồ HCM",
+  "Feedback mua iPhone 16 Pro Max Lock Dev Pồ",
+  "Khách nhận iPhone 15 Pro Max Lock tại Dev Pồ TP.HCM",
+  "Đánh giá iPhone Lock giá tốt tại Dev Pồ",
+  "Khách hàng tin tưởng mua iPhone Lock Dev Pồ",
+  "Feedback iPhone 14 Pro Max Lock chính hãng Dev Pồ",
+  "Khách mua iPhone Quốc tế tại Dev Pồ HCM",
+  "Trải nghiệm mua iPhone Lock uy tín tại Dev Pồ",
+  "Khách hàng hài lòng iPhone 13 Pro Max Lock Dev Pồ",
+  "Feedback giao iPhone Lock tận nơi TP.HCM Dev Pồ",
+  "Khách nhận iPhone 16 Lock fullbox tại Dev Pồ",
+  "Đánh giá dịch vụ mua iPhone Lock Dev Pồ HCM",
+  "Khách hàng mua iPhone 15 Lock giá rẻ Dev Pồ",
+  "Feedback iPhone Pro Max Lock pin 100% tại Dev Pồ",
+  "Khách tin chọn iPhone Lock chính hãng Dev Pồ",
+  "Khách hàng mua iPhone 12 Pro Max Lock tại Dev Pồ",
+  "Feedback mua iPhone Lock trả góp Dev Pồ TP.HCM",
+  "Khách hàng thân thiết Dev Pồ iPhone Lock HCM",
+];
+
+// Blur placeholder dùng chung cho ảnh feedback (src dạng string runtime nên cần blurDataURL thủ công).
+// 1x1 px xám nhạt — Next sẽ scale-up + blur trong lúc ảnh thật đang tải.
+const BLUR_DATA_URL =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+
 // Map mảng tên file thành mảng object chứa đường dẫn đầy đủ
 const customerImages = imageFiles.map((filename, i) => ({
   id: i + 1,
   src: `/feedback/${filename}`, // Ảnh cần được đặt trong thư mục: public/feedback/
-  alt: `Khách hàng DEV PỒ ${i + 1}`,
+  alt: altTexts[i] ?? `Khách hàng mua iPhone Lock tại Dev Pồ HCM ${i + 1}`,
 }));
 
 export function CustomerGallery(): React.ReactElement {
@@ -86,6 +113,9 @@ export function CustomerGallery(): React.ReactElement {
                 alt={img.alt}
                 fill
                 sizes="(max-width: 768px) 176px, 224px"
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
                 className="object-cover"
               />
             </div>

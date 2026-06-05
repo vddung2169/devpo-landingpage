@@ -80,7 +80,7 @@ export function Hero() {
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-card shadow-2xl md:aspect-square">
               <Image
                 src="/background-2.jpg"
-                alt="Latest smartphones"
+                alt="iPhone Lock và iPhone Quốc tế chính hãng tại Dev Pồ"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"

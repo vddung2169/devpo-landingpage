@@ -21,7 +21,9 @@ export function SiteFooter() {
             <Link href="/" className="flex items-center gap-2">
               <img
                 src="/devpo_logo.jpg"
-                alt="Dev Pồ Logo"
+                alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
+                width={137}
+                height={56}
                 className="h-14 w-auto rounded-lg shadow-sm"
               />
             </Link>

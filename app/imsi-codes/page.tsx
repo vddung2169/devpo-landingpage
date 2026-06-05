@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title:
-    "Danh sách Mã IMSI/TMSI mới nhất 2026 - Hướng dẫn ghép sim iPhone Lock",
+  title: "Bảng mã IMSI iPhone Lock mới nhất 2026",
+  alternates: { canonical: "/imsi-codes" },
   description:
     "Tổng hợp đầy đủ mã IMSI, TMSI, GID1, GID2 của tất cả nhà mạng trên thế giới (AT&T, T-Mobile, Verizon, JP Docomo, Softbank...). Hướng dẫn fix lỗi iPhone Lock cực nhanh.",
   keywords: [

@@ -12,7 +12,7 @@ export function QuestionIPLock() {
             <div className="relative overflow-hidden rounded-2xl bg-card hidden md:block ">
               <img
                 src="/iplock.png"
-                alt="Latest smartphones"
+                alt="iPhone Lock và iPhone Quốc tế chính hãng tại Dev Pồ"
                 className="h-full w-full object-cover"
               />
             </div>

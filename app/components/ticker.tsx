@@ -9,7 +9,7 @@ export function Ticker() {
   ];
 
   return (
-    <div className="w-full bg-primary text-primary-foreground py-2 overflow-hidden">
+    <div className="flex min-h-9 w-full items-center bg-primary text-primary-foreground py-2 overflow-hidden">
       <div className="flex animate-scroll whitespace-nowrap">
         {[...messages, ...messages, ...messages, ...messages, ...messages].map(
           (message, index) => (

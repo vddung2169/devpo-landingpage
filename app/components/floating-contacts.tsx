@@ -13,7 +13,7 @@ export function FloatingContacts() {
       >
         <img
           src="/mess.jpg"
-          alt="Messenger"
+          alt="Liên hệ Dev Pồ qua Messenger"
           className="absolute rounded-full p-1"
         />
       </a>
@@ -26,7 +26,11 @@ export function FloatingContacts() {
         className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-gray-400 shadow-lg transition-all hover:scale-110 hover:shadow-xl animate-wiggle"
         aria-label="Contact us on Zalo"
       >
-        <img src="/zalo.jpg" alt="Zalo" className="absolute rounded-full p-1" />
+        <img
+          src="/zalo.jpg"
+          alt="Chat Zalo Dev Pồ"
+          className="absolute rounded-full p-1"
+        />
       </a>
 
       {/* TikTok */}
@@ -40,7 +44,7 @@ export function FloatingContacts() {
       >
         <img
           src="/tiktok.svg" // Đảm bảo bạn đã có file tiktok.png (hoặc .jpg) trong thư mục public
-          alt="TikTok"
+          alt="TikTok Dev Pồ iPhone Lock"
           className="absolute rounded-full p-1 h-12 w-12"
         />
       </a>
