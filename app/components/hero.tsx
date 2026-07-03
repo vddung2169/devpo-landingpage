@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { Calculator, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-10 md:py-20">
+    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-10 md:py-10">
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="flex flex-col gap-5 md:gap-8">
@@ -53,6 +54,20 @@ export function Hero() {
                   </a>
                 </Button>
               </div>
+
+              <Button
+                asChild
+                variant="outline"
+                className="h-14 w-full sm:w-auto sm:px-8"
+              >
+                <Link
+                  href="/cong-cu-mua-iphone"
+                  className="flex items-center justify-center gap-2 text-base font-semibold"
+                >
+                  <Calculator className="h-5 w-5" />
+                  Tính trả góp &amp; Quiz chọn máy
+                </Link>
+              </Button>
             </div>
 
             {/* Thống kê (Stats) - Responsive tối ưu */}

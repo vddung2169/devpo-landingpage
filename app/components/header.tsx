@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
+import { GlobalSearch } from "./global-search";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,6 +30,13 @@ export function Header() {
                 height={56}
                 className="h-14 w-auto block dark:hidden"
               />
+              <img
+                src="/devpo_logo_white.png"
+                alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
+                width={137}
+                height={56}
+                className="h-9 w-auto hidden dark:block"
+              />
             </Link>
           </div>
 
@@ -40,10 +49,22 @@ export function Header() {
               Sổ tay iPhone Lock
             </Link>
             <Link
+              href="/guides"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Cẩm nang
+            </Link>
+            <Link
               href="/imsi-codes"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Mã IMSI
+            </Link>
+            <Link
+              href="/cong-cu-mua-iphone"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Công cụ
             </Link>
             <Link
               href="/featured-products"
@@ -60,8 +81,14 @@ export function Header() {
           </nav>
         </div>
 
-        {/* Phần Nút Menu Mobile - Dùng DropdownMenu */}
-        <div className="flex items-center gap-4">
+        {/* Phần Tìm kiếm + Menu Mobile - Dùng DropdownMenu */}
+        <div className="flex items-center gap-2">
+          {/* Ô tìm kiếm toàn trang */}
+          <GlobalSearch />
+
+          {/* Nút chuyển chế độ sáng/tối */}
+          <ThemeToggle />
+
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button
@@ -109,11 +136,37 @@ export function Header() {
                 className="p-3 text-base cursor-pointer rounded-lg mt-1"
               >
                 <Link
+                  href="/guides"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-medium"
+                >
+                  Cẩm nang
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                asChild
+                className="p-3 text-base cursor-pointer rounded-lg mt-1"
+              >
+                <Link
                   href="/imsi-codes"
                   onClick={() => setIsOpen(false)}
                   className="w-full font-medium"
                 >
                   Mã IMSI
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                asChild
+                className="p-3 text-base cursor-pointer rounded-lg mt-1"
+              >
+                <Link
+                  href="/cong-cu-mua-iphone"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-medium"
+                >
+                  Công cụ mua iPhone
                 </Link>
               </DropdownMenuItem>
 

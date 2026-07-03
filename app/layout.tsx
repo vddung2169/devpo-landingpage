@@ -5,6 +5,7 @@ import { Header } from "./components/header";
 import { Ticker } from "./components/ticker";
 import { FloatingContacts } from "./components/floating-contacts";
 import { SiteFooter } from "./components/footer";
+import { ThemeProvider } from "./components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import Script from "next/script";
 
@@ -116,7 +117,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className="scroll-smooth">
+    <html lang="vi" className="scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Tăng tốc kết nối tới các domain external dùng nhiều (CTA Zalo/Messenger) */}
         <link rel="preconnect" href="https://zalo.me" />
@@ -128,13 +129,20 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <JsonLd data={localBusinessSchema} />
-        <Header />
-        <Ticker />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <Ticker />
 
-        <main className="h-full">{children}</main>
+          <main className="h-full">{children}</main>
 
-        <SiteFooter />
-        <FloatingContacts />
+          <SiteFooter />
+          <FloatingContacts />
+        </ThemeProvider>
       </body>
     </html>
   );

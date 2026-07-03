@@ -42,7 +42,7 @@ export default function GuidesPage() {
             <h1 className="text-balance font-sans text-3xl font-bold tracking-tight text-foreground md:text-5xl">
               CẨM NANG &amp; HƯỚNG DẪN iPHONE LOCK
             </h1>
-            <p className="text-pretty mx-auto max-w-3xl text-lg text-muted-foreground">
+            <p className="text-pretty mx-auto max-w-2xl text-lg text-muted-foreground">
               Tổng hợp bài viết kiến thức, so sánh và thủ thuật giúp bạn chọn mua
               và sử dụng iPhone Lock đúng cách.
             </p>

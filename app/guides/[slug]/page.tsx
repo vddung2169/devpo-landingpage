@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Clock, Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { GuideFaq } from "../components/guide-faq";
 import {
   getGuideBySlug,
   getRelatedGuides,
@@ -126,9 +127,24 @@ export default async function GuideDetailPage({
     ],
   };
 
+  // FAQPage Schema — chỉ thêm khi bài viết có khai báo faq (dùng chung dữ liệu với GuideFaq UI)
+  const faqSchema = guide.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: guide.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      }
+    : null;
+
+  const schemas = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+
   return (
     <main className="min-h-screen dark:bg-background">
-      <JsonLd data={[articleSchema, breadcrumbSchema]} />
+      <JsonLd data={schemas} />
 
       <article className="container mx-auto max-w-3xl px-4 pt-8 pb-16">
         {/* Breadcrumb */}
@@ -193,14 +209,21 @@ export default async function GuideDetailPage({
         <div
           className="mt-8 text-base
             [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground sm:[&_h2]:text-2xl
+            [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground
             [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-muted-foreground
             [&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-6 [&_ul]:text-muted-foreground
             [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_ol]:pl-6 [&_ol]:text-muted-foreground
             [&_li]:leading-relaxed
             [&_strong]:font-semibold [&_strong]:text-foreground
-            [&_a]:font-medium [&_a]:text-primary [&_a]:underline"
+            [&_a]:font-medium [&_a]:text-primary [&_a]:underline
+            [&_table]:my-6 [&_table]:w-full [&_table]:min-w-max [&_table]:border-collapse [&_table]:text-sm
+            [&_th]:border [&_th]:border-border [&_th]:bg-secondary [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold [&_th]:text-foreground
+            [&_td]:border [&_td]:border-border [&_td]:px-3 [&_td]:py-2 [&_td]:align-top [&_td]:text-muted-foreground"
           dangerouslySetInnerHTML={{ __html: guide.content }}
         />
+
+        {/* FAQ — chỉ hiển thị khi bài viết có khai báo câu hỏi thường gặp */}
+        {guide.faq && guide.faq.length > 0 && <GuideFaq faq={guide.faq} />}
 
         {/* Tags */}
         {guide.tags.length > 0 && (
