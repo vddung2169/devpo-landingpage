@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-10 md:py-10">
+    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-10 md:py-20">
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="flex flex-col gap-5 md:gap-8">
