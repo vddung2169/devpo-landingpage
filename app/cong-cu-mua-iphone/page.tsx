@@ -5,6 +5,7 @@ import { Calculator, ChevronRight, Sparkles, ShieldCheck } from "lucide-react";
 import { InstallmentCalculator } from "../components/installment-calculator";
 import { ProductQuiz } from "../components/product-quiz";
 import { MdmBypass } from "../components/mdm-bypass";
+import { Reveal } from "../components/reveal";
 
 // Điều hướng nhanh trong hero — trỏ tới 2 công cụ bên dưới
 const TOOLS = [
@@ -96,46 +97,52 @@ export default function CongCuMuaIphonePage() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl divide-y divide-border">
           {/* Máy tính trả góp */}
-          <section id="tra-gop" className="scroll-mt-24 py-12 md:py-16">
-            <ToolHeader
-              index="01"
-              icon={Calculator}
-              eyebrow="Máy tính trả góp"
-              title="Trả góp bao nhiêu mỗi tháng?"
-              desc="Chọn máy, điều chỉnh số tiền trả trước và kỳ hạn để xem ngay số tiền phải trả hằng tháng."
-            />
-            <div className="mt-8">
-              <InstallmentCalculator />
-            </div>
-          </section>
+          <Reveal>
+            <section id="tra-gop" className="scroll-mt-24 py-12 md:py-16">
+              <ToolHeader
+                index="01"
+                icon={Calculator}
+                eyebrow="Máy tính trả góp"
+                title="Trả góp bao nhiêu mỗi tháng?"
+                desc="Chọn máy, điều chỉnh số tiền trả trước và kỳ hạn để xem ngay số tiền phải trả hằng tháng."
+              />
+              <div className="mt-8">
+                <InstallmentCalculator />
+              </div>
+            </section>
+          </Reveal>
 
           {/* Quiz chọn máy */}
-          <section id="quiz-chon-may" className="scroll-mt-24 py-12 md:py-16">
-            <ToolHeader
-              index="02"
-              icon={Sparkles}
-              eyebrow="Quiz chọn máy"
-              title="Chưa biết chọn máy nào?"
-              desc="Trả lời 3 câu hỏi nhanh, Dev Pồ sẽ gợi ý ngay chiếc iPhone hợp với bạn nhất."
-            />
-            <div className="mt-8">
-              <ProductQuiz />
-            </div>
-          </section>
+          <Reveal>
+            <section id="quiz-chon-may" className="scroll-mt-24 py-12 md:py-16">
+              <ToolHeader
+                index="02"
+                icon={Sparkles}
+                eyebrow="Quiz chọn máy"
+                title="Chưa biết chọn máy nào?"
+                desc="Trả lời 3 câu hỏi nhanh, Dev Pồ sẽ gợi ý ngay chiếc iPhone hợp với bạn nhất."
+              />
+              <div className="mt-8">
+                <ProductQuiz />
+              </div>
+            </section>
+          </Reveal>
 
           {/* Bypass MDM */}
-          <section id="bypass-mdm" className="scroll-mt-24 py-12 md:py-16">
-            <ToolHeader
-              index="03"
-              icon={ShieldCheck}
-              eyebrow="Bypass MDM"
-              title="Bỏ qua khoá quản lý MDM"
-              desc="Tải tool về máy tính và làm theo hướng dẫn bằng hình ảnh để skip màn hình Remote Management trên iPhone/iPad."
-            />
-            <div className="mt-8">
-              <MdmBypass />
-            </div>
-          </section>
+          <Reveal>
+            <section id="bypass-mdm" className="scroll-mt-24 py-12 md:py-16">
+              <ToolHeader
+                index="03"
+                icon={ShieldCheck}
+                eyebrow="Bypass MDM"
+                title="Bỏ qua khoá quản lý MDM"
+                desc="Tải tool về máy tính và làm theo hướng dẫn bằng hình ảnh để skip màn hình Remote Management trên iPhone/iPad."
+              />
+              <div className="mt-8">
+                <MdmBypass />
+              </div>
+            </section>
+          </Reveal>
         </div>
       </div>
     </main>
