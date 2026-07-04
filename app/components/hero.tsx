@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Calculator, MessageCircle } from "lucide-react";
+import { Calculator } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { QuoteCTA } from "./quote-cta";
 
 export function Hero() {
   return (
@@ -30,30 +31,7 @@ export function Hero() {
 
             {/* Nút Nhận báo giá Sale ngay */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <div className="relative group inline-flex w-full sm:w-auto">
-                {/* Hiệu ứng Glow nhịp thở */}
-                <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-blue-500 via-primary to-purple-600 opacity-70 blur-md animate-pulse transition duration-500 group-hover:opacity-100 group-hover:blur-lg"></div>
-
-                <Button
-                  className="relative h-14 w-full sm:w-auto sm:px-8 overflow-hidden rounded-xl bg-primary text-primary-foreground transition-all duration-300 hover:scale-[1.02] active:scale-95"
-                  asChild
-                >
-                  <a
-                    href="https://www.messenger.com/channel/61576332353912"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3"
-                  >
-                    {/* Shimmer Sweep */}
-                    <span className="absolute left-[-100%] top-0 z-10 h-full w-full skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[250%]"></span>
-
-                    <span className="relative z-20 text-lg font-bold md:text-xl">
-                      Nhận báo giá Sale ngay
-                    </span>
-                    <MessageCircle className="relative z-20 h-6 w-6 transition-transform duration-300 group-hover:rotate-12" />
-                  </a>
-                </Button>
-              </div>
+              <QuoteCTA />
 
               <Button
                 asChild
