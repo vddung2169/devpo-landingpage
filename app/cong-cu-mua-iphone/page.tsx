@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Calculator, ChevronRight, Sparkles } from "lucide-react";
+import { Calculator, ChevronRight, Sparkles, ShieldCheck } from "lucide-react";
 import { InstallmentCalculator } from "../components/installment-calculator";
 import { ProductQuiz } from "../components/product-quiz";
+import { MdmBypass } from "../components/mdm-bypass";
 
 // Điều hướng nhanh trong hero — trỏ tới 2 công cụ bên dưới
 const TOOLS = [
@@ -18,6 +19,12 @@ const TOOLS = [
     icon: Sparkles,
     title: "Quiz chọn máy",
     desc: "3 câu hỏi để tìm đúng iPhone hợp bạn",
+  },
+  {
+    href: "#bypass-mdm",
+    icon: ShieldCheck,
+    title: "Bypass MDM",
+    desc: "Tải tool & hướng dẫn skip khoá quản lý",
   },
 ];
 
@@ -62,7 +69,7 @@ export default function CongCuMuaIphonePage() {
           </div>
 
           {/* Điều hướng nhanh dạng thẻ — thay cho 2 pill rời rạc */}
-          <div className="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-2">
+          <div className="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
             {TOOLS.map((tool) => (
               <a
                 key={tool.href}
@@ -113,6 +120,20 @@ export default function CongCuMuaIphonePage() {
             />
             <div className="mt-8">
               <ProductQuiz />
+            </div>
+          </section>
+
+          {/* Bypass MDM */}
+          <section id="bypass-mdm" className="scroll-mt-24 py-12 md:py-16">
+            <ToolHeader
+              index="03"
+              icon={ShieldCheck}
+              eyebrow="Bypass MDM"
+              title="Bỏ qua khoá quản lý MDM"
+              desc="Tải tool về máy tính và làm theo hướng dẫn bằng hình ảnh để skip màn hình Remote Management trên iPhone/iPad."
+            />
+            <div className="mt-8">
+              <MdmBypass />
             </div>
           </section>
         </div>

@@ -73,7 +73,7 @@ const staticPages: Omit<SearchDoc, "haystack">[] = [
     id: "page-tools",
     type: "page",
     title: "Công cụ mua iPhone",
-    subtitle: "Máy tính trả góp & quiz chọn máy",
+    subtitle: "Máy tính trả góp, quiz chọn máy & bypass MDM",
     href: "/cong-cu-mua-iphone",
   },
 ];
