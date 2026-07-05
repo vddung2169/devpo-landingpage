@@ -24,7 +24,7 @@ import { ZALO_LINK } from "@/data/products";
 // Link tải tool. Dùng dạng direct-download của Google Drive (bấm là tải luôn).
 // Đổi link: thay FILE_ID trong URL, hoặc để "#" nếu chưa cấu hình.
 const DRIVE_LINK: string =
-  "https://drive.google.com/uc?export=download&id=10BHA8vCqKJCuOcFAy117-qKYh9cq3Rkw";
+  "https://www.dropbox.com/scl/fo/sed30z0qncabuljsg6clz/ALrPSvmXCjxZuMlOb9ApYzE?rlkey=0oo2otuzezcy2wxp5rhu3yd6q&st=s0p1f3f0&dl=0";
 
 // Các bước hướng dẫn. Ảnh đặt trong /public/bypass-mdm/ theo tên đã khai báo.
 // Ảnh chưa có sẽ hiện ô placeholder, không làm vỡ layout.
