@@ -65,12 +65,7 @@ export function Header() {
 
           {/* Menu Desktop (Ẩn trên mobile) */}
           <nav className="hidden items-center gap-8 md:flex">
-            <Link
-              href="/#guides"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Sổ tay iPhone Lock
-            </Link>
+           
             <Link
               href="/guides"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
