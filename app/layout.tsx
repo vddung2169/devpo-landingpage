@@ -7,6 +7,7 @@ import { FloatingContacts } from "./components/floating-contacts";
 import { SiteFooter } from "./components/footer";
 import { ThemeProvider } from "./components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 
 // LocalBusiness Schema — giúp Google hiển thị thông tin cửa hàng (địa chỉ, giờ mở cửa, đánh giá)
@@ -143,6 +144,8 @@ export default function RootLayout({
           <SiteFooter />
           <FloatingContacts />
         </ThemeProvider>
+        {/* Vercel Web Analytics — đo lượt truy cập & trang được xem nhiều nhất */}
+        <Analytics />
       </body>
     </html>
   );
