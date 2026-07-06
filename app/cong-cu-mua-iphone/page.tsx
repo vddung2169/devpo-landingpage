@@ -1,37 +1,39 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Calculator, ChevronRight, Sparkles, ShieldCheck } from "lucide-react";
-import { InstallmentCalculator } from "../components/installment-calculator";
-import { ProductQuiz } from "../components/product-quiz";
-import { MdmBypass } from "../components/mdm-bypass";
-import { Reveal } from "../components/reveal";
 
-// Điều hướng nhanh trong hero — trỏ tới 2 công cụ bên dưới
+export const metadata: Metadata = {
+  title: "Công cụ mua iPhone thông minh — Trả góp, Bypass MDM & Tư vấn máy",
+  description:
+    "Bộ công cụ mua iPhone tại Dev Pồ: tính trả góp iPhone, tool Bypass MDM (skip khoá quản lý từ xa) kèm hướng dẫn bằng hình ảnh và quiz tư vấn chọn máy 3 câu hỏi.",
+  alternates: { canonical: "/cong-cu-mua-iphone" },
+};
+
+// 3 công cụ, mỗi công cụ giờ là một trang riêng
 const TOOLS = [
   {
-    href: "#tra-gop",
+    href: "/cong-cu-mua-iphone/tra-gop",
     icon: Calculator,
-    title: "Máy tính trả góp",
-    desc: "Xem ngay số tiền phải trả mỗi tháng",
+    title: "Trả góp",
+    desc: "Ước tính tiền lãi & tổng tiền phải trả",
   },
   {
-    href: "#quiz-chon-may",
-    icon: Sparkles,
-    title: "Quiz chọn máy",
-    desc: "3 câu hỏi để tìm đúng iPhone hợp bạn",
-  },
-  {
-    href: "#bypass-mdm",
+    href: "/cong-cu-mua-iphone/bypass-mdm",
     icon: ShieldCheck,
     title: "Bypass MDM",
     desc: "Tải tool & hướng dẫn skip khoá quản lý",
+  },
+  {
+    href: "/cong-cu-mua-iphone/tu-van-may",
+    icon: Sparkles,
+    title: "Tư vấn máy",
+    desc: "3 câu hỏi để tìm đúng iPhone hợp bạn",
   },
 ];
 
 export default function CongCuMuaIphonePage() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="h-full bg-background">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-secondary/40">
         {/* Nền trang trí nhẹ, ăn khớp tông monochrome của site */}
@@ -42,7 +44,7 @@ export default function CongCuMuaIphonePage() {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklch,var(--foreground)_6%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklch,var(--foreground)_6%,transparent)_1px,transparent_1px)] bg-[size:36px_36px]" />
         </div>
 
-        <div className="container relative mx-auto px-4 pb-12 pt-6 md:pb-16">
+        <div className="container relative mx-auto px-4 pb-12 pt-6 md:pb-20">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
@@ -61,21 +63,21 @@ export default function CongCuMuaIphonePage() {
               Mua iPhone thông minh hơn cùng Dev Pồ
             </div>
             <h1 className="mt-5 text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Chọn đúng iPhone, trả góp nhẹ nhàng
+              Bộ công cụ mua iPhone
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-pretty text-base text-muted-foreground md:text-lg">
-              Ước tính số tiền trả góp mỗi tháng và trả lời 3 câu hỏi nhanh để Dev Pồ gợi ý
-              chiếc iPhone phù hợp nhất với ngân sách của bạn.
+              Chọn công cụ bạn cần: ước tính trả góp, bỏ qua khoá quản lý MDM hoặc để Dev Pồ
+              tư vấn chiếc iPhone phù hợp nhất với ngân sách của bạn.
             </p>
           </div>
 
-          {/* Điều hướng nhanh dạng thẻ — thay cho 2 pill rời rạc */}
-          <div className="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
+          {/* 3 công cụ dạng thẻ — trỏ sang từng trang riêng */}
+          <div className="mx-auto mt-10 grid max-w-5xl gap-3 sm:grid-cols-3">
             {TOOLS.map((tool) => (
-              <a
+              <Link
                 key={tool.href}
                 href={tool.href}
-                className="group flex items-center gap-4 rounded-xl border border-border bg-background p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-md"
+                className="group flex flex-col gap-3 rounded-xl border border-border bg-background p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-md"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
                   <tool.icon className="h-5 w-5" />
@@ -85,99 +87,13 @@ export default function CongCuMuaIphonePage() {
                     {tool.title}
                     <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                   </div>
-                  <p className="truncate text-sm text-muted-foreground">{tool.desc}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{tool.desc}</p>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Khung nội dung dùng chung để 2 công cụ canh thẳng hàng dọc */}
-      <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-4xl divide-y divide-border">
-          {/* Máy tính trả góp */}
-          <Reveal>
-            <section id="tra-gop" className="scroll-mt-24 py-12 md:py-16">
-              <ToolHeader
-                index="01"
-                icon={Calculator}
-                eyebrow="Máy tính trả góp"
-                title="Trả góp bao nhiêu mỗi tháng?"
-                desc="Chọn máy, điều chỉnh số tiền trả trước và kỳ hạn để xem ngay số tiền phải trả hằng tháng."
-              />
-              <div className="mt-8">
-                <InstallmentCalculator />
-              </div>
-            </section>
-          </Reveal>
-
-          {/* Quiz chọn máy */}
-          <Reveal>
-            <section id="quiz-chon-may" className="scroll-mt-24 py-12 md:py-16">
-              <ToolHeader
-                index="02"
-                icon={Sparkles}
-                eyebrow="Quiz chọn máy"
-                title="Chưa biết chọn máy nào?"
-                desc="Trả lời 3 câu hỏi nhanh, Dev Pồ sẽ gợi ý ngay chiếc iPhone hợp với bạn nhất."
-              />
-              <div className="mt-8">
-                <ProductQuiz />
-              </div>
-            </section>
-          </Reveal>
-
-          {/* Bypass MDM */}
-          <Reveal>
-            <section id="bypass-mdm" className="scroll-mt-24 py-12 md:py-16">
-              <ToolHeader
-                index="03"
-                icon={ShieldCheck}
-                eyebrow="Bypass MDM"
-                title="Bỏ qua khoá quản lý MDM"
-                desc="Tải tool về máy tính và làm theo hướng dẫn bằng hình ảnh để skip màn hình Remote Management trên iPhone/iPad."
-              />
-              <div className="mt-8">
-                <MdmBypass />
-              </div>
-            </section>
-          </Reveal>
-        </div>
-      </div>
     </main>
-  );
-}
-
-// Header thống nhất cho từng công cụ: số thứ tự + icon + tiêu đề + mô tả ngắn
-function ToolHeader({
-  index,
-  icon: Icon,
-  eyebrow,
-  title,
-  desc,
-}: {
-  index: string;
-  icon: React.ComponentType<{ className?: string }>;
-  eyebrow: string;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <div className="flex items-start gap-4">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-sm font-bold text-foreground">
-        {index}
-      </div>
-      <div>
-        <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          <Icon className="h-4 w-4" />
-          {eyebrow}
-        </div>
-        <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-          {title}
-        </h2>
-        <p className="mt-1.5 max-w-xl text-muted-foreground">{desc}</p>
-      </div>
-    </div>
   );
 }

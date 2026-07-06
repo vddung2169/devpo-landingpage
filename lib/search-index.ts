@@ -76,6 +76,27 @@ const staticPages: Omit<SearchDoc, "haystack">[] = [
     subtitle: "Máy tính trả góp, quiz chọn máy & bypass MDM",
     href: "/cong-cu-mua-iphone",
   },
+  {
+    id: "page-tools-tra-gop",
+    type: "page",
+    title: "Công cụ tính trả góp iPhone",
+    subtitle: "Ước tính lãi & tổng tiền: HD Saison, iCloud, thẻ tín dụng",
+    href: "/cong-cu-mua-iphone/tra-gop",
+  },
+  {
+    id: "page-tools-bypass-mdm",
+    type: "page",
+    title: "Bypass MDM iPhone/iPad",
+    subtitle: "Tải tool & hướng dẫn skip khoá quản lý từ xa",
+    href: "/cong-cu-mua-iphone/bypass-mdm",
+  },
+  {
+    id: "page-tools-tu-van-may",
+    type: "page",
+    title: "Tư vấn chọn iPhone",
+    subtitle: "Quiz 3 câu hỏi tìm đúng máy hợp bạn",
+    href: "/cong-cu-mua-iphone/tu-van-may",
+  },
 ];
 
 /** Xây một tài liệu tìm kiếm kèm haystack đã chuẩn hoá từ các trường liên quan. */
