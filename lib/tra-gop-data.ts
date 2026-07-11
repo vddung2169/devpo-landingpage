@@ -17,8 +17,9 @@ export type TraGopMethod = "hd-mirae" | "icloud" | "the-tin-dung";
  */
 export const hdSaisonMiraeRates: { months: number; rate: number }[] = [
   { months: 6, rate: 0.2 },
-  { months: 8, rate: 0.16 },
+  { months: 9, rate: 0.14 },
   { months: 12, rate: 0.115 },
+  { months: 24, rate: 0.23 },
 ];
 
 /** Mức trả trước tối thiểu khi góp qua HD Saison / Mirae Asset. */
@@ -176,4 +177,4 @@ export const DEFAULT_LOAN_AMOUNT = 20_000_000;
 
 /** Disclaimer chung, hiển thị ở mọi hình thức. */
 export const TRA_GOP_DISCLAIMER =
-  "Công cụ chỉ mang tính tham khảo, số tiền thực tế tùy chính sách từng đối tác tại thời điểm mua.";
+  "Số tiền chỉ mang tính chất tham khảo, các ưu đãi trả góp sẽ được tính vào khi lên hồ sơ chính thức";
