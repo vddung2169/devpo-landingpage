@@ -21,6 +21,9 @@ export const hdSaisonMiraeRates: { months: number; rate: number }[] = [
   { months: 12, rate: 0.115 },
 ];
 
+/** Mức trả trước tối thiểu khi góp qua HD Saison / Mirae Asset. */
+export const HD_MIRAE_MIN_DOWN_PAYMENT = 0.2;
+
 /** Kết quả tính lãi dạng "một lần" (HD Saison / Mirae). */
 export interface TraGopResult {
   /** Tiền lãi ước tính trên toàn kỳ hạn. */
@@ -51,6 +54,9 @@ export function calcHdSaisonMirae(loanAmount: number, months: number): TraGopRes
 
 /** Lãi suất iCloud: 8%/tháng trên nợ gốc. */
 export const ICLOUD_MONTHLY_RATE = 0.08;
+
+/** Mức trả trước tối thiểu khi góp qua iCloud. */
+export const ICLOUD_MIN_DOWN_PAYMENT = 0.5;
 
 /** Các kỳ hạn iCloud cho phép chọn: 1–6 tháng. */
 export const icloudTerms: number[] = [1, 2, 3, 4, 5, 6];

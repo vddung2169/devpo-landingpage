@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
-import { guides } from "@/data/guides";
+import { handbookGuides, newsGuides } from "@/data/guides";
 import { newsArticles } from "@/lib/data";
 
 // Trùng với metadataBase trong app/layout.tsx (canonical = www)
@@ -46,14 +46,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Trang chi tiết từng bài cẩm nang / blog
-  const guideRoutes: MetadataRoute.Sitemap = guides.map((guide) => ({
+  const guideRoutes: MetadataRoute.Sitemap = handbookGuides.map((guide) => ({
     url: `${BASE_URL}/guides/${guide.slug}`,
     lastModified: new Date(guide.updatedAt),
     changeFrequency: "monthly",
     priority: 0.6,
   }));
 
-  // Trang chi tiết từng bài viết
+  // Trang chi tiết từng bài tin tức dạng dài (đã tách khỏi cẩm nang)
+  const newsGuideRoutes: MetadataRoute.Sitemap = newsGuides.map((guide) => ({
+    url: `${BASE_URL}/news/${guide.slug}`,
+    lastModified: new Date(guide.updatedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  // Trang chi tiết từng tin ngắn
   const newsRoutes: MetadataRoute.Sitemap = newsArticles.map((article) => ({
     url: `${BASE_URL}/news/${article.slug}`,
     lastModified: now,
@@ -61,5 +69,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...guideRoutes, ...newsRoutes];
+  return [
+    ...staticRoutes,
+    ...productRoutes,
+    ...guideRoutes,
+    ...newsGuideRoutes,
+    ...newsRoutes,
+  ];
 }

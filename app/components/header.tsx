@@ -73,6 +73,12 @@ export function Header() {
               Cẩm nang
             </Link>
             <Link
+              href="/news"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Tin tức
+            </Link>
+            <Link
               href="/imsi-codes"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -110,12 +116,6 @@ export function Header() {
             >
               Sản phẩm
             </Link>
-            {/* <Link
-              href="/news"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Tin tức
-            </Link> */}
           </nav>
         </div>
 
@@ -179,6 +179,19 @@ export function Header() {
                   className="w-full font-medium"
                 >
                   Cẩm nang
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                asChild
+                className="p-3 text-base cursor-pointer rounded-lg mt-1"
+              >
+                <Link
+                  href="/news"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-medium"
+                >
+                  Tin tức
                 </Link>
               </DropdownMenuItem>
 

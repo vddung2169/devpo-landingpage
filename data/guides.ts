@@ -102,7 +102,7 @@ export const guides: Guide[] = [
 <h2>7. Vậy có nên mua iPhone Lock không?</h2>
 <p><strong>Nên cân nhắc mua iPhone Lock nếu:</strong> bạn muốn sở hữu iPhone đời mới, cấu hình cao với ngân sách thấp hơn; chấp nhận việc máy dùng SIM ghép; và quan trọng nhất — mua tại cửa hàng uy tín, có bảo hành lỗi sim ghép trọn đời.</p>
 <p><strong>Nên chọn iPhone Quốc tế nếu:</strong> bạn ưu tiên tuyệt đối sự ổn định, thường xuyên đi công tác/du lịch nước ngoài cần đổi SIM liên tục.</p>
-<p>Để tìm hiểu toàn bộ hệ sinh thái kiến thức iPhone Lock — từ mã IMSI, bảng giá, đến kinh nghiệm chọn nơi mua — tham khảo <a href="/guides/iphone-lock">cẩm nang iPhone Lock đầy đủ</a>.</p>
+<p>Để tìm hiểu toàn bộ hệ sinh thái kiến thức iPhone Lock — từ mã IMSI, bảng giá, đến kinh nghiệm chọn nơi mua — tham khảo <a href="/news/iphone-lock">cẩm nang iPhone Lock đầy đủ</a>.</p>
 `,
     publishedAt: "2025-01-15",
     updatedAt: "2026-07-03",
@@ -290,7 +290,7 @@ export const guides: Guide[] = [
 <h2>1. iPhone Lock là gì? (Tóm tắt)</h2>
 <p>iPhone Lock là iPhone chính hãng Apple được nhà mạng nước ngoài (Mỹ, Nhật, Canada, Hàn Quốc...) bán độc quyền kèm hợp đồng thuê bao, dẫn đến máy bị khóa mạng — chỉ nhận đúng SIM của nhà mạng phát hành trừ khi được mở khóa hoặc ghép SIM. Về phần cứng, chip, camera, pin và hệ điều hành, máy Lock <strong>giống 100%</strong> bản Quốc tế vì cùng xuất xưởng từ Apple.</p>
 <p>Nhờ được nhà mạng trợ giá sâu, iPhone Lock rẻ hơn bản Quốc tế từ <strong>3–10 triệu đồng</strong> tùy dòng máy và dung lượng.</p>
-<p>👉 Xem phân tích chi tiết, cách kiểm tra máy Lock trong 30 giây tại: <a href="/guides/iphone-lock-la-gi">iPhone Lock là gì? Cách nhận biết và có nên mua</a>.</p>
+<p>👉 Xem phân tích chi tiết, cách kiểm tra máy Lock trong 30 giây tại: <a href="/news/iphone-lock-la-gi">iPhone Lock là gì? Cách nhận biết và có nên mua</a>.</p>
 
 <h2>2. Phân loại iPhone Lock theo nhà mạng</h2>
 <p>iPhone Lock được phân loại theo nhà mạng gốc phát hành, mỗi nhà mạng có một mã nhận diện mạng (IMSI) riêng — thông tin kỹ thuật viên dùng để cấu hình SIM ghép chính xác:</p>
@@ -321,7 +321,7 @@ export const guides: Guide[] = [
 
 <h2>6. Kinh nghiệm mua iPhone Lock uy tín, tránh rủi ro</h2>
 <p>Một số tiêu chí cốt lõi khi chọn nơi mua: cửa hàng có địa chỉ rõ ràng, cho kiểm tra máy trực tiếp trước khi thanh toán, công khai tình trạng máy, và quan trọng nhất là <strong>cam kết bảo hành lỗi sim ghép trọn đời</strong>.</p>
-<p>👉 Xem đầy đủ 7 tiêu chí chọn nơi mua uy tín, dấu hiệu nhận biết lừa đảo tại: <a href="/guides/mua-iphone-lock-uy-tin">Mua iPhone Lock uy tín ở đâu?</a></p>
+<p>👉 Xem đầy đủ 7 tiêu chí chọn nơi mua uy tín, dấu hiệu nhận biết lừa đảo tại: <a href="/news/mua-iphone-lock-uy-tin">Mua iPhone Lock uy tín ở đâu?</a></p>
 
 <h2>7. Vì sao nên mua iPhone Lock tại Dev Pồ?</h2>
 <ul>
@@ -420,7 +420,7 @@ export const guides: Guide[] = [
   <li>Đã phục vụ hơn <strong>1.800 khách hàng</strong>, đánh giá trung bình <strong>9.9/10</strong>.</li>
   <li>Địa chỉ: <strong>3/39A Bình Giã, Phường Tân Bình, TP. Hồ Chí Minh.</strong></li>
 </ul>
-<p>Bạn có thể xem thêm bảng mã IMSI theo từng nhà mạng tại <a href="/imsi-codes">trang mã IMSI</a>, hoặc tìm hiểu kỹ hơn về khái niệm và cách vận hành của dòng máy này tại <a href="/guides/iphone-lock-la-gi">iPhone Lock là gì?</a> trước khi tham khảo <a href="/featured-products">danh sách sản phẩm iPhone Lock</a> hiện có tại shop.</p>
+<p>Bạn có thể xem thêm bảng mã IMSI theo từng nhà mạng tại <a href="/imsi-codes">trang mã IMSI</a>, hoặc tìm hiểu kỹ hơn về khái niệm và cách vận hành của dòng máy này tại <a href="/news/iphone-lock-la-gi">iPhone Lock là gì?</a> trước khi tham khảo <a href="/featured-products">danh sách sản phẩm iPhone Lock</a> hiện có tại shop.</p>
 `,
     publishedAt: "2026-07-03",
     updatedAt: "2026-07-03",
@@ -451,7 +451,120 @@ export const guides: Guide[] = [
       },
     ],
   },
+  {
+    id: "8",
+    slug: "iphone-lock-khong-nhan-sim-ghep",
+    title:
+      "iPhone Lock Không Nhận Sim Ghép: 6 Nguyên Nhân & Cách Khắc Phục Tận Gốc (2026)",
+    excerpt:
+      "iPhone Lock không nhận sim ghép, mất sóng, báo No Service? 6 nguyên nhân thường gặp và cách tự khắc phục tại nhà theo thứ tự an toàn — tránh làm máy văng active.",
+    content: `
+<blockquote>
+<p><strong>Tóm tắt nhanh:</strong> iPhone Lock không nhận sim ghép thường do một trong sáu nguyên nhân: sim ghép lắp lệch, sim ghép lỗi/kém chất lượng, sai mã ICCID, xung đột phần mềm sau khi cập nhật iOS, khay sim hoặc phần cứng hỏng, hoặc Apple đã vá lỗ hổng ở phiên bản iOS bạn đang dùng. Bài viết này hướng dẫn bạn tự kiểm tra và xử lý từng trường hợp theo đúng thứ tự an toàn — từ dễ đến khó — để tránh làm máy "văng active".</p>
+</blockquote>
+
+<h2>iPhone Lock không nhận sim ghép là bị gì?</h2>
+<p>Sim ghép là một vi mạch nhỏ lắp chung với sim chính, có nhiệm vụ "báo" cho iPhone Lock rằng máy đang dùng đúng sim của nhà mạng đã khóa, nhờ đó máy chịu nhận sóng và hoạt động với sim Việt Nam (Viettel, MobiFone, VinaPhone...).</p>
+<p>Khi máy "không nhận sim ghép", biểu hiện thường là: mất sóng hoàn toàn, hiện <strong>Không có dịch vụ (No Service)</strong> hoặc <strong>SIM Not Supported</strong>, chỉ gọi được nhưng không có 4G, hoặc máy bị đẩy về màn hình kích hoạt (active) khi khởi động lại. Tin tốt là <strong>đa số trường hợp là lỗi phần mềm hoặc lắp đặt, bạn tự xử lý được tại nhà.</strong> Chỉ một phần nhỏ là do phần cứng.</p>
+<p>Trước khi làm bất cứ điều gì, hãy ghi nhớ <strong>nguyên tắc an toàn số một</strong>: nếu máy đang chạy ổn định, <strong>tuyệt đối không bấm "Xóa tất cả nội dung và cài đặt", không Restore qua iTunes, và không tự ý cập nhật iOS.</strong> Những thao tác này có thể khiến máy văng ra màn hình active và phải làm lại từ đầu với mã ICCID mới — phức tạp hơn nhiều so với lỗi ban đầu.</p>
+
+<h2>6 nguyên nhân khiến iPhone Lock không nhận sim ghép</h2>
+<h3>1. Sim ghép lắp lệch, chưa khớp khe</h3>
+<p>Đây là nguyên nhân phổ biến và... dễ chịu nhất. Sim ghép rất mỏng, chỉ cần lắp lệch một chút hoặc để bị cong là mất tiếp xúc. Va đập nhẹ khi để trong túi quần cũng có thể làm khay sim xê dịch.</p>
+<h3>2. Sim ghép lỗi hoặc kém chất lượng</h3>
+<p>Sim ghép giá rẻ trôi nổi rất hay hỏng sau vài tháng, đặc biệt là phần chip tiếp xúc. Một chiếc sim ghép chất lượng thấp cũng có thể không tương thích với model máy hoặc phiên bản iOS của bạn. Tham khảo <a href="/news/top-3-sim-ghep-tot-nhat">các loại sim ghép tốt nhất cho iPhone Lock</a> trước khi thay mới.</p>
+<h3>3. Sai mã ICCID</h3>
+<p>ICCID là dãy mã kích hoạt giúp "biến" iPhone Lock hoạt động như bản quốc tế. Cộng đồng iPhone Lock cập nhật mã này khá thường xuyên. Nếu bạn đang dùng mã cũ đã bị Apple chặn, máy sẽ không nhận sim dù sim ghép hoàn toàn tốt.</p>
+<h3>4. Xung đột phần mềm sau khi cập nhật hoặc reset</h3>
+<p>Sau khi cập nhật iOS, đổi sim, hoặc reset cài đặt mạng, cấu hình mạng đôi khi bị xung đột khiến máy tạm thời không nhận sim. Trường hợp này thường khắc phục được bằng thao tác phần mềm.</p>
+<h3>5. Apple đã vá lỗ hổng ở phiên bản iOS mới</h3>
+<p>Đây là lý do khó chịu nhất và <strong>nằm ngoài tầm kiểm soát của bạn</strong>. Mỗi khi Apple phát hành iOS mới, họ có thể vá lỗ hổng mà sim ghép đang lợi dụng. Khi đó bạn buộc phải chờ cộng đồng ra mã ICCID / sim ghép thế hệ mới, hoặc hạ cấp iOS (nếu còn có thể). Đây cũng chính là lý do người dùng iPhone Lock <strong>không nên vội cập nhật iOS</strong>.</p>
+<h3>6. Hỏng phần cứng (khay sim, chân tiếp xúc)</h3>
+<p>Nếu máy từng rơi, vào nước, hoặc dùng lâu năm, chân tiếp xúc sim có thể bị oxy hóa hoặc khay sim bị hỏng. Đây là trường hợp duy nhất bạn nên mang máy đến kỹ thuật viên.</p>
+
+<h2>Cách khắc phục iPhone Lock không nhận sim ghép (theo thứ tự an toàn)</h2>
+<p>Hãy làm lần lượt từ trên xuống. Đừng nhảy ngay đến bước Restore.</p>
+<h3>Bước 1: Kiểm tra và lắp lại sim ghép</h3>
+<p>Tháo khay sim, kiểm tra sim ghép có bị cong, xước hay lệch không. Lau nhẹ phần chip tiếp xúc bằng khăn khô, lắp lại thật khớp và cẩn thận. Rất nhiều ca "không nhận sim" chỉ dừng ở bước này là xong.</p>
+<figure>
+  <img src="/guides/guide-sim-ghep-khay-sim.jpg" alt="Cách đặt sim ghép khớp với sim chính trên khay sim iPhone Lock" loading="lazy" width="800" height="450" />
+  <figcaption>Sim ghép đặt lót dưới sim chính — phải khớp khe, không cong vênh thì máy mới nhận sóng.</figcaption>
+</figure>
+<h3>Bước 2: Thử sim ghép ở một máy khác (để khoanh vùng lỗi)</h3>
+<p>Lắp sim ghép của bạn sang một chiếc iPhone Lock khác. Nếu máy kia nhận bình thường → lỗi nằm ở điện thoại của bạn. Nếu máy kia cũng không nhận → sim ghép của bạn đã hỏng, cần thay sim mới. Bước này giúp bạn không mất công sửa nhầm chỗ.</p>
+<h3>Bước 3: Bật/tắt Chế độ máy bay</h3>
+<p>Vuốt trung tâm điều khiển, bật <strong>Chế độ máy bay</strong> khoảng 15–20 giây rồi tắt đi. Thao tác này buộc máy dò lại tín hiệu nhà mạng, xử lý được nhiều lỗi mất sóng tạm thời.</p>
+<h3>Bước 4: Đặt lại cài đặt mạng</h3>
+<p>Vào <strong>Cài đặt → Cài đặt chung → Chuyển hoặc Đặt lại iPhone → Đặt lại → Đặt lại cài đặt mạng.</strong> Cách này xóa các cấu hình mạng bị lỗi mà <strong>không làm mất dữ liệu, ảnh hay ứng dụng</strong> của bạn. Sau khi máy khởi động lại, kiểm tra sóng.</p>
+<p><em>Lưu ý: chỉ chọn đúng "Đặt lại cài đặt mạng". Không chọn "Xóa tất cả nội dung và cài đặt".</em></p>
+<h3>Bước 5: Nhập lại mã kích hoạt sim ghép</h3>
+<p>Ở màn hình gọi khẩn cấp, bạn có thể nhập lại mã kích hoạt sim ghép để máy nhận lại cấu hình. Mã và cú pháp thay đổi tùy loại sim ghép và model máy, nên tốt nhất làm theo đúng hướng dẫn của loại sim bạn đang dùng — hoặc nhắn Dev Pồ để được gửi mã ICCID mới nhất phù hợp với máy bạn. Xem thao tác chi tiết tại <a href="/guides/huong-dan-ghep-sim-iphone-lock">hướng dẫn ghép sim iPhone Lock từ A-Z</a>.</p>
+<h3>Bước 6: Cập nhật mã ICCID mới nhất</h3>
+<p>Nếu nghi mã ICCID cũ đã bị chặn, hãy dùng mã mới nhất mà cộng đồng iPhone Lock đang xài. Đây là lý do nên theo dõi một nguồn cập nhật mã uy tín — bạn có thể tra <a href="/imsi-codes">bảng mã IMSI &amp; ICCID theo từng nhà mạng</a> luôn được Dev Pồ cập nhật.</p>
+<h3>Khi nào nên mang máy ra cửa hàng?</h3>
+<p>Nếu đã thử hết 6 bước trên mà máy vẫn không nhận sim, khả năng cao là <strong>lỗi phần cứng</strong> (chân sim, khay sim) hoặc do <strong>iOS đã bị vá</strong> cần thợ can thiệp sâu. Lúc này đừng tự Restore — hãy mang đến kỹ thuật viên chuyên iPhone Lock để kiểm tra, tránh làm máy văng active và mất thêm thời gian.</p>
+
+<h2>Cách phòng tránh iPhone Lock mất sim ghép</h2>
+<ul>
+  <li><strong>Đầu tư sim ghép chất lượng</strong> ngay từ đầu — đây là yếu tố quyết định độ ổn định.</li>
+  <li><strong>Không tự ý cập nhật iOS.</strong> Chờ cộng đồng xác nhận phiên bản mới an toàn với sim ghép.</li>
+  <li><strong>Hạn chế tháo lắp sim</strong> thường xuyên; khi tháo thì thao tác nhẹ nhàng.</li>
+  <li><strong>Nếu máy đang chạy tốt thì đừng đụng vào</strong> — không reset, không xóa cài đặt.</li>
+</ul>
+
+<h2>Cần hỗ trợ trực tiếp?</h2>
+<p>Nếu bạn đã thử hết mà máy vẫn "cứng đầu", đội kỹ thuật Dev Pồ tại TP.HCM có thể kiểm tra và gửi bạn mã ICCID mới nhất phù hợp với đúng model và nhà mạng của máy. Nhắn tin cho Dev Pồ kèm thông tin máy để được hỗ trợ nhanh nhất.</p>
+<p>👉 Xem thêm: <a href="/imsi-codes">Tổng hợp mã ICCID &amp; IMSI tất cả nhà mạng mới nhất</a> · <a href="/news/top-3-sim-ghep-tot-nhat">Sim ghép loại nào tốt nhất cho iPhone Lock</a> · <a href="/news/iphone-lock-la-gi">Có nên mua iPhone Lock không?</a></p>
+`,
+    publishedAt: "2026-07-07",
+    updatedAt: "2026-07-07",
+    category: "thu-thuat",
+    tags: [
+      "sim ghép",
+      "iPhone Lock không nhận sim ghép",
+      "fix lỗi sim ghép",
+      "mã ICCID",
+      "iPhone Lock mất sóng",
+    ],
+    readingTime: 7,
+    imageUrl: "/guides/guide-iphone-lock-khong-nhan-sim-ghep.jpg",
+    faq: [
+      {
+        question: "iPhone Lock không nhận sim ghép có tự sửa tại nhà được không?",
+        answer:
+          "Đa số trường hợp có, vì thường là lỗi phần mềm hoặc lắp đặt. Bạn làm lần lượt 6 bước: lắp lại sim ghép, thử sim ở máy khác, bật/tắt chế độ máy bay, đặt lại cài đặt mạng, nhập lại mã kích hoạt và cập nhật mã ICCID mới. Chỉ khi liên quan phần cứng mới cần ra cửa hàng.",
+      },
+      {
+        question: "Chi phí sửa lỗi sim ghép khoảng bao nhiêu?",
+        answer:
+          "Nếu chỉ do sim ghép hỏng, chi phí chủ yếu là tiền thay sim ghép mới. Nếu do phần cứng thì tùy tình trạng máy. Tại Dev Pồ, khách mua máy được hỗ trợ kiểm tra và xử lý lỗi sim/sóng.",
+      },
+      {
+        question: "Cập nhật iOS có làm iPhone Lock mất sim ghép không?",
+        answer:
+          "Có thể. Apple đôi khi vá lỗ hổng mà sim ghép đang dùng, khiến máy mất sóng sau khi lên đời. Vì vậy người dùng iPhone Lock nên chờ cộng đồng xác nhận trước khi cập nhật.",
+      },
+      {
+        question: "Làm sao biết lỗi do sim ghép hay do điện thoại?",
+        answer:
+          "Thử lắp sim ghép sang một máy iPhone Lock khác. Máy kia nhận → lỗi ở điện thoại bạn; máy kia không nhận → sim ghép đã hỏng.",
+      },
+    ],
+  },
 ];
+
+/** Bài thuộc chuyên mục Tin tức — tách riêng, hiển thị tại /news */
+export const newsGuides = guides.filter((g) => g.category === "tin-tuc");
+
+/** Bài cẩm nang (Hướng dẫn / So sánh / Thủ thuật) — hiển thị tại /guides */
+export const handbookGuides = guides.filter((g) => g.category !== "tin-tuc");
+
+/** Đường dẫn trang chi tiết của bài viết — tin tức nằm ở /news, còn lại ở /guides */
+export function getGuidePath(guide: Guide): string {
+  return guide.category === "tin-tuc"
+    ? `/news/${guide.slug}`
+    : `/guides/${guide.slug}`;
+}
 
 /** Tìm bài viết theo slug — dùng cho trang chi tiết */
 export function getGuideBySlug(slug: string): Guide | undefined {

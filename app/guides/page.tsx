@@ -6,20 +6,19 @@ import Link from "next/link";
 import { Clock } from "lucide-react";
 import { IphoneLockGuides } from "../components/guides";
 import {
-  guides,
+  handbookGuides,
   guideCategoryLabel,
   type GuideCategory,
 } from "@/data/guides";
 
 type FilterValue = "all" | GuideCategory;
 
-// Thứ tự hiển thị bộ lọc category
+// Thứ tự hiển thị bộ lọc category (Tin tức đã tách riêng sang /news)
 const filters: { value: FilterValue; label: string }[] = [
   { value: "all", label: "Tất cả" },
   { value: "huong-dan", label: guideCategoryLabel["huong-dan"] },
   { value: "so-sanh", label: guideCategoryLabel["so-sanh"] },
   { value: "thu-thuat", label: guideCategoryLabel["thu-thuat"] },
-  { value: "tin-tuc", label: guideCategoryLabel["tin-tuc"] },
 ];
 
 export default function GuidesPage() {
@@ -28,8 +27,8 @@ export default function GuidesPage() {
   const visibleGuides = useMemo(
     () =>
       activeFilter === "all"
-        ? guides
-        : guides.filter((g) => g.category === activeFilter),
+        ? handbookGuides
+        : handbookGuides.filter((g) => g.category === activeFilter),
     [activeFilter],
   );
 

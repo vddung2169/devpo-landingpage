@@ -6,7 +6,7 @@
 // =============================================================================
 
 import { products, categoryLabel } from "@/data/products";
-import { guides, guideCategoryLabel } from "@/data/guides";
+import { guides, guideCategoryLabel, getGuidePath } from "@/data/guides";
 
 export type SearchDocType = "product" | "guide" | "page";
 
@@ -61,6 +61,13 @@ const staticPages: Omit<SearchDoc, "haystack">[] = [
     title: "Cẩm nang iPhone",
     subtitle: "Bài viết hướng dẫn, so sánh, thủ thuật",
     href: "/guides",
+  },
+  {
+    id: "page-news",
+    type: "page",
+    title: "Tin tức iPhone Lock",
+    subtitle: "Mã ICCID, tình hình sim ghép & tin mới nhất",
+    href: "/news",
   },
   {
     id: "page-imsi",
@@ -131,7 +138,7 @@ export const searchIndex: SearchDoc[] = [
         type: "guide",
         title: g.title,
         subtitle: `${guideCategoryLabel[g.category]} · ${g.readingTime} phút đọc`,
-        href: `/guides/${g.slug}`,
+        href: getGuidePath(g),
       },
       [g.excerpt, ...g.tags],
     ),

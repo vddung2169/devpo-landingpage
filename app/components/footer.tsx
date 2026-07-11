@@ -24,7 +24,14 @@ export function SiteFooter() {
                 alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
                 width={137}
                 height={56}
-                className="h-14 w-auto rounded-lg shadow-sm"
+                className="h-14 w-auto rounded-lg shadow-sm block dark:hidden"
+              />
+              <img
+                src="/devpo_logo_white.png"
+                alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
+                width={137}
+                height={56}
+                className="h-9 w-auto hidden dark:block"
               />
             </Link>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
