@@ -27,7 +27,7 @@ export default function NoiBoTraGopPage() {
             </h1>
             <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
               Nhập số tiền máy, tiền trả trước và chọn loại trả góp — hệ thống
-              tính sẵn mọi kỳ hạn và tạo tin nhắn để báo khách trong một chạm.
+              tính sẵn mọi kỳ hạn và tạo tin nhắn để báo khách.
             </p>
           </div>
         </div>
