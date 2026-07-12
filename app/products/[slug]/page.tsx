@@ -95,6 +95,15 @@ export default async function ProductDetailPage({
   const siteUrl = "https://www.devpo.vn";
 
   // Product Schema — giúp Google hiển thị rich snippet (giá, tình trạng còn hàng)
+  // Làm phẳng techSpecs thành additionalProperty cho rich data (SEO)
+  const additionalProperty = (product.techSpecs ?? []).flatMap((group) =>
+    group.rows.map((row) => ({
+      "@type": "PropertyValue",
+      name: `${group.group} - ${row.label}`,
+      value: row.value,
+    })),
+  );
+
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -103,6 +112,7 @@ export default async function ProductDetailPage({
     description: product.description,
     category: categoryLabel[product.category],
     brand: { "@type": "Brand", name: "Apple" },
+    ...(additionalProperty.length > 0 ? { additionalProperty } : {}),
     offers: {
       "@type": "Offer",
       priceCurrency: "VND",
@@ -272,6 +282,42 @@ export default async function ProductDetailPage({
             </div>
           </div>
         </div>
+
+        {/* Cấu hình chi tiết (hiển thị khi sản phẩm có techSpecs) */}
+        {product.techSpecs && product.techSpecs.length > 0 && (
+          <section className="mt-12">
+            <h2 className="mb-4 text-xl font-bold text-foreground sm:text-2xl">
+              Cấu hình chi tiết
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {product.techSpecs.map((group) => (
+                <div
+                  key={group.group}
+                  className="overflow-hidden rounded-xl border border-border"
+                >
+                  <h3 className="border-b border-border bg-muted/50 px-4 py-2.5 text-sm font-semibold text-foreground">
+                    {group.group}
+                  </h3>
+                  <dl className="divide-y divide-border">
+                    {group.rows.map((row) => (
+                      <div
+                        key={row.label}
+                        className="flex gap-4 px-4 py-2.5 text-sm"
+                      >
+                        <dt className="w-2/5 shrink-0 text-muted-foreground">
+                          {row.label}
+                        </dt>
+                        <dd className="flex-1 font-medium text-foreground">
+                          {row.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Mô tả sản phẩm */}
         <section className="mt-12">

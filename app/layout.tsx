@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
-import { Ticker } from "./components/ticker";
 import { FloatingContacts } from "./components/floating-contacts";
-import { SiteFooter } from "./components/footer";
+import {
+  ConditionalTicker,
+  ConditionalFooter,
+} from "./components/conditional-chrome";
 import { ThemeProvider } from "./components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@vercel/analytics/next";
@@ -137,11 +139,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <Ticker />
+          <ConditionalTicker />
 
           <main className="h-full">{children}</main>
 
-          <SiteFooter />
+          <ConditionalFooter />
           <FloatingContacts />
         </ThemeProvider>
         {/* Vercel Web Analytics — đo lượt truy cập & trang được xem nhiều nhất */}

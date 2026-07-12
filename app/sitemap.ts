@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/cong-cu-mua-iphone/tra-gop", priority: 0.7, changeFrequency: "weekly" },
     { path: "/cong-cu-mua-iphone/bypass-mdm", priority: 0.7, changeFrequency: "weekly" },
     { path: "/cong-cu-mua-iphone/tu-van-may", priority: 0.7, changeFrequency: "weekly" },
+    { path: "/give-away", priority: 0.6, changeFrequency: "daily" },
     { path: "/guides", priority: 0.7, changeFrequency: "weekly" },
     { path: "/imsi-codes", priority: 0.7, changeFrequency: "monthly" },
     { path: "/news", priority: 0.6, changeFrequency: "weekly" },
