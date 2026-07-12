@@ -150,24 +150,8 @@ export function GiveawayClient() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero thương hiệu — tĩnh, hiện ngay để không nhảy layout */}
-      <section className="relative overflow-hidden border-b border-border bg-secondary/40">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(60%_60%_at_50%_0%,black,transparent)]"
-        >
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklch,var(--foreground)_6%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklch,var(--foreground)_6%,transparent)_1px,transparent_1px)] bg-[size:36px_36px]" />
-        </div>
-        <div className="container relative mx-auto px-4 pb-5 pt-4">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <h1 className="flex items-center gap-2 text-xl font-bold tracking-tight text-foreground md:text-2xl">
-              <Gift className="h-5 w-5" />
-              Giveaway
-            </h1>
-            
-          </div>
-        </div>
-      </section>
+
+      
 
       {/* Thân trang */}
       <div className="container mx-auto px-4">
