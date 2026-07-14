@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Bell,
+  Clapperboard,
   Clock,
   Gift,
   Loader2,
@@ -35,6 +36,8 @@ import {
 } from "@/lib/giveaway";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61576332353912";
+const DRAW_VIDEO_MP4_SRC = "/giveaway-14-july-2026.mp4";
+const DRAW_VIDEO_MOV_SRC = "/Giveaway%2014%20July%202026.mov";
 
 // Cộng thêm vào SỐ HIỂN THỊ người tham gia của đợt đang diễn ra (hiệu ứng đám
 // đông). Chỉ ảnh hưởng phần nhìn — KHÔNG đổi dữ liệu thật hay danh sách quay thưởng.
@@ -496,6 +499,8 @@ function AnnouncedState({
         </div>
       </div>
 
+      <PublicDrawVideo />
+
       <p className="text-center text-sm text-muted-foreground">
         Dev Pồ sẽ liên hệ trực tiếp với người trúng để trao thưởng. Cảm ơn mọi
         người đã tham gia!
@@ -508,6 +513,29 @@ function AnnouncedState({
           buttonLabel="Chạy lại hiệu ứng"
         />
       )}
+    </div>
+  );
+}
+
+function PublicDrawVideo() {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
+      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
+        <Clapperboard className="h-4 w-4" />
+        Video quay thưởng công khai
+      </div>
+      <video
+        className="aspect-video w-full rounded-xl bg-black"
+        controls
+        playsInline
+        preload="metadata"
+        aria-label="Video quay thưởng công khai ngày 14/07/2026"
+      >
+        <source src={DRAW_VIDEO_MP4_SRC} type="video/mp4" />
+        <source src={DRAW_VIDEO_MOV_SRC} type="video/quicktime" />
+        Trình duyệt của bạn chưa hỗ trợ xem video trực tiếp.{" "}
+        <a href={DRAW_VIDEO_MP4_SRC}>Mở video quay thưởng</a>.
+      </video>
     </div>
   );
 }
