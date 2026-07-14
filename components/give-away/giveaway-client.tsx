@@ -400,11 +400,15 @@ function ClosedState({
           <Clock className="h-5 w-5 text-foreground" />
         </div>
         <p className="text-base font-medium text-foreground">
-          Đã đóng đăng ký. Kết quả công bố lúc {formatDrawWhen(g.drawAt)}.
+          {remaining > 0
+            ? `Đã đóng đăng ký. Kết quả công bố lúc ${formatDrawWhen(g.drawAt)}.`
+            : "Đã đóng đăng ký. Đang chờ công bố kết quả…"}
         </p>
-        <div className="mt-5">
-          <Countdown remainingMs={remaining} label="Còn lại tới giờ quay thưởng" />
-        </div>
+        {remaining > 0 && (
+          <div className="mt-5">
+            <Countdown remainingMs={remaining} label="Còn lại tới giờ quay thưởng" />
+          </div>
+        )}
       </div>
 
       {myTicket ? (

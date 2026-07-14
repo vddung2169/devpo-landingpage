@@ -47,12 +47,17 @@ function buildState_(phone) {
   var now = new Date();
 
   var active = null;
-  if (cfg.id && (!cfg.endAt || now <= cfg.endAt)) {
+  // Giữ giveaway cho tới khi QUAY XONG: chưa có người trúng thì luôn hiển thị
+  // (quá endAt vẫn ở trạng thái "closed" chờ quay). Chỉ ẩn hẳn khi đã có người
+  // trúng VÀ đã quá endAt — khi đó nó nằm ở cột lịch sử.
+  var ended = cfg.endAt && now > cfg.endAt;
+  var hasWinner = !!cfg.winnerTicket;
+  if (cfg.id && !(hasWinner && ended)) {
     var winner = null;
     var status;
     if (cfg.openAt && now < cfg.openAt) {
       status = "upcoming";
-    } else if (cfg.winnerTicket) {
+    } else if (hasWinner) {
       status = "announced";
       var w = findEntryByTicket_(entries, cfg.winnerTicket);
       if (w) winner = { name: w.name, phone: maskPhone_(w.phone) };
@@ -88,11 +93,20 @@ function buildState_(phone) {
     }
   }
 
+  // Lịch sử: bỏ đợt đang active (tránh hiện 2 lần lúc đang công bố).
+  var activeId = active ? active.id : null;
+  var history = readHistory_();
+  if (activeId) {
+    history = history.filter(function (h) {
+      return h.id !== activeId;
+    });
+  }
+
   return {
     ok: true,
     serverTime: iso_(new Date()),
     active: active,
-    history: readHistory_(),
+    history: history,
     myTicket: myTicket,
   };
 }
@@ -172,6 +186,8 @@ function handleDraw_(data) {
 
     var pick = entries[Math.floor(Math.random() * entries.length)];
     setConfigValue_("winnerTicket", pick.ticket);
+    // Lưu ngay vào lịch sử để web hiển thị vĩnh viễn (kể cả sau khi hết đợt).
+    appendHistory_(cfg, entries.length, pick);
 
     return {
       ok: true,
@@ -248,7 +264,54 @@ function setConfigValue_(key, value) {
   sheet.appendRow([key, value]); // chưa có -> thêm mới
 }
 
-/** Lịch sử các đợt đã kết thúc (tùy chọn). Mới nhất lên đầu. */
+/** Lấy (hoặc tạo mới) tab History kèm hàng tiêu đề. */
+function getOrCreateHistorySheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(HISTORY_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(HISTORY_NAME);
+    sheet.appendRow([
+      "id",
+      "title",
+      "prize",
+      "endAt",
+      "totalEntries",
+      "winnerName",
+      "winnerPhone",
+    ]);
+  }
+  return sheet;
+}
+
+/**
+ * Lưu kết quả một đợt vào tab History. Upsert theo id (quay lại cùng đợt thì
+ * ghi đè, không tạo dòng trùng). SĐT lưu đầy đủ, web tự che khi hiển thị.
+ */
+function appendHistory_(cfg, total, winner) {
+  var sheet = getOrCreateHistorySheet_();
+  var row = [
+    cfg.id,
+    cfg.title,
+    cfg.prize,
+    cfg.endAt || "",
+    total,
+    winner.name,
+    "'" + winner.phone,
+  ];
+  var last = sheet.getLastRow();
+  if (last >= 2) {
+    var ids = sheet.getRange(2, 1, last - 1, 1).getValues();
+    for (var i = 0; i < ids.length; i++) {
+      if (String(ids[i][0] || "").trim() === cfg.id) {
+        sheet.getRange(i + 2, 1, 1, row.length).setValues([row]);
+        return;
+      }
+    }
+  }
+  sheet.appendRow(row);
+}
+
+/** Lịch sử các đợt đã kết thúc. Mới nhất lên đầu. */
 function readHistory_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(HISTORY_NAME);
