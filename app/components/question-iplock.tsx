@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
+import Image from "next/image";
 
 export function QuestionIPLock() {
   return (
@@ -10,17 +11,19 @@ export function QuestionIPLock() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl" />
             <div className="relative overflow-hidden rounded-2xl bg-card hidden md:block ">
-              <img
+              <Image
                 src="/iplock.png"
                 alt="iPhone Lock và iPhone Quốc tế chính hãng tại Dev Pồ"
+                width={790}
+                height={500}
                 className="h-full w-full object-cover"
               />
             </div>
           </div>
           <div className="flex flex-col gap-6">
-            <h1 className="text-balance font-sans text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-5xl">
+            <h2 className="text-balance font-sans text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-5xl">
               iPhone Lock là gì?
-            </h1>
+            </h2>
 
             <p className="text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
               {`iPhone Lock (hay iPhone khóa mạng) là những thiết bị được sản xuất
@@ -62,9 +65,9 @@ export function QuestionIPLock() {
       {/* ƯU ĐIỂM */}
       <div className="container mx-auto px-4 mt-12 md:mt-24">
         <div className="flex flex-col gap-6 w-full">
-          <h1 className="text-balance font-sans text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl lg:text-3xl">
+          <h2 className="text-balance font-sans text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl lg:text-3xl">
             Ưu điểm iPhone Lock
-          </h1>
+          </h2>
 
           {/* Grid layout cho 4 card */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full mb-1">

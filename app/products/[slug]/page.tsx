@@ -16,6 +16,10 @@ import {
 const MESSENGER_LINK =
   "https://www.facebook.com/share/1H5cf45rLH/?mibextid=wwXIfr";
 
+function productSeoDescription(product: NonNullable<ReturnType<typeof getProductBySlug>>) {
+  return `${product.name} ${categoryLabel[product.category]} ${product.storage}, ${product.condition}, ${product.battery}. Giá ${product.priceFrom} tại Dev Pồ TP.HCM, hỗ trợ fix lỗi sim ghép.`;
+}
+
 // Pre-render tất cả trang sản phẩm tại build time → tốt cho SEO & tốc độ
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -39,10 +43,11 @@ export async function generateMetadata({
 
   // title template "%s | Dev Pồ" ở layout sẽ tự thêm đuôi " | Dev Pồ"
   const pageTitle = `${product.name} ${product.storage} - Giá ${product.priceFrom}`;
+  const seoDescription = productSeoDescription(product);
 
   return {
     title: pageTitle,
-    description: product.description,
+    description: seoDescription,
     keywords: [
       product.name,
       `${product.name} giá rẻ`,
@@ -57,7 +62,7 @@ export async function generateMetadata({
     },
     openGraph: {
       title: `${pageTitle} | Dev Pồ`,
-      description: product.description,
+      description: seoDescription,
       url: `/products/${product.slug}`,
       type: "website",
       images: [{ url: product.image, width: 1200, height: 630, alt: product.name }],
@@ -65,7 +70,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${pageTitle} | Dev Pồ`,
-      description: product.description,
+      description: seoDescription,
       images: [product.image],
     },
   };

@@ -12,7 +12,17 @@ import {
  * trang nội bộ không hề render khi chưa đăng nhập.
  */
 export function middleware(request: NextRequest) {
+  if (request.nextUrl.hostname === "devpo.vn") {
+    const url = request.nextUrl.clone();
+    url.hostname = "www.devpo.vn";
+    return NextResponse.redirect(url, 308);
+  }
+
   const { pathname, search } = request.nextUrl;
+  if (!pathname.startsWith("/noi-bo")) {
+    return NextResponse.next();
+  }
+
   const authed =
     request.cookies.get(NOI_BO_COOKIE)?.value === NOI_BO_TOKEN;
   const isLoginPage = pathname === NOI_BO_LOGIN_PATH;
@@ -37,5 +47,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/noi-bo/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)"],
 };

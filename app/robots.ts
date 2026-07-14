@@ -9,7 +9,8 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Chặn các route nội bộ không cần index
-      disallow: ["/api/", "/_next/", "/noi-bo/"],
+      // Không chặn /_next/: Googlebot cần CSS/JS/image optimized để render đúng.
+      disallow: ["/api/", "/noi-bo/"],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,

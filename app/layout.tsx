@@ -10,7 +10,6 @@ import {
 import { ThemeProvider } from "./components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@vercel/analytics/next";
-import Script from "next/script";
 
 // LocalBusiness Schema — giúp Google hiển thị thông tin cửa hàng (địa chỉ, giờ mở cửa, đánh giá)
 const localBusinessSchema = {
@@ -65,7 +64,7 @@ export const metadata: Metadata = {
     template: "%s | Dev Pồ",
   },
   description:
-    "Chuyên cung cấp iPhone Lock và iPhone Quốc tế chính hãng, giá tốt tại TP. Hồ Chí Minh. Dev Pồ là địa chỉ mua bán iPhone uy tín, chuyên fix lỗi, ghép sim iPhone Lock chuyên nghiệp.",
+    "Mua iPhone Lock, iPhone Quốc tế và iPad giá tốt tại TP.HCM. Dev Pồ bán máy zin, hỗ trợ fix lỗi sim ghép và bảo hành tận tâm.",
   keywords: [
     "iPhone Lock",
     "iPhone Quốc tế",
@@ -87,7 +86,7 @@ export const metadata: Metadata = {
     siteName: "Dev Pồ - DevpoStore",
     title: "Dev Pồ - Chuyên iPhone Lock, Quốc tế giá tốt tại HCM",
     description:
-      "Mua iPhone Lock & Quốc tế chính hãng, giá tốt tại TP.HCM. Bảo hành trọn đời lỗi sim ghép, fix lỗi chuyên nghiệp tại Dev Pồ.",
+      "Mua iPhone Lock, iPhone Quốc tế và iPad giá tốt tại TP.HCM. Máy zin, hỗ trợ fix lỗi sim ghép, bảo hành tận tâm tại Dev Pồ.",
     images: [
       {
         url: "/og-image.jpg",
@@ -101,7 +100,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dev Pồ - Chuyên iPhone Lock, Quốc tế",
     description:
-      "Mua iPhone Lock & Quốc tế chính hãng, giá tốt tại TP.HCM. Bảo hành trọn đời lỗi sim ghép tại Dev Pồ.",
+      "Mua iPhone Lock, iPhone Quốc tế và iPad giá tốt tại TP.HCM. Máy zin, hỗ trợ fix lỗi sim ghép, bảo hành tận tâm.",
     images: ["/og-image.jpg"],
   },
   robots: {
