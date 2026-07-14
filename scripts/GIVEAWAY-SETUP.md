@@ -10,14 +10,24 @@ Sheet đang dùng:
 
 ## 1. Chuẩn bị các tab trong Sheet
 
-### Tab đăng ký (đã có sẵn)
-Giữ nguyên tab hiện tại với 4 cột (hàng 1 là tiêu đề):
+### Tab danh sách/quay thưởng (đã có sẵn)
+Script ưu tiên đọc tab **`Danhsach`**. Tab này có thể là danh sách tên đơn giản, hoặc format đăng ký đầy đủ.
+
+Nếu chỉ quay thưởng từ danh sách có sẵn, mỗi dòng chỉ cần một tên:
+
+| A |
+|---|
+| Họ tên |
+| Nguyễn Văn A |
+| Trần Thị B |
+
+Nếu dùng cả form đăng ký trên web, giữ format 4 cột (hàng 1 là tiêu đề):
 
 | A | B | C | D |
 |---|---|---|---|
 | Thời gian | Số vé | Họ tên | Số điện thoại |
 
-Script tự dùng tab tên `DangKy` / `Đăng ký`, nếu không có thì dùng **tab đầu tiên**. Không cần đổi gì.
+Script tự dùng tab tên `Danhsach` / `DangKy` / `Đăng ký`, nếu không có thì dùng **tab đầu tiên**.
 
 ### Tab `Config` (TẠO MỚI — bắt buộc)
 Thêm một tab tên đúng là **`Config`**, gõ theo dạng key–value (cột A = tên, cột B = giá trị):
@@ -81,7 +91,7 @@ GIVEAWAY_ADMIN_KEY=<đúng bằng ADMIN_KEY ở bước 3>
 
 `GIVEAWAY_ADMIN_KEY` phải **giống hệt** `ADMIN_KEY` — web gửi mã này sang, Apps Script mới cho quay.
 
-Xong: mở `/give-away`. Mỗi đăng ký sẽ được ghi một dòng vào tab đăng ký của Sheet.
+Xong: mở `/give-away`. Mỗi đăng ký sẽ được ghi một dòng vào tab danh sách của Sheet. Khi admin bấm quay, web chốt người trúng trên server rồi chạy hiệu ứng trong khoảng **20 giây** trước khi công bố.
 
 ---
 

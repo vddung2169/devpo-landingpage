@@ -23,6 +23,9 @@ import { ZALO_LINK } from "@/data/products";
 import { Countdown, useServerCountdown } from "./countdown";
 import { RegisterForm } from "./register-form";
 import { HistoryList } from "./history-list";
+import { SpinWheel } from "./spin-wheel";
+
+type DrawWinner = { name: string; phone: string; ticket: string };
 import {
   GIVEAWAY_PHONE_KEY,
   isValidPhone,
@@ -136,15 +139,35 @@ export function GiveawayClient() {
       .catch(() => {});
   }, [load]);
 
+  // Overlay vòng quay (admin). Khi đang quay -> tạm dừng poll để không đổi state giữa chừng.
+  const [spinData, setSpinData] = useState<{
+    names: string[];
+    winner: DrawWinner;
+  } | null>(null);
+  const spinningRef = useRef(false);
+
   // Trạng thái closed: tự poll mỗi 30s để bắt thời điểm có kết quả
   const status = data?.active?.status;
   useEffect(() => {
     if (status !== "closed") return;
-    const id = window.setInterval(() => load({ silent: true }), 30_000);
+    const id = window.setInterval(() => {
+      if (!spinningRef.current) load({ silent: true });
+    }, 30_000);
     return () => window.clearInterval(id);
   }, [status, load]);
 
   const refetch = useCallback(() => load({ silent: true }), [load]);
+
+  const startSpin = useCallback((names: string[], winner: DrawWinner) => {
+    spinningRef.current = true;
+    setSpinData({ names, winner });
+  }, []);
+
+  const endSpin = useCallback(() => {
+    setSpinData(null);
+    spinningRef.current = false;
+    refetch();
+  }, [refetch]);
 
   const showHistory = !!(data?.history && data.history.length > 0);
 
@@ -189,7 +212,7 @@ export function GiveawayClient() {
                     load({ phone });
                   }}
                   onCountdownDone={refetch}
-                  onDrawn={refetch}
+                  onSpin={startSpin}
                 />
               </Reveal>
             )}
@@ -205,6 +228,14 @@ export function GiveawayClient() {
           )}
         </div>
       </div>
+
+      {spinData && (
+        <SpinWheel
+          names={spinData.names}
+          winner={spinData.winner}
+          onClose={endSpin}
+        />
+      )}
     </div>
   );
 }
@@ -221,7 +252,7 @@ function MainContent({
   onRegistered,
   onLookup,
   onCountdownDone,
-  onDrawn,
+  onSpin,
 }: {
   data: GiveawayResponse | null;
   offset: number;
@@ -230,7 +261,7 @@ function MainContent({
   onRegistered: (t: MyTicket) => void;
   onLookup: (phone: string) => void;
   onCountdownDone: () => void;
-  onDrawn: () => void;
+  onSpin: (names: string[], winner: DrawWinner) => void;
 }) {
   const active = data?.active ?? null;
 
@@ -255,7 +286,7 @@ function MainContent({
         isAdmin={isAdmin}
         onRegistered={onRegistered}
         onCountdownDone={onCountdownDone}
-        onDrawn={onDrawn}
+        onSpin={onSpin}
       />
     );
   }
@@ -269,13 +300,13 @@ function MainContent({
         isAdmin={isAdmin}
         onLookup={onLookup}
         onCountdownDone={onCountdownDone}
-        onDrawn={onDrawn}
+        onSpin={onSpin}
       />
     );
   }
 
   // announced / ended có winner
-  return <AnnouncedState data={data!} />;
+  return <AnnouncedState data={data!} isAdmin={isAdmin} onSpin={onSpin} />;
 }
 
 /* ---------------------------- 0) UPCOMING --------------------------------- */
@@ -320,7 +351,7 @@ function OpenState({
   isAdmin,
   onRegistered,
   onCountdownDone,
-  onDrawn,
+  onSpin,
 }: {
   data: GiveawayResponse;
   offset: number;
@@ -328,7 +359,7 @@ function OpenState({
   isAdmin: boolean;
   onRegistered: (t: MyTicket) => void;
   onCountdownDone: () => void;
-  onDrawn: () => void;
+  onSpin: (names: string[], winner: DrawWinner) => void;
 }) {
   const g = data.active!;
   const remaining = useServerCountdown(g.closeAt, offset, onCountdownDone);
@@ -362,9 +393,7 @@ function OpenState({
         </div>
       )}
 
-      {isAdmin && (
-        <AdminDraw giveawayId={g.id} onDrawn={onDrawn} />
-      )}
+      {isAdmin && <AdminDraw giveawayId={g.id} onSpin={onSpin} />}
     </div>
   );
 }
@@ -378,7 +407,7 @@ function ClosedState({
   isAdmin,
   onLookup,
   onCountdownDone,
-  onDrawn,
+  onSpin,
 }: {
   data: GiveawayResponse;
   offset: number;
@@ -386,7 +415,7 @@ function ClosedState({
   isAdmin: boolean;
   onLookup: (phone: string) => void;
   onCountdownDone: () => void;
-  onDrawn: () => void;
+  onSpin: (names: string[], winner: DrawWinner) => void;
 }) {
   const g = data.active!;
   const remaining = useServerCountdown(g.drawAt, offset, onCountdownDone);
@@ -417,14 +446,22 @@ function ClosedState({
         <LookupForm onLookup={onLookup} notFound={data.myTicket === null} />
       )}
 
-      {isAdmin && <AdminDraw giveawayId={g.id} onDrawn={onDrawn} />}
+      {isAdmin && <AdminDraw giveawayId={g.id} onSpin={onSpin} />}
     </div>
   );
 }
 
 /* --------------------------- 3) ANNOUNCED --------------------------------- */
 
-function AnnouncedState({ data }: { data: GiveawayResponse }) {
+function AnnouncedState({
+  data,
+  isAdmin,
+  onSpin,
+}: {
+  data: GiveawayResponse;
+  isAdmin: boolean;
+  onSpin: (names: string[], winner: DrawWinner) => void;
+}) {
   const g = data.active!;
   const w = g.winner;
 
@@ -463,6 +500,14 @@ function AnnouncedState({ data }: { data: GiveawayResponse }) {
         Dev Pồ sẽ liên hệ trực tiếp với người trúng để trao thưởng. Cảm ơn mọi
         người đã tham gia!
       </p>
+
+      {isAdmin && (
+        <AdminDraw
+          giveawayId={g.id}
+          onSpin={onSpin}
+          buttonLabel="Chạy lại hiệu ứng"
+        />
+      )}
     </div>
   );
 }
@@ -630,19 +675,19 @@ function LookupForm({
 
 function AdminDraw({
   giveawayId,
-  onDrawn,
+  onSpin,
+  buttonLabel = "Quay thưởng ngay",
 }: {
   giveawayId: string;
-  onDrawn: () => void;
+  onSpin: (names: string[], winner: DrawWinner) => void;
+  buttonLabel?: string;
 }) {
   const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
   async function draw() {
     setBusy(true);
     setErr(null);
-    setMsg(null);
     try {
       const res = await fetch("/api/give-away/draw", {
         method: "POST",
@@ -650,16 +695,12 @@ function AdminDraw({
         body: JSON.stringify({ giveawayId }),
       });
       const data = await res.json();
-      if (!res.ok || data.ok === false) {
+      if (!res.ok || data.ok === false || !data.winner) {
         setErr(data.error ?? "Quay thưởng thất bại.");
         return;
       }
-      setMsg(
-        data.winner?.name
-          ? `Đã quay: ${data.winner.name}`
-          : "Đã quay thưởng.",
-      );
-      onDrawn();
+      // Server đã chốt người trúng -> chạy vòng quay 20s rồi công bố
+      onSpin(Array.isArray(data.names) ? data.names : [], data.winner);
     } catch {
       setErr("Không gọi được máy chủ. Vui lòng thử lại.");
     } finally {
@@ -691,11 +732,10 @@ function AdminDraw({
         ) : (
           <>
             <Trophy className="mr-2 h-4 w-4" />
-            Quay thưởng ngay
+            {buttonLabel}
           </>
         )}
       </Button>
-      {msg && <p className="mt-2 text-sm text-foreground">{msg}</p>}
       {err && <p className="mt-2 text-sm text-destructive">{err}</p>}
     </div>
   );

@@ -5,7 +5,9 @@
  * CÁCH DÙNG: xem scripts/GIVEAWAY-SETUP.md
  *
  * Cấu trúc Sheet:
- *  - Tab "DangKy" (hoặc tab đầu tiên): A=Thời gian | B=Số vé | C=Họ tên | D=Số điện thoại
+ *  - Tab "Danhsach"/"DangKy" (hoặc tab đầu tiên): ưu tiên format
+ *    A=Thời gian | B=Số vé | C=Họ tên | D=Số điện thoại, nhưng vẫn đọc được
+ *    tab chỉ có danh sách tên.
  *  - Tab "Config" (key–value, 2 cột A|B): id, title, prize, openAt, closeAt, drawAt, endAt, winnerTicket
  *  - Tab "History" (tùy chọn): A=id B=title C=prize D=endAt E=totalEntries F=winnerName G=winnerPhone
  *
@@ -13,7 +15,7 @@
  */
 
 var TZ = "GMT+7";
-var ENTRIES_NAMES = ["DangKy", "Đăng ký", "Registrations"];
+var ENTRIES_NAMES = ["Danhsach", "DangKy", "Đăng ký", "Dang ky"];
 var CONFIG_NAME = "Config";
 var HISTORY_NAME = "History";
 
@@ -171,13 +173,15 @@ function handleDraw_(data) {
     var cfg = readConfig_();
     if (!cfg.id) return { ok: false, error: "Không có giveaway để quay." };
     if (cfg.winnerTicket) {
-      var already = findEntryByTicket_(readEntries_(), cfg.winnerTicket);
+      var allEntries = readEntries_();
+      var already = findEntryByTicket_(allEntries, cfg.winnerTicket);
       return {
         ok: true,
         giveawayId: cfg.id,
         winner: already
           ? { name: already.name, phone: maskPhone_(already.phone), ticket: already.ticket }
           : null,
+        names: drawNames_(allEntries),
       };
     }
 
@@ -193,10 +197,27 @@ function handleDraw_(data) {
       ok: true,
       giveawayId: cfg.id,
       winner: { name: pick.name, phone: maskPhone_(pick.phone), ticket: pick.ticket },
+      names: drawNames_(entries),
     };
   } finally {
     lock.releaseLock();
   }
+}
+
+/** Danh sách tên để chạy hiệu ứng vòng quay (xáo trộn toàn bộ danh sách). */
+function drawNames_(entries) {
+  var names = [];
+  for (var i = 0; i < entries.length; i++) {
+    if (entries[i].name) names.push(entries[i].name);
+  }
+  // xáo trộn Fisher–Yates
+  for (var j = names.length - 1; j > 0; j--) {
+    var k = Math.floor(Math.random() * (j + 1));
+    var t = names[j];
+    names[j] = names[k];
+    names[k] = t;
+  }
+  return names;
 }
 
 /* ================================ SHEETS ================================ */
@@ -210,21 +231,102 @@ function getEntriesSheet_() {
   return ss.getSheets()[0]; // fallback: tab đầu tiên
 }
 
-/** Đọc toàn bộ vé đã đăng ký (bỏ hàng tiêu đề). */
+/**
+ * Đọc toàn bộ vé đã đăng ký.
+ * Hỗ trợ cả format đầy đủ:
+ *   Thời gian | Số vé | Họ tên | Số điện thoại
+ * lẫn format đơn giản của tab Danhsach chỉ gồm danh sách tên.
+ */
 function readEntries_() {
   var sheet = getEntriesSheet_();
   var last = sheet.getLastRow();
   if (last < 2) return [];
-  var rows = sheet.getRange(2, 1, last - 1, 4).getValues();
+  var lastCol = Math.max(sheet.getLastColumn(), 1);
+  var width = Math.max(lastCol, 4);
+  var allRows = sheet.getRange(1, 1, last, width).getValues();
+  var header = allRows[0] || [];
+  var map = detectEntryColumns_(header);
+  var start = map.hasHeader ? 1 : 0;
+  var cfg = readConfig_();
   var out = [];
-  for (var i = 0; i < rows.length; i++) {
-    var r = rows[i];
-    var ticket = String(r[1] || "").trim();
-    var phone = normalizePhone_(r[3]);
-    if (!ticket && !phone) continue;
-    out.push({ time: r[0], ticket: ticket, name: String(r[2] || "").trim(), phone: phone });
+  for (var i = start; i < allRows.length; i++) {
+    var r = allRows[i];
+    var name = String(r[map.name] || "").trim();
+    var phone = map.phone >= 0 ? normalizePhone_(r[map.phone]) : "";
+    var ticket = map.ticket >= 0 ? String(r[map.ticket] || "").trim() : "";
+
+    if (!name && !phone && !ticket) continue;
+    if (!name) name = inferNameFromRow_(r, map);
+    if (!name) continue;
+
+    if (!ticket) ticket = buildTicket_(cfg.id, out.length + 1);
+    out.push({
+      time: map.time >= 0 ? r[map.time] : "",
+      ticket: ticket,
+      name: name,
+      phone: phone,
+    });
   }
   return out;
+}
+
+function detectEntryColumns_(header) {
+  var map = { time: 0, ticket: 1, name: 2, phone: 3, hasHeader: false };
+  for (var i = 0; i < header.length; i++) {
+    var h = normalizeHeader_(header[i]);
+    if (!h) continue;
+    if (h.indexOf("thoi gian") >= 0 || h === "timestamp") {
+      map.time = i;
+      map.hasHeader = true;
+    } else if (h.indexOf("so ve") >= 0 || h.indexOf("ma ve") >= 0 || h.indexOf("ticket") >= 0) {
+      map.ticket = i;
+      map.hasHeader = true;
+    } else if (h.indexOf("ho ten") >= 0 || h === "ten" || h.indexOf("name") >= 0) {
+      map.name = i;
+      map.hasHeader = true;
+    } else if (h.indexOf("dien thoai") >= 0 || h.indexOf("sdt") >= 0 || h.indexOf("phone") >= 0) {
+      map.phone = i;
+      map.hasHeader = true;
+    }
+  }
+
+  if (!map.hasHeader) {
+    map.time = -1;
+    map.ticket = -1;
+    map.name = firstLikelyNameColumn_(header);
+    map.phone = firstLikelyPhoneColumn_(header);
+  }
+
+  return map;
+}
+
+function firstLikelyNameColumn_(row) {
+  for (var i = 0; i < row.length; i++) {
+    var v = String(row[i] || "").trim();
+    if (v && !looksLikePhone_(v) && !looksLikeTicket_(v) && !looksLikeDate_(row[i])) return i;
+  }
+  return 0;
+}
+
+function firstLikelyPhoneColumn_(row) {
+  for (var i = 0; i < row.length; i++) {
+    if (looksLikePhone_(row[i])) return i;
+  }
+  return -1;
+}
+
+function inferNameFromRow_(row, map) {
+  for (var i = 0; i < row.length; i++) {
+    if (i === map.time || i === map.ticket || i === map.phone) continue;
+    var v = String(row[i] || "").trim();
+    if (v && !looksLikePhone_(v) && !looksLikeTicket_(v) && !looksLikeDate_(row[i])) return v;
+  }
+  return "";
+}
+
+function buildTicket_(giveawayId, seq) {
+  var prefix = giveawayId || "GA";
+  return prefix + "-" + pad_(seq, 4);
 }
 
 /** Config dạng key–value (cột A = key, cột B = value). */
@@ -350,6 +452,31 @@ function findEntryByTicket_(entries, ticket) {
 
 function normalizePhone_(v) {
   return String(v == null ? "" : v).replace(/[^0-9]/g, "");
+}
+
+function normalizeHeader_(v) {
+  return String(v == null ? "" : v)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function looksLikePhone_(v) {
+  var p = normalizePhone_(v);
+  return /^0\d{9}$/.test(p) || /^84\d{9}$/.test(p);
+}
+
+function looksLikeTicket_(v) {
+  return /^[a-z]{1,5}-?\d{4,}/i.test(String(v || "").trim());
+}
+
+function looksLikeDate_(v) {
+  if (v instanceof Date) return true;
+  var s = String(v || "").trim();
+  return /^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}/.test(s) || /^\d{4}-\d{1,2}-\d{1,2}/.test(s);
 }
 
 function maskPhone_(v) {

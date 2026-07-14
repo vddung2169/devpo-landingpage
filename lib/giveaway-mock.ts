@@ -175,19 +175,25 @@ export function mockRegister(bodyText: string): RegisterResult {
   };
 }
 
-/** Quay thưởng giả (admin) — trả về người trúng ngẫu nhiên. */
+/** Quay thưởng giả (admin) — trả về người trúng + danh sách tên để chạy vòng quay. */
 export function mockDraw(giveawayId: string): {
   ok: true;
   winner: { name: string; phone: string; ticket: string };
   giveawayId: string;
+  names: string[];
 } {
+  const names = [
+    "Nguyễn Văn An", "Trần Thị Bình", "Lê Hoàng Cường", "Phạm Thị Dung",
+    "Hoàng Văn Em", "Vũ Thị Hoa", "Đặng Minh Khôi", "Bùi Thị Lan",
+    "Đỗ Văn Mạnh", "Ngô Thị Nga", "Dương Văn Phú", "Lý Thị Quyên",
+    "Hồ Văn Sơn", "Trịnh Thị Trang", "Phan Văn Tú", "Mai Thị Uyên",
+    "Cao Văn Vinh", "Đinh Thị Xuân", "Tô Văn Yên", "Lương Thị Ánh",
+    "Phạm Thị D", "Nguyễn Thị Hồng", "Trần Văn Long", "Lê Thị Mai",
+  ];
   return {
     ok: true,
     giveawayId,
-    winner: {
-      name: "Phạm Thị D",
-      phone: "093****715",
-      ticket: `${giveawayId}-0031`,
-    },
+    winner: { name: "Phạm Thị D", phone: "093****715", ticket: `${giveawayId}-0031` },
+    names,
   };
 }

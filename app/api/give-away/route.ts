@@ -8,21 +8,20 @@ import { mockGiveaway, mockRegister } from "@/lib/giveaway-mock";
 //  - tập trung xử lý lỗi & fallback mock
 export const dynamic = "force-dynamic";
 
-const API = process.env.GIVEAWAY_API;
-const allowMock = !API || process.env.NODE_ENV !== "production";
-
 /** GET: lấy trạng thái giveaway (+ tra vé nếu có ?phone=). */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const phone = searchParams.get("phone");
   const mock = searchParams.get("mock");
+  const api = process.env.GIVEAWAY_API;
+  const allowMock = !api || process.env.NODE_ENV !== "production";
 
-  if (!API || (mock && allowMock)) {
+  if (!api || (mock && allowMock)) {
     return NextResponse.json(mockGiveaway(mock ?? "open", phone));
   }
 
   try {
-    const url = new URL(API);
+    const url = new URL(api);
     if (phone) url.searchParams.set("phone", phone);
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) {
@@ -44,14 +43,15 @@ export async function GET(req: NextRequest) {
 /** POST: đăng ký tham gia. Body là chuỗi JSON {name, phone}. */
 export async function POST(req: NextRequest) {
   const body = await req.text();
+  const api = process.env.GIVEAWAY_API;
 
-  if (!API) {
+  if (!api) {
     return NextResponse.json(mockRegister(body));
   }
 
   try {
     // Gửi text/plain là chủ đích: né preflight CORS của Apps Script.
-    const res = await fetch(API, {
+    const res = await fetch(api, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body,
