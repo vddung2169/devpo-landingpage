@@ -31,7 +31,7 @@ import {
   calcICloud,
   DEFAULT_LOAN_AMOUNT,
   HD_MIRAE_MIN_DOWN_PAYMENT,
-  hdSaisonMiraeRates,
+  hdSaisonMiraeTerms,
   ICLOUD_MIN_DOWN_PAYMENT,
   icloudTerms,
   TRA_GOP_DISCLAIMER,
@@ -87,13 +87,13 @@ export function TraGopSection() {
                 label="Kỳ hạn"
                 value={hdMonths}
                 onChange={setHdMonths}
-                options={hdSaisonMiraeRates.map((r) => ({
-                  value: String(r.months),
-                  label: `${r.months} tháng · lãi ${(r.rate * 100).toLocaleString("vi-VN")}%`,
+                options={hdSaisonMiraeTerms.map((t) => ({
+                  value: String(t.months),
+                  label: `${t.months} tháng`,
                 }))}
               />
               <ResultPanel
-                note={`Lãi tính một lần trên tổng khoản vay theo kỳ hạn ${hdMonths} tháng. Cần trả trước tối thiểu ${HD_MIRAE_MIN_DOWN_PAYMENT * 100}% giá trị máy.`}
+                note={`Góp/tháng theo bảng lãi HD Saison / Mirae (dư nợ giảm dần), kỳ hạn ${hdMonths} tháng. Cần trả trước tối thiểu ${HD_MIRAE_MIN_DOWN_PAYMENT * 100}% giá trị máy.`}
                 result={calcHdSaisonMirae(loanAmount, Number(hdMonths))}
               />
             </CalculatorCard>

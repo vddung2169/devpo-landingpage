@@ -32,7 +32,7 @@ import {
   calcHdSaisonMirae,
   calcICloud,
   HD_MIRAE_MIN_DOWN_PAYMENT,
-  hdSaisonMiraeRates,
+  hdSaisonMiraeTerms,
   ICLOUD_MIN_DOWN_PAYMENT,
   icloudTerms,
   TRA_GOP_DISCLAIMER,
@@ -59,9 +59,9 @@ const METHODS: Record<InternalMethod, MethodConfig> = {
   "hd-mirae": {
     label: "HD Saison / Mirae Asset",
     minDown: HD_MIRAE_MIN_DOWN_PAYMENT,
-    terms: hdSaisonMiraeRates.map((r) => r.months),
+    terms: hdSaisonMiraeTerms.map((t) => t.months),
     calc: calcHdSaisonMirae,
-    note: "Lãi tính một lần trên tổng khoản vay theo kỳ hạn.",
+    note: "Góp/tháng theo bảng lãi đối tác (dư nợ giảm dần).",
   },
   icloud: {
     label: "Trả góp qua iCloud",

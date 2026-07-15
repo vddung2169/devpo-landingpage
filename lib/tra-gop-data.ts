@@ -12,20 +12,26 @@ export type TraGopMethod = "hd-mirae" | "icloud" | "the-tin-dung";
 /* -------------------------------------------------------------------------- */
 
 /**
- * Lãi suất cơ bản theo kỳ hạn, áp dụng trên TỔNG khoản vay (đã làm tròn %).
- * Ví dụ 12 tháng: rate = 0.115 => lãi = khoản vay × 11.5%.
+ * Bảng góp/tháng tham chiếu của HD Saison / Mirae Asset (tính theo dư nợ giảm
+ * dần). Giá trị `monthlyPerMillion` = số tiền góp mỗi tháng cho MỖI 1.000.000đ
+ * khoản vay, theo từng kỳ hạn.
+ *
+ * Vì góp/tháng tỉ lệ tuyến tính với khoản vay nên chỉ cần lưu hệ số theo triệu:
+ *   Góp/tháng = (Khoản vay / 1.000.000) × monthlyPerMillion
+ * Kỳ hạn càng dài → góp/tháng càng thấp nhưng TỔNG góp (đã gồm lãi) càng cao.
  */
-export const hdSaisonMiraeRates: { months: number; rate: number }[] = [
-  { months: 6, rate: 0.2 },
-  { months: 9, rate: 0.14 },
-  { months: 12, rate: 0.115 },
-  { months: 24, rate: 0.23 },
+export const hdSaisonMiraeTerms: { months: number; monthlyPerMillion: number }[] = [
+  { months: 6, monthlyPerMillion: 203_904 },
+  { months: 9, monthlyPerMillion: 143_915 },
+  { months: 12, monthlyPerMillion: 114_135 },
+  { months: 15, monthlyPerMillion: 96_437 },
+  { months: 18, monthlyPerMillion: 84_778 },
 ];
 
 /** Mức trả trước tối thiểu khi góp qua HD Saison / Mirae Asset. */
 export const HD_MIRAE_MIN_DOWN_PAYMENT = 0.2;
 
-/** Kết quả tính lãi dạng "một lần" (HD Saison / Mirae). */
+/** Kết quả tính trả góp cho một kỳ hạn. */
 export interface TraGopResult {
   /** Tiền lãi ước tính trên toàn kỳ hạn. */
   interest: number;
@@ -36,16 +42,18 @@ export interface TraGopResult {
 }
 
 /**
- * Tính trả góp qua HD Saison / Mirae Asset.
- *   Tiền lãi  = Khoản vay × Lãi suất(%) theo kỳ hạn
- *   Tổng tiền = Khoản vay + Tiền lãi
+ * Tính trả góp qua HD Saison / Mirae Asset theo bảng góp/tháng (dư nợ giảm dần).
+ *   Góp/tháng = (Khoản vay / 1.000.000) × monthlyPerMillion theo kỳ hạn
+ *   Tổng góp  = Góp/tháng × Số tháng
+ *   Tiền lãi  = Tổng góp − Khoản vay
  */
 export function calcHdSaisonMirae(loanAmount: number, months: number): TraGopResult {
-  const found = hdSaisonMiraeRates.find((r) => r.months === months);
-  const rate = found?.rate ?? 0;
-  const interest = Math.round(loanAmount * rate);
-  const total = loanAmount + interest;
-  const monthly = months > 0 ? Math.round(total / months) : 0;
+  const found = hdSaisonMiraeTerms.find((t) => t.months === months);
+  const monthly = found
+    ? Math.round((loanAmount / 1_000_000) * found.monthlyPerMillion)
+    : 0;
+  const total = monthly * months;
+  const interest = Math.max(0, total - loanAmount);
   return { interest, total, monthly };
 }
 
