@@ -80,7 +80,7 @@ export function TraGopSection() {
           <TabsContent value="hd-mirae" className="mt-6">
             <CalculatorCard
               loanAmount={loanAmount}
-              onLoanChange={(v) => setLoanAmount(clampLoan(v))}
+              onLoanChange={setLoanAmount}
               clampLoan={clampLoan}
             >
               <TermSelect
@@ -102,7 +102,7 @@ export function TraGopSection() {
           <TabsContent value="icloud" className="mt-6">
             <CalculatorCard
               loanAmount={loanAmount}
-              onLoanChange={(v) => setLoanAmount(clampLoan(v))}
+              onLoanChange={setLoanAmount}
               clampLoan={clampLoan}
             >
               <TermSelect
@@ -176,10 +176,17 @@ function CalculatorCard({
               type="text"
               inputMode="numeric"
               className="h-11 pl-9 font-semibold"
-              value={loanAmount.toLocaleString("vi-VN")}
+              value={loanAmount === 0 ? "" : loanAmount.toLocaleString("vi-VN")}
               onChange={(e) => {
                 const digits = e.target.value.replace(/\D/g, "");
-                onLoanChange(digits ? clampLoan(Number(digits)) : 0);
+                onLoanChange(digits ? Number(digits) : 0);
+              }}
+              onBlur={() => {
+                if (loanAmount > 0) {
+                  onLoanChange(clampLoan(loanAmount));
+                } else {
+                  onLoanChange(MIN_LOAN);
+                }
               }}
               aria-label="Số tiền cần trả góp"
             />
