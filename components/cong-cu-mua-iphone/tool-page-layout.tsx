@@ -11,12 +11,15 @@ export function ToolPageLayout({
   title,
   description,
   icon: Icon,
+  parent = { href: "/cong-cu-mua-iphone", label: "Công cụ mua iPhone" },
   children,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
+  /** Cấp giữa của breadcrumb; đặt null nếu công cụ nằm ngay dưới trang chủ. */
+  parent?: { href: string; label: string } | null;
   children: React.ReactNode;
 }) {
   return (
@@ -41,13 +44,17 @@ export function ToolPageLayout({
               Trang chủ
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <Link
-              href="/cong-cu-mua-iphone"
-              className="transition-colors hover:text-foreground"
-            >
-              Công cụ mua iPhone
-            </Link>
-            <ChevronRight className="h-4 w-4" />
+            {parent && (
+              <>
+                <Link
+                  href={parent.href}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {parent.label}
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+              </>
+            )}
             <span className="font-medium text-foreground">{eyebrow}</span>
           </nav>
 
