@@ -40,7 +40,11 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    // transform-gpu: đẩy header lên compositor layer riêng, hết giật sticky
+    // trên iOS Safari. backdrop-blur chỉ bật từ md trở lên — trên mobile, blur
+    // phải tính lại từng frame khi nội dung (đặc biệt là ticker marquee) trượt
+    // bên dưới lúc cuộn, gây rung; nền đặc 95% nhìn gần như không khác.
+    <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border bg-background/95 md:backdrop-blur md:supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Phần Logo và Menu Desktop */}
         <div className="flex items-center gap-8">

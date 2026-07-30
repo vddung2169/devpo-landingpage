@@ -40,6 +40,7 @@ import {
 
 // Giới hạn slider số tiền cần trả góp
 const MIN_LOAN = 2_000_000;
+
 const MAX_LOAN = 40_000_000;
 const STEP_LOAN = 500_000;
 
