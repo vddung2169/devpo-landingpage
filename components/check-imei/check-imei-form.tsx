@@ -123,6 +123,39 @@ const formatClock = (ms: number) =>
     minute: "2-digit",
   });
 
+const TONE_GOOD = "text-green-600 dark:text-green-500";
+const TONE_BAD = "text-red-600 dark:text-red-500";
+
+/**
+ * Tô màu ngữ nghĩa cho giá trị kết quả: tin tốt xanh lá, tin xấu đỏ.
+ * Chỉ áp cho các trường đã biết rõ nghĩa, còn lại giữ màu chữ thường.
+ */
+function valueTone(label: string, value: string): string {
+  const l = label.toLowerCase();
+  const v = value.trim().toLowerCase();
+
+  // SIM Lock: Unlocked (quốc tế) là tốt, Locked là xấu. Xét "unlock" trước
+  // vì "unlocked" cũng chứa chuỗi "lock".
+  if (l.includes("sim lock") || l.includes("simlock")) {
+    if (v.includes("unlock")) return TONE_GOOD;
+    if (v.includes("lock")) return TONE_BAD;
+  }
+
+  // Find My iPhone / iCloud Lock: OFF là tốt, ON là xấu.
+  if (l.includes("find my") || l.includes("fmi") || l.includes("icloud lock")) {
+    if (v === "off") return TONE_GOOD;
+    if (v === "on") return TONE_BAD;
+  }
+
+  // iCloud Status: CLEAN tốt, LOST (báo mất) xấu.
+  if (l.includes("icloud status")) {
+    if (v.includes("clean")) return TONE_GOOD;
+    if (v.includes("lost")) return TONE_BAD;
+  }
+
+  return "";
+}
+
 /** "5 giờ 12 phút" — đếm ngược tới lúc được check tiếp. */
 function formatRemaining(ms: number): string {
   const total = Math.max(0, Math.ceil(ms / 60000));
@@ -588,7 +621,9 @@ function ResultCard({
         <CardTitle className="flex flex-wrap items-center gap-2 text-lg">
           Kết quả
           {done ? (
-            <Badge>Thành công</Badge>
+            <Badge className="border-transparent bg-green-600 text-white">
+              Thành công
+            </Badge>
           ) : (
             <Badge variant="destructive">Bị từ chối</Badge>
           )}
@@ -624,9 +659,9 @@ function ResultCard({
                     {line.label}
                   </dt>
                   <dd
-                    className={`min-w-0 text-right font-medium break-all text-foreground ${
-                      /^[\d\s-]+$/.test(line.value) ? "font-mono" : ""
-                    }`}
+                    className={`min-w-0 text-right font-medium break-all ${
+                      valueTone(line.label, line.value) || "text-foreground"
+                    } ${/^[\d\s-]+$/.test(line.value) ? "font-mono" : ""}`}
                   >
                     {line.value}
                   </dd>
