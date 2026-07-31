@@ -424,30 +424,54 @@ export async function diagnose(): Promise<Record<string, unknown>> {
     out.egressIp = "(không lấy được)";
   }
 
-  try {
-    const body = new URLSearchParams({
-      username: USERNAME ?? "",
-      apiaccesskey: API_KEY ?? "",
-      action: "accountinfo",
-      format: "json",
-    });
-    const res = await fetch(API_URL!, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-      cache: "no-store",
-    });
-    const text = await res.text();
-    out.upstream = {
-      httpStatus: res.status,
-      contentType: res.headers.get("content-type"),
-      server: res.headers.get("server"),
-      cfRay: res.headers.get("cf-ray"),
-      bodyFirst300: text.slice(0, 300),
-    };
-  } catch (err) {
-    out.upstream = { fetchError: String(err) };
+  // Thử nhiều bộ header để xem Cloudflare của upstream chặn theo cái gì:
+  // UA mặc định của Node (undici) là dấu hiệu bot rõ rệt; UA trình duyệt
+  // có khi lách được Browser Integrity Check.
+  const profiles: Record<string, Record<string, string>> = {
+    nodeDefault: {},
+    browserUA: {
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    },
+    browserFull: {
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+      Accept: "application/json, text/plain, */*",
+      "Accept-Language": "vi-VN,vi;q=0.9,en;q=0.8",
+      Referer: "https://taoden.vn/",
+    },
+  };
+
+  const upstream: Record<string, unknown> = {};
+  for (const [name, extra] of Object.entries(profiles)) {
+    try {
+      const body = new URLSearchParams({
+        username: USERNAME ?? "",
+        apiaccesskey: API_KEY ?? "",
+        action: "accountinfo",
+        format: "json",
+      });
+      const res = await fetch(API_URL!, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          ...extra,
+        },
+        body,
+        cache: "no-store",
+      });
+      const text = await res.text();
+      upstream[name] = {
+        httpStatus: res.status,
+        contentType: res.headers.get("content-type"),
+        cfRay: res.headers.get("cf-ray"),
+        bodyFirst120: text.slice(0, 120),
+      };
+    } catch (err) {
+      upstream[name] = { fetchError: String(err) };
+    }
   }
+  out.upstream = upstream;
 
   return out;
 }
