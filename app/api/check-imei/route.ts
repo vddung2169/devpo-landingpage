@@ -32,10 +32,6 @@ import {
  * GET ?action=status — nhờ vậy thoát ra rồi quay lại vẫn nhận đúng kết quả.
  */
 export const dynamic = "force-dynamic";
-// Chạy function ở Singapore: gần VN (giảm độ trễ tới taoden lẫn người dùng),
-// và dải IP khác hẳn US-East — liên quan trực tiếp tới việc Cloudflare của
-// taoden chặn IP datacenter theo vùng.
-export const preferredRegion = "sin1";
 
 function fail(message: string, status = 502) {
   return NextResponse.json({ ok: false, error: message }, { status });
