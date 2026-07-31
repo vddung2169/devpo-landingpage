@@ -3,6 +3,7 @@ import {
   DEFAULT_SERVICE_ID,
   DhruError,
   accountInfo,
+  diagnose,
   getImeiOrder,
   isDhruConfigured,
   isValidImei,
@@ -133,6 +134,15 @@ export async function GET(req: NextRequest) {
         return fail("Không có quyền xem thông tin tài khoản.", 403);
       }
       return NextResponse.json({ ok: true, account: await accountInfo() });
+    }
+
+    if (action === "diag") {
+      // Chẩn đoán thô (IP đi ra + phản hồi nguyên trạng của upstream) — chứa
+      // thông tin hạ tầng nên khoá sau cổng nội bộ y như "account".
+      if (req.cookies.get(NOI_BO_COOKIE)?.value !== NOI_BO_TOKEN) {
+        return fail("Không có quyền chạy chẩn đoán.", 403);
+      }
+      return NextResponse.json({ ok: true, diag: await diagnose() });
     }
 
     if (action === "status") {

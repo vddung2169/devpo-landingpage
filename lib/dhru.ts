@@ -403,6 +403,55 @@ export async function getImeiOrder(
 /* Tiện ích                                                                    */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Chẩn đoán thô cho admin (?action=diag): gọi accountinfo KHÔNG qua lớp
+ * Việt hoá/retry, trả về nguyên trạng những gì upstream đáp — kèm IP đi ra
+ * của server tại thời điểm gọi. Dùng để gửi cho bên vận hành API khi có sự cố.
+ */
+export async function diagnose(): Promise<Record<string, unknown>> {
+  const out: Record<string, unknown> = {
+    at: new Date().toISOString(),
+    region: process.env.VERCEL_REGION ?? "local",
+    apiUrl: API_URL,
+    username: USERNAME,
+  };
+
+  // IP đi ra của function này (Vercel không có IP tĩnh — mỗi lần gọi có thể khác).
+  try {
+    const res = await fetch("https://api.ipify.org", { cache: "no-store" });
+    out.egressIp = (await res.text()).trim();
+  } catch {
+    out.egressIp = "(không lấy được)";
+  }
+
+  try {
+    const body = new URLSearchParams({
+      username: USERNAME ?? "",
+      apiaccesskey: API_KEY ?? "",
+      action: "accountinfo",
+      format: "json",
+    });
+    const res = await fetch(API_URL!, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+      cache: "no-store",
+    });
+    const text = await res.text();
+    out.upstream = {
+      httpStatus: res.status,
+      contentType: res.headers.get("content-type"),
+      server: res.headers.get("server"),
+      cfRay: res.headers.get("cf-ray"),
+      bodyFirst300: text.slice(0, 300),
+    };
+  } catch (err) {
+    out.upstream = { fetchError: String(err) };
+  }
+
+  return out;
+}
+
 /** IMEI 15 số hợp lệ theo thuật toán Luhn. */
 export function isValidImei(imei: string): boolean {
   if (!/^\d{15}$/.test(imei)) return false;
