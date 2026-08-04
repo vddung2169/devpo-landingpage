@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
 import { FloatingContacts } from "./components/floating-contacts";
-import { PromoBanner } from "./components/promo-banner";
+// import { PromoBanner } from "./components/promo-banner"; // popup quảng cáo — đang tắt
 import {
   ConditionalTicker,
   ConditionalFooter,
@@ -145,8 +145,8 @@ export default function RootLayout({
 
           <ConditionalFooter />
           <FloatingContacts />
-          {/* Popup quảng cáo — tự quản lý chu kỳ hiện 6 tiếng/lần */}
-          <PromoBanner />
+          {/* Popup quảng cáo — đang TẮT; bỏ comment dòng dưới (và import ở đầu file) để bật lại */}
+          {/* <PromoBanner /> */}
         </ThemeProvider>
         {/* Vercel Web Analytics — đo lượt truy cập & trang được xem nhiều nhất */}
         <Analytics />
