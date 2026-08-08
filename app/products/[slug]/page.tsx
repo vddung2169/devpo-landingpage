@@ -4,7 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check, ChevronRight, Facebook, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  JsonLd,
+  breadcrumbSchema,
+  productSchema,
+} from "@/components/seo/JsonLd";
 import {
   categoryLabel,
   getProductBySlug,
@@ -99,63 +103,39 @@ export default async function ProductDetailPage({
 
   const siteUrl = "https://www.devpo.vn";
 
-  // Product Schema — giúp Google hiển thị rich snippet (giá, tình trạng còn hàng)
-  // Làm phẳng techSpecs thành additionalProperty cho rich data (SEO)
-  const additionalProperty = (product.techSpecs ?? []).flatMap((group) =>
-    group.rows.map((row) => ({
-      "@type": "PropertyValue",
-      name: `${group.group} - ${row.label}`,
-      value: row.value,
-    })),
-  );
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    image: `${siteUrl}${product.image}`,
+  // Product Schema — giúp Google hiển thị rich snippet (giá, tình trạng còn hàng).
+  // Dữ liệu thật từ data/products.ts; techSpecs làm phẳng thành additionalProperty.
+  const productJsonLd = productSchema({
+    slug: product.slug,
+    name: `${product.name} ${product.storage}`,
+    image: `${siteUrl}${product.image}`, // URL tuyệt đối, ảnh gốc trong /public
     description: product.description,
+    storage: product.storage,
     category: categoryLabel[product.category],
-    brand: { "@type": "Brand", name: "Apple" },
-    ...(additionalProperty.length > 0 ? { additionalProperty } : {}),
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "VND",
-      price: priceToNumber(product.priceFrom),
-      availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: "Dev Pồ" },
-    },
-  };
+    // Giá "Liên hệ" -> priceToNumber trả 0 -> builder tự bỏ offers
+    priceFrom: priceToNumber(product.priceFrom),
+    // Máy Likenew / 98-99% -> hàng tân trang; không có máy new seal trong data
+    condition: "RefurbishedCondition",
+    availability: "InStock",
+    extraProperties: (product.techSpecs ?? []).flatMap((group) =>
+      group.rows.map((row) => ({
+        name: `${group.group} - ${row.label}`,
+        value: row.value,
+      })),
+    ),
+    // KHÔNG truyền ratingValue/reviewCount — chưa có hệ thống review thật
+  });
 
   // BreadcrumbList Schema — khớp với breadcrumb UI bên dưới
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Trang chủ",
-        item: siteUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Sản phẩm",
-        item: `${siteUrl}/products`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: product.name,
-        item: `${siteUrl}/products/${product.slug}`,
-      },
-    ],
-  };
+  const breadcrumbJsonLd = breadcrumbSchema([
+    { name: "Trang chủ", url: siteUrl },
+    { name: "Sản phẩm", url: `${siteUrl}/products` },
+    { name: product.name, url: `${siteUrl}/products/${product.slug}` },
+  ]);
 
   return (
     <main className="min-h-screen dark:bg-background">
-      <JsonLd data={[productSchema, breadcrumbSchema]} />
+      <JsonLd data={[productJsonLd, breadcrumbJsonLd]} />
 
       <div className="container mx-auto max-w-6xl px-4 pt-8 pb-16">
         {/* Breadcrumb */}

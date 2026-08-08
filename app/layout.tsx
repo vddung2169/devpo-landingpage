@@ -9,42 +9,8 @@ import {
   ConditionalFooter,
 } from "./components/conditional-chrome";
 import { ThemeProvider } from "./components/theme-provider";
-import { JsonLd } from "@/components/seo/JsonLd";
+import { JsonLd, storeSchema, websiteSchema } from "@/components/seo/JsonLd";
 import { Analytics } from "@vercel/analytics/next";
-
-// LocalBusiness Schema — giúp Google hiển thị thông tin cửa hàng (địa chỉ, giờ mở cửa, đánh giá)
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Dev Pồ - DevpoStore",
-  url: "https://www.devpo.vn",
-  logo: "https://www.devpo.vn/devpo_logo.jpg",
-  description:
-    "Chuyên cung cấp iPhone Lock và iPhone Quốc tế chính hãng, giá tốt tại TP. Hồ Chí Minh",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "3/39A Bình Giã, P.Tân Bình",
-    addressLocality: "TP. Hồ Chí Minh",
-    addressCountry: "VN",
-  },
-  telephone: "+840399208037",
-  openingHours: "Mo-Su 08:00-21:00",
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 10.799541789350657,
-    longitude: 106.64109797609562,
-  },
-  sameAs: [
-    "https://www.facebook.com/profile.php?id=61576332353912",
-    "https://www.tiktok.com/@devpo_iphone",
-  ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "9.9",
-    bestRating: "10",
-    ratingCount: "1800",
-  },
-};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -131,7 +97,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <JsonLd data={localBusinessSchema} />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -148,6 +113,9 @@ export default function RootLayout({
           {/* Popup quảng cáo — đang TẮT; bỏ comment dòng dưới (và import ở đầu file) để bật lại */}
           {/* <PromoBanner /> */}
         </ThemeProvider>
+        {/* JSON-LD site-wide: ElectronicsStore (local SEO) + WebSite.
+            Đặt cuối body để không chen vào phần render nội dung. */}
+        <JsonLd data={[storeSchema, websiteSchema]} />
         {/* Vercel Web Analytics — đo lượt truy cập & trang được xem nhiều nhất */}
         <Analytics />
       </body>

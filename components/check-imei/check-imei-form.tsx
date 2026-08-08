@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   AlertCircle,
   Check,
@@ -25,58 +25,52 @@ import { Spinner } from "@/components/ui/spinner";
 
 /**
  * Dịch vụ check CỐ ĐỊNH — chỉ để hiển thị. Server tự quyết định dịch vụ thật
- * qua DHRU_SERVICE_ID, client không gửi và không chọn được.
+ * qua IUNLOCK_SERVICE_ID, client không gửi và không chọn được.
  */
-const SERVICE_LABEL = "Check iCloud · SIM Lock · Model";
+const SERVICE_LABEL = "Model · Nhà mạng · SIM Lock · Ngày kích hoạt";
 const SERVICE_TIME = "vài giây";
 
-type ResultLine = { label: string; value: string };
+/** `tone` do chính upstream gán qua màu chữ trong HTML kết quả. */
+type ResultLine = { label: string; value: string; tone?: "good" | "bad" };
 
-/** Trạng thái lượt check của thiết bị, do máy chủ quyết định. */
+/**
+ * Trạng thái lượt check của thiết bị, do máy chủ quyết định.
+ *  idle — chưa dùng lượt nào
+ *  done — đã tra xong, có kết quả
+ *  used — đã dùng lượt nhưng kết quả không còn (cookie không chứa nổi)
+ */
 type Snapshot = {
-  state: "idle" | "pending" | "done" | "rejected";
-  referenceId?: string;
-  imei?: string;
+  state: "idle" | "done" | "used";
+  /** IMEI hoặc Serial đã tra. */
+  input?: string;
   serviceId?: string;
+  /** Mã đơn bên iUnlock — gửi cho bên hỗ trợ khi cần đối chiếu. */
+  orderId?: string;
   resetAt?: number;
   result?: ResultLine[];
-  raw?: string;
-  error?: string;
-  /** Sự cố tạm thời phía máy chủ tra cứu — đơn vẫn còn, sẽ tự thử lại. */
-  warning?: string;
 };
 
-/** Một kết quả đã lưu trên thiết bị, khoá theo IMEI. */
+/** Một kết quả đã lưu trên thiết bị, khoá theo IMEI/Serial. */
 type CacheEntry = {
-  imei: string;
+  input: string;
   serviceId?: string;
-  referenceId?: string;
+  orderId?: string;
   result: ResultLine[];
-  raw?: string;
   savedAt: number;
 };
 
 type CacheMap = Record<string, CacheEntry>;
 
-const CACHE_KEY = "devpo:check-imei:v2";
+const CACHE_KEY = "devpo:check-imei:v3";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
-const POLL_MS = 3000;
-/** Sau mốc này thì giãn nhịp hỏi, tránh nện máy chủ khi đơn chạy lâu. */
-const SLOW_POLL_AFTER_MS = 2 * 60 * 1000;
-const SLOW_POLL_MS = 10_000;
-/**
- * Máy chủ tra cứu lỗi liên tục quá lâu thì báo thẳng cho người dùng kèm mã đơn,
- * thay vì để vòng quay chạy mãi. Vẫn thử lại ngầm phòng khi bên kia hồi phục.
- */
-const STALE_AFTER_MS = 90_000;
 
 /* -------------------------------------------------------------------------- */
 /* Bộ nhớ kết quả trên thiết bị                                                */
 /* -------------------------------------------------------------------------- */
 
 /**
- * Kết quả check được giữ 24h ngay trên máy người dùng, khoá theo IMEI. Nhập lại
- * đúng IMEI đã check thì lấy từ đây, không gọi API và không tốn lượt.
+ * Kết quả check được giữ 24h ngay trên máy người dùng, khoá theo IMEI/Serial.
+ * Nhập lại đúng giá trị đã check thì lấy từ đây, không gọi API và không tốn lượt.
  *
  * Đây chỉ là bộ đệm tiện lợi, KHÔNG phải hàng rào hạn mức — hạn mức nằm ở
  * cookie đã ký phía máy chủ (xem lib/imei-quota.ts).
@@ -91,9 +85,9 @@ function readCache(): CacheMap {
     // Dọn các mục đã quá 24h ngay khi đọc.
     const now = Date.now();
     const fresh: CacheMap = {};
-    for (const [imei, entry] of Object.entries(parsed)) {
+    for (const [key, entry] of Object.entries(parsed)) {
       if (entry?.savedAt && now - entry.savedAt < CACHE_TTL_MS) {
-        fresh[imei] = entry;
+        fresh[key] = entry;
       }
     }
     return fresh;
@@ -116,6 +110,37 @@ function latestEntry(map: CacheMap): CacheEntry | undefined {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Kiểm tra đầu vào (bản rút gọn của lib/iunlock.ts, chạy phía client)          */
+/* -------------------------------------------------------------------------- */
+
+function luhnOk(imei: string): boolean {
+  let sum = 0;
+  for (let i = 0; i < 15; i++) {
+    let digit = Number(imei[i]);
+    if (i % 2 === 1) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+  }
+  return sum % 10 === 0;
+}
+
+/** Trả về giá trị đã chuẩn hoá để gửi lên server, hoặc null nếu chưa hợp lệ. */
+function normalize(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  if (!/[A-Za-z]/.test(trimmed)) {
+    const digits = trimmed.replace(/\D/g, "");
+    return digits.length === 15 && luhnOk(digits) ? digits : null;
+  }
+
+  const serial = trimmed.replace(/[\s-]/g, "").toUpperCase();
+  return /^[A-Z0-9]{8,12}$/.test(serial) && /[A-Z]/.test(serial) ? serial : null;
+}
+
+/* -------------------------------------------------------------------------- */
 
 const formatClock = (ms: number) =>
   new Date(ms).toLocaleTimeString("vi-VN", {
@@ -128,17 +153,29 @@ const TONE_BAD = "text-red-600 dark:text-red-500";
 
 /**
  * Tô màu ngữ nghĩa cho giá trị kết quả: tin tốt xanh lá, tin xấu đỏ.
- * Chỉ áp cho các trường đã biết rõ nghĩa, còn lại giữ màu chữ thường.
+ *
+ * Ưu tiên `tone` mà upstream đã gán sẵn (họ tự bọc `<span style='color:red'>`
+ * quanh giá trị xấu); chỉ đoán theo từ khoá khi họ không gán, và chỉ với những
+ * trường đã biết rõ nghĩa.
  */
-function valueTone(label: string, value: string): string {
+function valueTone(line: ResultLine): string {
+  if (line.tone) return line.tone === "good" ? TONE_GOOD : TONE_BAD;
+
+  const { label, value } = line;
   const l = label.toLowerCase();
   const v = value.trim().toLowerCase();
 
   // SIM Lock: Unlocked (quốc tế) là tốt, Locked là xấu. Xét "unlock" trước
   // vì "unlocked" cũng chứa chuỗi "lock".
-  if (l.includes("sim lock") || l.includes("simlock")) {
+  if (l.includes("sim lock") || l.includes("simlock") || l.includes("sim-lock")) {
     if (v.includes("unlock")) return TONE_GOOD;
     if (v.includes("lock")) return TONE_BAD;
+  }
+
+  // Nhà mạng: "Unlock"/"Unlocked" là máy quốc tế.
+  if (l.includes("carrier")) {
+    if (v.includes("unlock")) return TONE_GOOD;
+    if (v.includes("locked policy") || v.includes("locked")) return TONE_BAD;
   }
 
   // Find My iPhone / iCloud Lock: OFF là tốt, ON là xấu.
@@ -151,6 +188,12 @@ function valueTone(label: string, value: string): string {
   if (l.includes("icloud status")) {
     if (v.includes("clean")) return TONE_GOOD;
     if (v.includes("lost")) return TONE_BAD;
+  }
+
+  // Blacklist: Clean là tốt, Blocked/Blacklisted là xấu.
+  if (l.includes("blacklist")) {
+    if (v.includes("clean")) return TONE_GOOD;
+    if (v.includes("block") || v.includes("lost")) return TONE_BAD;
   }
 
   return "";
@@ -167,7 +210,7 @@ function formatRemaining(ms: number): string {
 }
 
 export function CheckImeiForm() {
-  const [imei, setImei] = useState("");
+  const [query, setQuery] = useState("");
 
   const [cache, setCache] = useState<CacheMap>({});
   const [snapshot, setSnapshot] = useState<Snapshot>({ state: "idle" });
@@ -176,25 +219,18 @@ export function CheckImeiForm() {
   const [formError, setFormError] = useState("");
   const [now, setNow] = useState(() => Date.now());
 
-  const [pendingSince, setPendingSince] = useState<number | null>(null);
-  const [warnSince, setWarnSince] = useState<number | null>(null);
-
-  // Giữ snapshot mới nhất cho vòng lặp poll và cho quy tắc chống ghi đè.
-  const snapshotRef = useRef(snapshot);
-  snapshotRef.current = snapshot;
-
   /** Lưu kết quả vào bộ đệm thiết bị. */
   const remember = useCallback((next: Snapshot) => {
-    if (!next.imei || !next.result?.length) return;
+    if (!next.input || !next.result?.length) return;
+    const key = next.input;
     setCache((current) => {
       const updated: CacheMap = {
         ...current,
-        [next.imei!]: {
-          imei: next.imei!,
+        [key]: {
+          input: key,
           serviceId: next.serviceId,
-          referenceId: next.referenceId,
+          orderId: next.orderId,
           result: next.result!,
-          raw: next.raw,
           savedAt: Date.now(),
         },
       };
@@ -203,36 +239,10 @@ export function CheckImeiForm() {
     });
   }, []);
 
-  /** Nhận trạng thái mới từ máy chủ. */
   const apply = useCallback(
     (next: Snapshot) => {
-      const current = snapshotRef.current;
-
-      // Kết quả đã xong là bất biến. Phản hồi suy giảm (máy chủ tra cứu lỗi nên
-      // trả về "pending") KHÔNG được xoá kết quả đang hiện — đây chính là lý do
-      // trước đây reload trang lại mất kết quả.
-      const downgrade =
-        current.state === "done" &&
-        next.state === "pending" &&
-        (!next.referenceId || next.referenceId === current.referenceId);
-      if (downgrade) {
-        setSnapshot({ ...current, warning: next.warning });
-        setNow(Date.now());
-        return;
-      }
-
       setSnapshot(next);
       setNow(Date.now());
-
-      if (next.state === "pending") {
-        setPendingSince((prev) => prev ?? Date.now());
-        // Chuỗi lỗi bị ngắt thì tính lại từ đầu.
-        setWarnSince((prev) => (next.warning ? (prev ?? Date.now()) : null));
-      } else {
-        setPendingSince(null);
-        setWarnSince(null);
-      }
-
       if (next.state === "done") remember(next);
     },
     [remember],
@@ -246,19 +256,19 @@ export function CheckImeiForm() {
 
     const last = latestEntry(map);
     if (last) {
-      setImei(last.imei);
+      setQuery(last.input);
       setSnapshot({
         state: "done",
-        imei: last.imei,
+        input: last.input,
         serviceId: last.serviceId,
-        referenceId: last.referenceId,
+        orderId: last.orderId,
         result: last.result,
-        raw: last.raw,
       });
     }
   }, []);
 
-  // Đối chiếu với máy chủ: đơn có thể đã xong trong lúc người dùng đi chỗ khác.
+  // Đối chiếu hạn mức với máy chủ: cookie mới là nguồn sự thật, và nó cũng giữ
+  // kết quả lần trước phòng khi người dùng đổi máy/xoá localStorage.
   useEffect(() => {
     const ac = new AbortController();
     (async () => {
@@ -268,10 +278,10 @@ export function CheckImeiForm() {
           cache: "no-store",
         });
         const data = (await res.json()) as Snapshot & { ok: boolean };
-        if (!data.ok) return;
+        if (!data.ok || data.state === "idle") return;
 
         apply(data);
-        if (data.imei) setImei(data.imei);
+        if (data.input) setQuery(data.input);
       } catch {
         // Mất mạng lúc khôi phục: giữ nguyên bộ đệm đang hiện.
       } finally {
@@ -281,42 +291,6 @@ export function CheckImeiForm() {
     return () => ac.abort();
   }, [apply]);
 
-  // Trong lúc đơn đang xử lý thì hỏi lại máy chủ đều đặn. Dịch vụ chậm (vd #16)
-  // có thể mất vài phút, nên không đặt trần số lần hỏi.
-  useEffect(() => {
-    if (snapshot.state !== "pending") return;
-
-    const ac = new AbortController();
-    let timer: ReturnType<typeof setTimeout>;
-
-    const nextDelay = () =>
-      pendingSince && Date.now() - pendingSince > SLOW_POLL_AFTER_MS
-        ? SLOW_POLL_MS
-        : POLL_MS;
-
-    const tick = async () => {
-      try {
-        const res = await fetch("/api/check-imei?action=status", {
-          signal: ac.signal,
-          cache: "no-store",
-        });
-        const data = (await res.json()) as Snapshot & { ok: boolean };
-        if (data.ok) apply(data);
-      } catch {
-        // Lỗi mạng tạm thời: cứ thử lại ở nhịp sau.
-      }
-      if (snapshotRef.current.state === "pending") {
-        timer = setTimeout(tick, nextDelay());
-      }
-    };
-
-    timer = setTimeout(tick, nextDelay());
-    return () => {
-      ac.abort();
-      clearTimeout(timer);
-    };
-  }, [snapshot.state, pendingSince, apply]);
-
   // Nhịp 30s để đồng hồ đếm ngược tự cập nhật.
   useEffect(() => {
     if (!snapshot.resetAt) return;
@@ -324,18 +298,20 @@ export function CheckImeiForm() {
     return () => clearInterval(id);
   }, [snapshot.resetAt]);
 
-  const imeiDigits = imei.replace(/\D/g, "");
-  /** IMEI đang nhập đã có kết quả lưu sẵn -> khỏi gọi API. */
-  const cached = imeiDigits.length === 15 ? cache[imeiDigits] : undefined;
+  const normalized = normalize(query);
+  const digits = query.replace(/\D/g, "");
+  const looksLikeSerial = /[A-Za-z]/.test(query.trim());
 
-  const quotaUsed = snapshot.state === "pending" || snapshot.state === "done";
+  /** Giá trị đang nhập đã có kết quả lưu sẵn -> khỏi gọi API. */
+  const cached = normalized ? cache[normalized] : undefined;
+
+  const quotaUsed = snapshot.state === "done" || snapshot.state === "used";
   const remainingMs = snapshot.resetAt ? snapshot.resetAt - now : 0;
-  const canSubmit =
-    !cached && !quotaUsed && !restoring && !submitting && imeiDigits.length === 15;
+  const canSubmit = !cached && !quotaUsed && !restoring && !submitting && !!normalized;
 
   async function submit() {
     // Đã có trong bộ đệm thì không gọi API, không tốn lượt.
-    if (cached) return;
+    if (!normalized || cached) return;
 
     setSubmitting(true);
     setFormError("");
@@ -343,10 +319,13 @@ export function CheckImeiForm() {
       const res = await fetch("/api/check-imei", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Chỉ gửi IMEI — dịch vụ do máy chủ cố định, client không chọn được.
-        body: JSON.stringify({ imei: imeiDigits }),
+        // Chỉ gửi IMEI/Serial — dịch vụ do máy chủ cố định, client không chọn được.
+        body: JSON.stringify({ imei: normalized }),
       });
-      const data = (await res.json()) as Snapshot & { ok: boolean };
+      const data = (await res.json()) as Snapshot & {
+        ok: boolean;
+        error?: string;
+      };
 
       if (data.state) apply(data);
       if (!data.ok && data.error) setFormError(data.error);
@@ -378,28 +357,28 @@ export function CheckImeiForm() {
           <div className="grid gap-4">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="imei">IMEI (15 số)</Label>
+                <Label htmlFor="imei">IMEI (15 số) hoặc Serial</Label>
                 <span
                   className={`text-xs tabular-nums ${
-                    imeiDigits.length === 15
+                    normalized
                       ? "font-medium text-foreground"
                       : "text-muted-foreground"
                   }`}
                 >
-                  {imeiDigits.length}/15
+                  {looksLikeSerial ? "Serial" : `${digits.length}/15`}
                 </span>
               </div>
               {/* Luôn cho sửa, kể cả khi đã hết lượt: người dùng cần nhập lại
                   IMEI cũ để lấy kết quả đã lưu. */}
               <Input
                 id="imei"
-                inputMode="numeric"
                 autoComplete="off"
+                autoCapitalize="characters"
                 placeholder="356789012345678"
-                value={imei}
+                value={query}
                 maxLength={19}
                 className="font-mono tracking-wider"
-                onChange={(e) => setImei(e.target.value)}
+                onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && canSubmit) submit();
                 }}
@@ -429,8 +408,8 @@ export function CheckImeiForm() {
             <div className="flex items-start gap-2 rounded-lg border border-border bg-secondary/50 p-3 text-sm text-muted-foreground">
               <Save className="mt-0.5 h-4 w-4 shrink-0" />
               <span>
-                IMEI này đã kiểm tra lúc {formatClock(cached.savedAt)}. Kết quả
-                lưu sẵn bên dưới, xem lại không tốn lượt.
+                Đã kiểm tra lúc {formatClock(cached.savedAt)}. Kết quả lưu sẵn
+                bên dưới, xem lại không tốn lượt.
               </span>
             </div>
           ) : quotaUsed ? (
@@ -439,7 +418,7 @@ export function CheckImeiForm() {
               <span>
                 Bạn đã dùng lượt kiểm tra miễn phí.{" "}
                 {remainingMs > 0
-                  ? `Có thể kiểm tra IMEI khác sau ${formatRemaining(remainingMs)}.`
+                  ? `Có thể kiểm tra máy khác sau ${formatRemaining(remainingMs)}.`
                   : restoring
                     ? "Đang cập nhật hạn mức…"
                     : "Tải lại trang để kiểm tra tiếp."}
@@ -453,7 +432,7 @@ export function CheckImeiForm() {
             >
               {submitting ? (
                 <>
-                  <Spinner /> Đang đặt lệnh…
+                  <Spinner /> Đang tra cứu…
                 </>
               ) : (
                 <>
@@ -465,35 +444,30 @@ export function CheckImeiForm() {
         </CardContent>
       </Card>
 
-      {/* Cột phải: ưu tiên kết quả đã lưu khớp IMEI đang nhập. */}
+      {/* Cột phải: ưu tiên kết quả đã lưu khớp giá trị đang nhập. */}
       <div className="min-w-0 lg:h-full">
         {cached ? (
           <ResultCard
-            imei={cached.imei}
-            referenceId={cached.referenceId}
+            input={cached.input}
+            orderId={cached.orderId}
             result={cached.result}
             savedAt={cached.savedAt}
-            done
           />
-        ) : snapshot.state === "pending" ? (
-          <PendingCard
-            snapshot={snapshot}
-            elapsedMs={pendingSince ? now - pendingSince : 0}
-            stale={!!warnSince && now - warnSince > STALE_AFTER_MS}
-          />
-        ) : snapshot.state === "done" || snapshot.state === "rejected" ? (
+        ) : submitting ? (
+          <PendingCard />
+        ) : snapshot.state === "done" && snapshot.result?.length ? (
           <ResultCard
-            imei={snapshot.imei}
-            referenceId={snapshot.referenceId}
-            result={snapshot.result ?? []}
-            error={snapshot.error}
-            done={snapshot.state === "done"}
+            input={snapshot.input}
+            orderId={snapshot.orderId}
+            result={snapshot.result}
           />
         ) : (
           // Chỗ đứng của kết quả trên desktop, giữ bố cục 2 cột không bị lệch.
           // Mobile ẩn đi cho gọn.
           <div className="hidden min-h-56 items-center justify-center rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground lg:flex lg:h-full">
-            Kết quả tra cứu sẽ hiện ở đây
+            {snapshot.state === "used"
+              ? "Lượt kiểm tra đã dùng nhưng kết quả không còn lưu trên thiết bị này."
+              : "Kết quả tra cứu sẽ hiện ở đây"}
           </div>
         )}
       </div>
@@ -501,103 +475,32 @@ export function CheckImeiForm() {
   );
 }
 
-function PendingCard({
-  snapshot,
-  elapsedMs,
-  stale,
-}: {
-  snapshot: Snapshot;
-  elapsedMs: number;
-  stale: boolean;
-}) {
-  const minutes = Math.floor(elapsedMs / 60000);
-  const elapsed =
-    minutes >= 1 ? `${minutes} phút` : `${Math.floor(elapsedMs / 1000)} giây`;
-
-  // Máy chủ tra cứu hỏng kéo dài: nói thẳng, đừng để người dùng nhìn vòng quay.
-  if (stale) {
-    return (
-      <Card className="gap-4 py-5 lg:h-full">
-        <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-lg">
-            <AlertCircle className="h-5 w-5 text-destructive" /> Chưa lấy được
-            kết quả
-            {snapshot.referenceId && (
-              <span className="text-xs font-normal text-muted-foreground">
-                Mã tham chiếu #{snapshot.referenceId}
-              </span>
-            )}
-          </CardTitle>
-          <CardDescription>
-            Lệnh kiểm tra IMEI {snapshot.imei} đã được ghi nhận, nhưng máy chủ
-            tra cứu đang không trả kết quả về.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <p className="text-sm text-muted-foreground">
-            Trang vẫn tự thử lại ngầm — cứ để mở hoặc quay lại sau, kết quả sẽ
-            hiện ngay khi lấy được. Nếu cần gấp, gửi mã tham chiếu{" "}
-            <span className="font-medium text-foreground">
-              #{snapshot.referenceId}
-            </span>{" "}
-            cho bên hỗ trợ.
-          </p>
-          {snapshot.warning && (
-            <p className="rounded-lg border border-border bg-secondary/50 p-3 text-xs text-muted-foreground">
-              {snapshot.warning}
-            </p>
-          )}
-        </CardContent>
-      </Card>
-    );
-  }
-
+function PendingCard() {
   return (
     <Card className="gap-4 py-5 lg:h-full">
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center gap-2 text-lg">
-          <Spinner /> Đang xử lý
-          {snapshot.referenceId && (
-            <span className="text-xs font-normal text-muted-foreground">
-              Mã tham chiếu #{snapshot.referenceId}
-            </span>
-          )}
-          {elapsedMs > 0 && (
-            <span className="text-xs font-normal text-muted-foreground">
-              · đã chờ {elapsed}
-            </span>
-          )}
+          <Spinner /> Đang tra cứu
         </CardTitle>
         <CardDescription>
-          Máy chủ đang tra cứu IMEI {snapshot.imei}. Trang sẽ tự hiện kết quả
-          ngay khi xong — bạn có thể đóng tab và quay lại sau, kết quả vẫn còn.
+          Máy chủ đang lấy thông tin từ Apple. Thường mất vài giây — vui lòng
+          không đóng tab.
         </CardDescription>
       </CardHeader>
-      {snapshot.warning && (
-        <CardContent>
-          <p className="rounded-lg border border-border bg-secondary/50 p-3 text-xs text-muted-foreground">
-            {snapshot.warning}
-          </p>
-        </CardContent>
-      )}
     </Card>
   );
 }
 
 function ResultCard({
-  imei,
-  referenceId,
+  input,
+  orderId,
   result,
-  error,
   savedAt,
-  done,
 }: {
-  imei?: string;
-  referenceId?: string;
+  input?: string;
+  orderId?: string;
   result: ResultLine[];
-  error?: string;
   savedAt?: number;
-  done: boolean;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -620,82 +523,65 @@ function ResultCard({
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center gap-2 text-lg">
           Kết quả
-          {done ? (
-            <Badge className="border-transparent bg-green-600 text-white">
-              Thành công
-            </Badge>
-          ) : (
-            <Badge variant="destructive">Bị từ chối</Badge>
-          )}
+          <Badge className="border-transparent bg-green-600 text-white">
+            Thành công
+          </Badge>
         </CardTitle>
-        {(imei || referenceId) && (
+        {input && (
           <CardDescription className="flex flex-wrap gap-x-3 gap-y-0.5">
-            {imei && <span className="font-mono">IMEI {imei}</span>}
-            {referenceId && <span>Mã tham chiếu #{referenceId}</span>}
+            <span className="font-mono">{input}</span>
+            {orderId && <span>Mã đơn {orderId}</span>}
             {savedAt && <span>Đã lưu lúc {formatClock(savedAt)}</span>}
           </CardDescription>
         )}
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {error && (
-          <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
-
-        {result.length > 0 && (
-          <dl className="divide-y divide-border overflow-hidden rounded-lg border border-border">
-            {result.map((line, i) =>
-              line.label ? (
-                // Nhãn trái, giá trị phải: hai đầu bám mép nên hàng nào cũng
-                // cân, không còn khoảng trống lớn ở giữa như bố cục cột cố định.
-                <div
-                  key={i}
-                  className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-0.5 px-4 py-2.5 text-sm even:bg-secondary/30"
+        <dl className="divide-y divide-border overflow-hidden rounded-lg border border-border">
+          {result.map((line, i) =>
+            line.label ? (
+              // Nhãn trái, giá trị phải: hai đầu bám mép nên hàng nào cũng
+              // cân, không còn khoảng trống lớn ở giữa như bố cục cột cố định.
+              <div
+                key={i}
+                className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-0.5 px-4 py-2.5 text-sm even:bg-secondary/30"
+              >
+                <dt className="shrink-0 text-muted-foreground">{line.label}</dt>
+                <dd
+                  className={`min-w-0 text-right font-medium break-all ${
+                    valueTone(line) || "text-foreground"
+                  } ${/^[\d\s-]+$/.test(line.value) ? "font-mono" : ""}`}
                 >
-                  <dt className="shrink-0 text-muted-foreground">
-                    {line.label}
-                  </dt>
-                  <dd
-                    className={`min-w-0 text-right font-medium break-all ${
-                      valueTone(line.label, line.value) || "text-foreground"
-                    } ${/^[\d\s-]+$/.test(line.value) ? "font-mono" : ""}`}
-                  >
-                    {line.value}
-                  </dd>
-                </div>
-              ) : (
-                <div
-                  key={i}
-                  className="px-4 py-2.5 text-sm text-foreground even:bg-secondary/30"
-                >
-                  <dd>{line.value}</dd>
-                </div>
-              ),
-            )}
-          </dl>
-        )}
-
-        {result.length > 0 && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full sm:w-auto"
-            onClick={copy}
-          >
-            {copied ? (
-              <>
-                <Check className="h-4 w-4" /> Đã sao chép
-              </>
+                  {line.value}
+                </dd>
+              </div>
             ) : (
-              <>
-                <Copy className="h-4 w-4" /> Sao chép kết quả
-              </>
-            )}
-          </Button>
-        )}
+              <div
+                key={i}
+                className="px-4 py-2.5 text-sm text-foreground even:bg-secondary/30"
+              >
+                <dd>{line.value}</dd>
+              </div>
+            ),
+          )}
+        </dl>
+
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full sm:w-auto"
+          onClick={copy}
+        >
+          {copied ? (
+            <>
+              <Check className="h-4 w-4" /> Đã sao chép
+            </>
+          ) : (
+            <>
+              <Copy className="h-4 w-4" /> Sao chép kết quả
+            </>
+          )}
+        </Button>
       </CardContent>
     </Card>
   );

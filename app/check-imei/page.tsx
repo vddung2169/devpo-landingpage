@@ -4,9 +4,9 @@ import { ChevronRight, Smartphone } from "lucide-react";
 import { CheckImeiForm } from "@/components/check-imei/check-imei-form";
 
 export const metadata: Metadata = {
-  title: "Check IMEI iPhone — tra cứu iCloud, SimLock, nhà mạng",
+  title: "Check IMEI iPhone — tra cứu nhà mạng, SimLock, model",
   description:
-    "Nhập IMEI để tra cứu model, tình trạng iCloud, SIM Lock và nhà mạng của iPhone. Công cụ kiểm tra tại Dev Pồ.",
+    "Nhập IMEI hoặc Serial để tra cứu model, nhà mạng gốc, SIM Lock và ngày kích hoạt của iPhone. Công cụ kiểm tra tại Dev Pồ.",
   alternates: { canonical: "/check-imei" },
   // Trang đang trong giai đoạn thử nghiệm — chưa mở cho công cụ tìm kiếm.
   robots: { index: false, follow: false },
@@ -39,8 +39,8 @@ export default function CheckImeiPage() {
             Tra cứu thông tin iPhone bằng IMEI
           </h1>
           <p className="mt-1 text-sm text-muted-foreground md:text-base">
-            Nhập IMEI 15 số để xem model, tình trạng iCloud, SIM Lock và nhà
-            mạng gốc của máy.
+            Nhập IMEI 15 số (hoặc Serial) để xem model, nhà mạng gốc, SIM Lock
+            và ngày kích hoạt của máy.
           </p>
         </div>
 
