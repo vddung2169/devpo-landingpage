@@ -104,6 +104,18 @@ function friendly(raw: string): Friendly {
 
   if (table[raw]) return table[raw];
 
+  // Whitelist IP của iUnlock chặn ngay ở cửa — chưa xử lý gì nên KHÔNG trừ tiền.
+  // Lưu ý: Vercel Functions không có IP đi ra cố định (xem ?action=diag), nên
+  // whitelist theo IP không thể dùng được với deploy trên Vercel.
+  if (/IP not allowed|Invalid IP/i.test(raw)) {
+    return {
+      message:
+        "Máy chủ chưa được cấp quyền gọi API check (IP chưa whitelist). Vui lòng liên hệ quản trị.",
+      adminAction: true,
+      retryable: false,
+    };
+  }
+
   if (/^Invalid (device|imei|serial)/i.test(raw)) {
     return {
       message: "IMEI/Serial không hợp lệ với dịch vụ này. Vui lòng kiểm tra lại.",
@@ -269,6 +281,55 @@ async function call(
 /* -------------------------------------------------------------------------- */
 /* Actions                                                                     */
 /* -------------------------------------------------------------------------- */
+
+/**
+ * Chẩn đoán cho admin (?action=diag): lấy IP ĐI RA của function và phản hồi
+ * nguyên trạng của upstream, KHÔNG qua lớp Việt hoá.
+ *
+ * Vì sao cần: iUnlock whitelist theo IP, nhưng Vercel Functions không có IP đi
+ * ra cố định — mỗi lần gọi có thể đi bằng một IP khác trong dải NAT của vùng.
+ * Gọi nhiều mẫu để thấy rõ IP có đổi giữa các lần hay không.
+ *
+ * Chỉ dùng action MIỄN PHÍ (accountinfo), không đặt lệnh tra cứu nào.
+ */
+export async function diagnose(
+  samples = 3,
+): Promise<Record<string, unknown>> {
+  const egress: string[] = [];
+  for (let i = 0; i < samples; i++) {
+    try {
+      const res = await fetch("https://api.ipify.org", { cache: "no-store" });
+      egress.push((await res.text()).trim());
+    } catch {
+      egress.push("(không lấy được)");
+    }
+  }
+
+  let upstream: Record<string, unknown>;
+  try {
+    const url = new URL(API_URL);
+    url.searchParams.set("key", API_KEY ?? "");
+    url.searchParams.set("accountinfo", "balance");
+    const res = await fetch(url, { cache: "no-store" });
+    const text = await res.text();
+    upstream = {
+      httpStatus: res.status,
+      contentType: res.headers.get("content-type"),
+      bodyFirst300: text.replace(/\s{4,}/g, " ").slice(0, 300),
+    };
+  } catch (err) {
+    upstream = { fetchError: String(err) };
+  }
+
+  return {
+    at: new Date().toISOString(),
+    region: process.env.VERCEL_REGION ?? "local",
+    apiUrl: API_URL,
+    egressIps: egress,
+    egressStable: new Set(egress).size === 1,
+    upstream,
+  };
+}
 
 export type Balance = {
   credit: string;

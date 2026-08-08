@@ -4,6 +4,7 @@ import {
   IUnlockError,
   balance,
   check,
+  diagnose,
   isConfigured,
   normalizeInput,
   serviceList,
@@ -73,6 +74,7 @@ function snapshot(ticket: QuotaTicket) {
  * GET ?action=status   — trạng thái lượt check của thiết bị hiện tại
  * GET ?action=account  — số dư tài khoản iUnlock (chỉ phiên nội bộ)
  * GET ?action=services — danh sách dịch vụ + mã ID (chỉ phiên nội bộ)
+ * GET ?action=diag     — IP đi ra của function + phản hồi thô (chỉ phiên nội bộ)
  */
 export async function GET(req: NextRequest) {
   if (!isConfigured()) {
@@ -102,6 +104,12 @@ export async function GET(req: NextRequest) {
         current: DEFAULT_SERVICE_ID,
         services: await serviceList(),
       });
+    }
+
+    if (action === "diag") {
+      // Chứa IP hạ tầng và phản hồi thô của upstream — khoá sau cổng nội bộ.
+      if (!isInternal(req)) return fail("Không có quyền chạy chẩn đoán.", 403);
+      return NextResponse.json({ ok: true, diag: await diagnose() });
     }
 
     return fail("Tham số action không hợp lệ.", 400);
