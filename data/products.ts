@@ -1946,6 +1946,370 @@ const techSpecsByModel: Record<string, SpecGroup[]> = {
 };
 
 // -----------------------------------------------------------------------------
+// Bảng cấu hình kỹ thuật chi tiết cho iPad (kiểu Thế Giới Di Động / CellphoneS).
+// Nguồn đối chiếu: thegioididong.com, cellphones.com.vn, Apple.
+// Ghi chú: Apple KHÔNG công bố RAM và dung lượng pin (mAh) — số mAh quy đổi từ Wh
+// và số RAM lấy từ nguồn bên thứ ba, đã ghi rõ "(hãng không công bố)".
+// -----------------------------------------------------------------------------
+const techSpecsByIpad: Record<string, SpecGroup[]> = {
+  // ===================== iPad Gen 7 (10.2 inch, 2019) =====================
+  "ipad-gen-7": [
+    {
+      group: "Màn hình",
+      rows: [
+        { label: "Kích thước", value: "10.2 inch" },
+        { label: "Công nghệ", value: "Retina IPS LCD, đèn nền LED" },
+        { label: "Độ phân giải", value: "2160 × 1620 pixel (264 ppi)" },
+        { label: "Tần số quét", value: "60Hz" },
+        { label: "Độ sáng tối đa", value: "500 nits" },
+        { label: "Mặt kính", value: "Lớp phủ chống bám vân tay" },
+        { label: "Tính năng", value: "Dải màu sRGB (chưa có True Tone, màn hình chưa ép kính)" },
+      ],
+    },
+    {
+      group: "Chip & Hiệu năng",
+      rows: [
+        { label: "Chip xử lý", value: "Apple A10 Fusion (64-bit) + đồng xử lý M10" },
+        { label: "GPU", value: "PowerVR 6 nhân" },
+        { label: "RAM", value: "3GB (hãng không công bố)" },
+      ],
+    },
+    {
+      group: "Bộ nhớ",
+      rows: [{ label: "Dung lượng", value: "32GB / 128GB" }],
+    },
+    {
+      group: "Camera sau",
+      rows: [
+        { label: "Độ phân giải", value: "8MP, khẩu độ f/2.4" },
+        { label: "Quay video", value: "1080p @30fps" },
+        { label: "Tính năng", value: "HDR, Live Photos, lấy nét tự động, panorama 43MP" },
+      ],
+    },
+    {
+      group: "Camera trước",
+      rows: [
+        { label: "Độ phân giải", value: "1.2MP FaceTime HD, khẩu độ f/2.4" },
+        { label: "Quay video", value: "720p @30fps" },
+        { label: "Tính năng", value: "HDR cho ảnh, chế độ chân dung Retina Flash (qua màn hình)" },
+      ],
+    },
+    {
+      group: "Pin & Sạc",
+      rows: [
+        { label: "Dung lượng pin", value: "32.4 Wh (~8.800 mAh — hãng không công bố)" },
+        { label: "Thời lượng dùng", value: "Tới 10 giờ lướt web Wi-Fi / 9 giờ mạng di động (Apple công bố)" },
+        { label: "Sạc", value: "12W qua cổng Lightning" },
+      ],
+    },
+    {
+      group: "Thiết kế & Chất liệu",
+      rows: [
+        { label: "Chất liệu", value: "Khung nhôm nguyên khối" },
+        { label: "Kích thước", value: "250.6 × 174.1 × 7.5 mm" },
+        { label: "Trọng lượng", value: "483g (Wi-Fi) / 493g (Wi-Fi + 4G)" },
+        { label: "Bảo mật", value: "Touch ID tích hợp phím Home" },
+      ],
+    },
+    {
+      group: "Kết nối",
+      rows: [
+        { label: "SIM", value: "1 Nano SIM + eSIM (chỉ bản Wi-Fi + Cellular)" },
+        { label: "Mạng di động", value: "4G LTE (bản Cellular)" },
+        { label: "Wi-Fi", value: "Wi-Fi 5 (802.11ac) 2 băng tần, MIMO" },
+        { label: "Bluetooth", value: "Bluetooth 4.2" },
+        { label: "Định vị", value: "GPS/GNSS, GLONASS, Galileo, QZSS (bản Cellular)" },
+        { label: "Cổng kết nối", value: "Lightning, jack tai nghe 3.5mm, Smart Connector" },
+      ],
+    },
+    {
+      group: "Tiện ích & Phụ kiện",
+      rows: [
+        { label: "Bút cảm ứng", value: "Apple Pencil thế hệ 1" },
+        { label: "Bàn phím", value: "Smart Keyboard (qua Smart Connector)" },
+        { label: "Âm thanh", value: "2 loa stereo" },
+      ],
+    },
+    {
+      group: "Thông tin chung",
+      rows: [
+        { label: "Hệ điều hành", value: "iPadOS 13 (nâng cấp được lên iPadOS 17)" },
+        { label: "Ngày ra mắt", value: "Tháng 9/2019" },
+      ],
+    },
+  ],
+
+  // ===================== iPad Pro 11 inch (2020) =====================
+  "ipad-pro-11-2020": [
+    {
+      group: "Màn hình",
+      rows: [
+        { label: "Kích thước", value: "11 inch" },
+        { label: "Công nghệ", value: "Liquid Retina IPS LCD, ép kính (laminated), chống phản chiếu" },
+        { label: "Độ phân giải", value: "2388 × 1668 pixel (264 ppi)" },
+        { label: "Tần số quét", value: "ProMotion thích ứng tối đa 120Hz" },
+        { label: "Độ sáng tối đa", value: "600 nits" },
+        { label: "Tính năng", value: "True Tone, dải màu rộng P3, viền mỏng đều 4 cạnh" },
+      ],
+    },
+    {
+      group: "Chip & Hiệu năng",
+      rows: [
+        { label: "Chip xử lý", value: "Apple A12Z Bionic, CPU 8 nhân (4 hiệu năng + 4 tiết kiệm điện)" },
+        { label: "GPU", value: "8 nhân (Apple thiết kế)" },
+        { label: "Neural Engine", value: "8 nhân" },
+        { label: "RAM", value: "6GB (hãng không công bố)" },
+      ],
+    },
+    {
+      group: "Bộ nhớ",
+      rows: [{ label: "Dung lượng", value: "128GB / 256GB / 512GB / 1TB" }],
+    },
+    {
+      group: "Camera sau",
+      rows: [
+        { label: "Camera chính", value: "12MP góc rộng, khẩu độ f/1.8" },
+        { label: "Camera phụ", value: "10MP góc siêu rộng, f/2.4, góc nhìn 125°" },
+        { label: "Cảm biến LiDAR", value: "Đo chiều sâu phục vụ AR, lấy nét nhanh trong tối" },
+        { label: "Quay video", value: "4K @24/30/60fps, slow-motion 1080p @120/240fps" },
+        { label: "Zoom", value: "Thu nhỏ 2x, zoom số tối đa 5x" },
+        { label: "Đèn flash", value: "True Tone 2 tông màu" },
+      ],
+    },
+    {
+      group: "Camera trước",
+      rows: [
+        { label: "Độ phân giải", value: "7MP TrueDepth, khẩu độ f/2.2" },
+        { label: "Quay video", value: "1080p @60fps" },
+        { label: "Tính năng", value: "Face ID, chụp chân dung, Animoji/Memoji, Smart HDR" },
+      ],
+    },
+    {
+      group: "Pin & Sạc",
+      rows: [
+        { label: "Dung lượng pin", value: "28.65 Wh (~7.540 mAh — hãng không công bố)" },
+        { label: "Thời lượng dùng", value: "Tới 10 giờ lướt web Wi-Fi / 9 giờ mạng di động (Apple công bố)" },
+        { label: "Sạc", value: "18W qua cổng USB-C (củ sạc kèm máy)" },
+      ],
+    },
+    {
+      group: "Thiết kế & Chất liệu",
+      rows: [
+        { label: "Chất liệu", value: "Khung nhôm nguyên khối, mặt lưng nhôm" },
+        { label: "Kích thước", value: "247.6 × 178.5 × 5.9 mm" },
+        { label: "Trọng lượng", value: "471g (Wi-Fi) / 473g (Wi-Fi + 4G)" },
+        { label: "Bảo mật", value: "Face ID (nhận diện khuôn mặt mọi chiều xoay)" },
+      ],
+    },
+    {
+      group: "Kết nối",
+      rows: [
+        { label: "SIM", value: "1 Nano SIM + eSIM (chỉ bản Wi-Fi + Cellular)" },
+        { label: "Mạng di động", value: "4G LTE Gigabit-class (bản Cellular)" },
+        { label: "Wi-Fi", value: "Wi-Fi 6 (802.11ax) 2 băng tần, MIMO" },
+        { label: "Bluetooth", value: "Bluetooth 5.0" },
+        { label: "Định vị", value: "GPS/GNSS, GLONASS, Galileo, QZSS (bản Cellular)" },
+        { label: "Cổng kết nối", value: "USB-C (hỗ trợ xuất màn hình, đọc thẻ, ổ cứng ngoài)" },
+      ],
+    },
+    {
+      group: "Tiện ích & Phụ kiện",
+      rows: [
+        { label: "Bút cảm ứng", value: "Apple Pencil thế hệ 2 (hít nam châm, sạc không dây)" },
+        { label: "Bàn phím", value: "Magic Keyboard (có trackpad), Smart Keyboard Folio" },
+        { label: "Âm thanh", value: "4 loa stereo tự cân chỉnh theo chiều cầm máy" },
+        { label: "Micro", value: "5 micro chất lượng phòng thu" },
+      ],
+    },
+    {
+      group: "Thông tin chung",
+      rows: [
+        { label: "Hệ điều hành", value: "iPadOS 13.4 (nâng cấp được lên iPadOS 26)" },
+        { label: "Ngày ra mắt", value: "Tháng 3/2020" },
+      ],
+    },
+  ],
+
+  // ===================== iPad Air 4 (10.9 inch, 2020) =====================
+  "ipad-air-4": [
+    {
+      group: "Màn hình",
+      rows: [
+        { label: "Kích thước", value: "10.9 inch" },
+        { label: "Công nghệ", value: "Liquid Retina IPS LCD, ép kính (laminated), chống phản chiếu" },
+        { label: "Độ phân giải", value: "2360 × 1640 pixel (264 ppi)" },
+        { label: "Tần số quét", value: "60Hz" },
+        { label: "Độ sáng tối đa", value: "500 nits" },
+        { label: "Tính năng", value: "True Tone, dải màu rộng P3, viền mỏng đều 4 cạnh" },
+      ],
+    },
+    {
+      group: "Chip & Hiệu năng",
+      rows: [
+        { label: "Chip xử lý", value: "Apple A14 Bionic (5nm), CPU 6 nhân" },
+        { label: "GPU", value: "4 nhân" },
+        { label: "Neural Engine", value: "16 nhân" },
+        { label: "RAM", value: "4GB (hãng không công bố)" },
+      ],
+    },
+    {
+      group: "Bộ nhớ",
+      rows: [{ label: "Dung lượng", value: "64GB / 256GB" }],
+    },
+    {
+      group: "Camera sau",
+      rows: [
+        { label: "Độ phân giải", value: "12MP góc rộng, khẩu độ f/1.8" },
+        { label: "Quay video", value: "4K @24/30/60fps, slow-motion 1080p @120/240fps" },
+        { label: "Zoom", value: "Zoom số tối đa 5x" },
+        { label: "Tính năng", value: "Smart HDR, lấy nét tự động Focus Pixels (không có đèn flash)" },
+      ],
+    },
+    {
+      group: "Camera trước",
+      rows: [
+        { label: "Độ phân giải", value: "7MP FaceTime HD, khẩu độ f/2.2" },
+        { label: "Quay video", value: "1080p @60fps" },
+        { label: "Tính năng", value: "Smart HDR, quay video tua nhanh, ổn định hình ảnh" },
+      ],
+    },
+    {
+      group: "Pin & Sạc",
+      rows: [
+        { label: "Dung lượng pin", value: "28.6 Wh (~7.600 mAh — hãng không công bố)" },
+        { label: "Thời lượng dùng", value: "Tới 10 giờ lướt web Wi-Fi / 9 giờ mạng di động (Apple công bố)" },
+        { label: "Sạc", value: "20W qua cổng USB-C (củ sạc kèm máy)" },
+      ],
+    },
+    {
+      group: "Thiết kế & Chất liệu",
+      rows: [
+        { label: "Chất liệu", value: "Khung nhôm nguyên khối" },
+        { label: "Kích thước", value: "247.6 × 178.5 × 6.1 mm" },
+        { label: "Trọng lượng", value: "458g (Wi-Fi) / 460g (Wi-Fi + 4G)" },
+        { label: "Bảo mật", value: "Touch ID tích hợp nút nguồn" },
+        { label: "Màu sắc", value: "Xám, Bạc, Vàng hồng, Xanh lá, Xanh dương" },
+      ],
+    },
+    {
+      group: "Kết nối",
+      rows: [
+        { label: "SIM", value: "1 Nano SIM + eSIM (chỉ bản Wi-Fi + Cellular)" },
+        { label: "Mạng di động", value: "4G LTE Gigabit-class (bản Cellular)" },
+        { label: "Wi-Fi", value: "Wi-Fi 6 (802.11ax) 2 băng tần, MIMO" },
+        { label: "Bluetooth", value: "Bluetooth 5.0" },
+        { label: "Định vị", value: "GPS/GNSS, GLONASS, Galileo, QZSS (bản Cellular)" },
+        { label: "Cổng kết nối", value: "USB-C (hỗ trợ ổ cứng ngoài, xuất màn hình)" },
+      ],
+    },
+    {
+      group: "Tiện ích & Phụ kiện",
+      rows: [
+        { label: "Bút cảm ứng", value: "Apple Pencil thế hệ 2 (hít nam châm, sạc không dây)" },
+        { label: "Bàn phím", value: "Magic Keyboard, Smart Keyboard Folio" },
+        { label: "Âm thanh", value: "2 loa stereo (khi cầm ngang)" },
+      ],
+    },
+    {
+      group: "Thông tin chung",
+      rows: [
+        { label: "Hệ điều hành", value: "iPadOS 14 (nâng cấp được lên iPadOS 26)" },
+        { label: "Ngày ra mắt", value: "Tháng 10/2020" },
+      ],
+    },
+  ],
+
+  // ===================== iPad Air 5 (10.9 inch, 2022) =====================
+  "ipad-air-5": [
+    {
+      group: "Màn hình",
+      rows: [
+        { label: "Kích thước", value: "10.9 inch" },
+        { label: "Công nghệ", value: "Liquid Retina IPS LCD, ép kính (laminated), chống phản chiếu" },
+        { label: "Độ phân giải", value: "2360 × 1640 pixel (264 ppi)" },
+        { label: "Tần số quét", value: "60Hz" },
+        { label: "Độ sáng tối đa", value: "500 nits" },
+        { label: "Tính năng", value: "True Tone, dải màu rộng P3" },
+      ],
+    },
+    {
+      group: "Chip & Hiệu năng",
+      rows: [
+        { label: "Chip xử lý", value: "Apple M1 (5nm), CPU 8 nhân (4 hiệu năng + 4 tiết kiệm điện)" },
+        { label: "GPU", value: "8 nhân" },
+        { label: "Neural Engine", value: "16 nhân" },
+        { label: "RAM", value: "8GB (hãng không công bố)" },
+      ],
+    },
+    {
+      group: "Bộ nhớ",
+      rows: [{ label: "Dung lượng", value: "64GB / 256GB" }],
+    },
+    {
+      group: "Camera sau",
+      rows: [
+        { label: "Độ phân giải", value: "12MP góc rộng, khẩu độ f/1.8" },
+        { label: "Quay video", value: "4K @24/30/60fps, slow-motion 1080p @120/240fps" },
+        { label: "Zoom", value: "Zoom số tối đa 5x" },
+        { label: "Tính năng", value: "Smart HDR 3, quay tua nhanh có ổn định (không có đèn flash)" },
+      ],
+    },
+    {
+      group: "Camera trước",
+      rows: [
+        { label: "Độ phân giải", value: "12MP góc siêu rộng, f/2.4, góc nhìn 122°" },
+        { label: "Quay video", value: "1080p @60fps" },
+        { label: "Tính năng", value: "Center Stage — tự động bám theo người trong khung hình khi gọi video" },
+      ],
+    },
+    {
+      group: "Pin & Sạc",
+      rows: [
+        { label: "Dung lượng pin", value: "28.6 Wh (~7.600 mAh — hãng không công bố)" },
+        { label: "Thời lượng dùng", value: "Tới 10 giờ lướt web Wi-Fi / 9 giờ mạng di động (Apple công bố)" },
+        { label: "Sạc", value: "20W qua cổng USB-C (củ sạc kèm máy)" },
+      ],
+    },
+    {
+      group: "Thiết kế & Chất liệu",
+      rows: [
+        { label: "Chất liệu", value: "Khung nhôm nguyên khối (nhôm tái chế 100%)" },
+        { label: "Kích thước", value: "247.6 × 178.5 × 6.1 mm" },
+        { label: "Trọng lượng", value: "461g (Wi-Fi) / 462g (Wi-Fi + 5G)" },
+        { label: "Bảo mật", value: "Touch ID tích hợp nút nguồn" },
+        { label: "Màu sắc", value: "Xám, Trắng, Hồng, Tím, Xanh dương" },
+      ],
+    },
+    {
+      group: "Kết nối",
+      rows: [
+        { label: "SIM", value: "1 Nano SIM + eSIM (chỉ bản Wi-Fi + Cellular)" },
+        { label: "Mạng di động", value: "5G (sub-6GHz) và 4G LTE (bản Cellular)" },
+        { label: "Wi-Fi", value: "Wi-Fi 6 (802.11ax) 2 băng tần, MIMO" },
+        { label: "Bluetooth", value: "Bluetooth 5.0" },
+        { label: "Định vị", value: "GPS/GNSS, GLONASS, Galileo, QZSS (bản Cellular)" },
+        { label: "Cổng kết nối", value: "USB-C tốc độ tới 10Gb/s (nhanh gấp 2 lần iPad Air 4)" },
+      ],
+    },
+    {
+      group: "Tiện ích & Phụ kiện",
+      rows: [
+        { label: "Bút cảm ứng", value: "Apple Pencil thế hệ 2 (hít nam châm, sạc không dây)" },
+        { label: "Bàn phím", value: "Magic Keyboard, Smart Keyboard Folio" },
+        { label: "Âm thanh", value: "2 loa stereo (khi cầm ngang)" },
+      ],
+    },
+    {
+      group: "Thông tin chung",
+      rows: [
+        { label: "Hệ điều hành", value: "iPadOS 15.4 (nâng cấp được lên iPadOS 26)" },
+        { label: "Ngày ra mắt", value: "Tháng 3/2022" },
+      ],
+    },
+  ],
+};
+
+// -----------------------------------------------------------------------------
 // 4 sản phẩm chủ lực — mô tả & đặc điểm viết tay, tối ưu SEO
 // -----------------------------------------------------------------------------
 const detailedProducts: Product[] = [
@@ -2058,7 +2422,9 @@ const detailedProducts: Product[] = [
 // -----------------------------------------------------------------------------
 // Các sản phẩm còn lại — mô tả/đặc điểm tạo tự động. Mỗi mục gắn techSpecs theo model.
 // -----------------------------------------------------------------------------
-type DerivedInput = Omit<Product, "zaloLink" | "description" | "features">;
+// description/features để trống -> sinh tự động; khai báo sẵn -> dùng bản viết tay.
+type DerivedInput = Omit<Product, "zaloLink" | "description" | "features"> &
+  Partial<Pick<Product, "description" | "features">>;
 
 const derivedInputs: DerivedInput[] = [
   {
@@ -2363,10 +2729,21 @@ const derivedInputs: DerivedInput[] = [
     priceFrom: "Từ 3.490.000đ",
     priceOriginal: "4.900.000đ",
     storage: "32GB - 4G",
-    simType: "1 sim vật lý",
+    simType: "Wi-Fi + 4G (1 Nano SIM)",
     condition: "Hình thức 98-99%",
     battery: "Pin 8x-9x%",
     image: "/products/ipadgen7.png",
+    description:
+      "iPad Gen 7 (10.2 inch, 2019) bản 32GB có 4G là lựa chọn máy tính bảng giá rẻ đáng mua nhất tại Dev Pồ cho học sinh, sinh viên và người dùng cơ bản. Màn hình Retina 10.2 inch rộng rãi, chip A10 Fusion mượt mà cho việc học online, xem phim, lướt web và ghi chú. Máy hỗ trợ Apple Pencil thế hệ 1 cùng Smart Keyboard qua cổng Smart Connector, có Touch ID phím Home và vẫn giữ jack tai nghe 3.5mm tiện lợi. Bản Cellular gắn được SIM 4G nên dùng ngoài đường không cần phát Wi-Fi từ điện thoại. Máy nguyên zin nguyên bản, hình thức 98-99%, đã kiểm tra kỹ trước khi giao, bảo hành tại cửa hàng và hỗ trợ trả góp 0%.",
+    features: [
+      "Màn hình Retina 10.2 inch, độ phân giải 2160 × 1620",
+      "Chip A10 Fusion đủ mượt cho học online, xem phim, lướt web",
+      "Hỗ trợ Apple Pencil 1 và Smart Keyboard (Smart Connector)",
+      "Có 4G LTE — dùng SIM đi ngoài đường không cần Wi-Fi",
+      "Pin 32.4 Wh cho tới 10 giờ sử dụng, còn jack tai nghe 3.5mm",
+      "Máy nguyên zin, hình thức 98-99%, bảo hành tại cửa hàng",
+    ],
+    techSpecs: techSpecsByIpad["ipad-gen-7"],
   },
   {
     id: 20,
@@ -2376,10 +2753,21 @@ const derivedInputs: DerivedInput[] = [
     priceFrom: "Từ 12.290.000đ",
     priceOriginal: "13.890.000đ",
     storage: "128GB - 4G",
-    simType: "1 sim vật lý",
+    simType: "Wi-Fi + 4G (1 Nano SIM)",
     condition: "Hình thức 98-99%",
     battery: "Pin 9x%",
     image: "/products/ipadpro2020.png",
+    description:
+      "iPad Pro 11 inch 2020 bản 128GB có 4G là chiếc iPad mạnh mẽ nhất trong tầm giá tại Dev Pồ. Màn hình Liquid Retina 11 inch ép kính, chống phản chiếu cùng công nghệ ProMotion 120Hz cho thao tác vuốt chạm và nét vẽ mượt mà bậc nhất — rất hợp với dân thiết kế, vẽ digital và dựng video. Chip A12Z Bionic 8 nhân kèm GPU 8 nhân, RAM 6GB xử lý tốt Procreate, LumaFusion, Photoshop cho iPad. Cụm camera 12MP + 10MP góc siêu rộng kèm cảm biến LiDAR hỗ trợ AR, mở khoá bằng Face ID, 4 loa stereo và cổng USB-C tiện cho ổ cứng ngoài. Hỗ trợ Apple Pencil 2 và Magic Keyboard có trackpad để dùng như một chiếc laptop nhẹ. Máy nguyên zin nguyên bản, hình thức 98-99%, pin 9x%, bảo hành tại cửa hàng.",
+    features: [
+      "Màn hình Liquid Retina 11 inch, ProMotion 120Hz siêu mượt",
+      "Chip A12Z Bionic 8 nhân + GPU 8 nhân, RAM 6GB — chiến tốt Procreate, LumaFusion",
+      "Camera 12MP + 10MP góc siêu rộng kèm cảm biến LiDAR, quay 4K 60fps",
+      "Mở khoá Face ID, 4 loa stereo, cổng USB-C đa năng",
+      "Hỗ trợ Apple Pencil 2 và Magic Keyboard có trackpad",
+      "Có 4G LTE, máy nguyên zin, hình thức 98-99%, pin 9x%",
+    ],
+    techSpecs: techSpecsByIpad["ipad-pro-11-2020"],
   },
   {
     id: 21,
@@ -2390,10 +2778,21 @@ const derivedInputs: DerivedInput[] = [
     priceFrom: "Từ 7.390.000đ",
     priceOriginal: "9.890.000đ",
     storage: "64GB / 256GB - Wifi / 4G",
-    simType: "1 sim vật lý",
+    simType: "Bản Wi-Fi hoặc Wi-Fi + 4G (1 Nano SIM)",
     condition: "Hình thức 98-99%",
     battery: "Pin 8x-9x%",
     image: "/products/ipadair4.png",
+    description:
+      "iPad Air 4 (10.9 inch, 2020) là chiếc iPad bán chạy tại Dev Pồ nhờ cân bằng rất tốt giữa giá và trải nghiệm. Máy mang thiết kế vuông vức viền mỏng giống iPad Pro, màn hình Liquid Retina 10.9 inch ép kính, chống phản chiếu, True Tone và dải màu P3 hiển thị rất đã mắt. Chip A14 Bionic 5nm cho hiệu năng dư dùng để học tập, làm việc văn phòng, vẽ Procreate và chơi game nặng. Touch ID chuyển lên nút nguồn tiện lợi, cổng USB-C kết nối được ổ cứng và màn hình ngoài, hỗ trợ Apple Pencil 2 hít nam châm cùng Magic Keyboard. Có sẵn cả bản Wi-Fi và bản 4G, dung lượng 64GB hoặc 256GB. Máy nguyên zin nguyên bản, hình thức 98-99%, bảo hành tại cửa hàng, hỗ trợ trả góp 0%.",
+    features: [
+      "Màn hình Liquid Retina 10.9 inch ép kính, True Tone, màu P3",
+      "Chip A14 Bionic 5nm — mượt cho học tập, làm việc, vẽ Procreate",
+      "Thiết kế viền mỏng giống iPad Pro, Touch ID ở nút nguồn",
+      "Hỗ trợ Apple Pencil 2 sạc nam châm và Magic Keyboard",
+      "Cổng USB-C, camera 12MP quay 4K, sạc nhanh 20W",
+      "Tùy chọn 64GB / 256GB, bản Wi-Fi hoặc 4G, hình thức 98-99%",
+    ],
+    techSpecs: techSpecsByIpad["ipad-air-4"],
   },
   {
     id: 22,
@@ -2404,25 +2803,61 @@ const derivedInputs: DerivedInput[] = [
     priceFrom: "Từ 10.990.000đ",
     priceOriginal: "12.990.000đ",
     storage: "64GB / 256GB - Wifi / 4G",
-    simType: "1 sim vật lý",
+    simType: "Bản Wi-Fi hoặc Wi-Fi + 5G (1 Nano SIM)",
     condition: "Hình thức 98-99%",
     battery: "Pin 8x-9x%",
     image: "/products/ipadair5.png",
+    description:
+      "iPad Air 5 (10.9 inch, 2022) là chiếc iPad đáng mua nhất hiện nay tại Dev Pồ khi được trang bị chip Apple M1 — đúng con chip trên MacBook Air, CPU 8 nhân và GPU 8 nhân cùng 8GB RAM. Máy chạy mượt mọi tác vụ nặng: dựng video 4K, vẽ Procreate nhiều layer, chia đôi màn hình làm việc, chơi game đồ hoạ cao. Màn hình Liquid Retina 10.9 inch ép kính, True Tone, dải màu P3; camera trước 12MP góc siêu rộng có Center Stage tự động bám theo người khi họp online. Cổng USB-C nhanh gấp đôi iPad Air 4 (tới 10Gb/s), bản Cellular hỗ trợ 5G, Touch ID ở nút nguồn, dùng được Apple Pencil 2 và Magic Keyboard. Máy nguyên zin nguyên bản, hình thức 98-99%, bảo hành tại cửa hàng, hỗ trợ trả góp 0%.",
+    features: [
+      "Chip Apple M1 (CPU 8 nhân, GPU 8 nhân, 8GB RAM) — mạnh ngang MacBook Air",
+      "Màn hình Liquid Retina 10.9 inch ép kính, True Tone, màu P3",
+      "Camera trước 12MP góc siêu rộng với Center Stage cho học/họp online",
+      "Cổng USB-C tốc độ tới 10Gb/s, bản Cellular hỗ trợ 5G",
+      "Hỗ trợ Apple Pencil 2 và Magic Keyboard, Touch ID ở nút nguồn",
+      "Tùy chọn 64GB / 256GB, bản Wi-Fi hoặc 5G, hình thức 98-99%",
+    ],
+    techSpecs: techSpecsByIpad["ipad-air-5"],
   },
 ];
 
-const derivedProducts: Product[] = derivedInputs.map((p) => ({
-  ...p,
-  zaloLink: ZALO_LINK,
-  description: `${p.name} ${categoryLabel[p.category]} chính hãng tại Dev Pồ — máy nguyên zin nguyên bản, ${p.storage}, ${p.simType}, ${p.condition}, ${p.battery}. Đã fix lỗi sim ghép sử dụng ổn định, bảo hành trọn đời, cam kết giá tốt nhất thị trường TP. Hồ Chí Minh. Liên hệ Zalo để được báo giá chi tiết và tư vấn lên đời nhanh chóng.`,
-  features: [
+/** Mô tả sinh tự động — iPad không nói chuyện sim ghép nên tách riêng nội dung */
+function autoDescription(p: DerivedInput): string {
+  if (p.category === "ipad") {
+    return `${p.name} cũ giá tốt tại Dev Pồ — máy nguyên zin nguyên bản, ${p.storage}, ${p.condition}, ${p.battery}. Máy đã qua kiểm tra kỹ màn hình, cảm ứng, camera, loa, Wi-Fi và pin trước khi giao, phù hợp cho học tập, làm việc, xem phim và vẽ với Apple Pencil. Bảo hành tại cửa hàng, hỗ trợ trả góp 0% và giao hàng toàn quốc. Liên hệ Zalo để được báo giá chi tiết và tư vấn chọn phiên bản Wi-Fi hay Cellular phù hợp.`;
+  }
+
+  return `${p.name} ${categoryLabel[p.category]} chính hãng tại Dev Pồ — máy nguyên zin nguyên bản, ${p.storage}, ${p.simType}, ${p.condition}, ${p.battery}. Đã fix lỗi sim ghép sử dụng ổn định, bảo hành trọn đời, cam kết giá tốt nhất thị trường TP. Hồ Chí Minh. Liên hệ Zalo để được báo giá chi tiết và tư vấn lên đời nhanh chóng.`;
+}
+
+/** Đặc điểm nổi bật sinh tự động theo nhóm sản phẩm */
+function autoFeatures(p: DerivedInput): string[] {
+  if (p.category === "ipad") {
+    return [
+      p.simType,
+      p.condition,
+      p.battery,
+      "Máy nguyên zin nguyên bản, không bị iCloud ẩn",
+      "Kiểm tra kỹ màn hình, cảm ứng, camera, loa, Wi-Fi trước khi giao",
+      "Bảo hành tại cửa hàng, giao hàng toàn quốc, trả góp 0%",
+    ];
+  }
+
+  return [
     p.simType,
     p.condition,
     p.battery,
     "Đã fix lỗi sim ghép, sử dụng ổn định",
     "Bảo hành trọn đời lỗi sim ghép tại Dev Pồ",
     "Giao hàng toàn quốc, hỗ trợ trả góp 0%",
-  ],
+  ];
+}
+
+const derivedProducts: Product[] = derivedInputs.map((p) => ({
+  ...p,
+  zaloLink: ZALO_LINK,
+  description: p.description ?? autoDescription(p),
+  features: p.features ?? autoFeatures(p),
 }));
 
 /** Toàn bộ danh mục sản phẩm (sắp theo id) */

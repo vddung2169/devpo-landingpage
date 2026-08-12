@@ -21,7 +21,13 @@ const MESSENGER_LINK =
   "https://www.facebook.com/share/1H5cf45rLH/?mibextid=wwXIfr";
 
 function productSeoDescription(product: NonNullable<ReturnType<typeof getProductBySlug>>) {
-  return `${product.name} ${categoryLabel[product.category]} ${product.storage}, ${product.condition}, ${product.battery}. Giá ${product.priceFrom} tại Dev Pồ TP.HCM, hỗ trợ fix lỗi sim ghép.`;
+  // iPad không liên quan tới sim ghép — dùng câu chốt riêng cho đúng ngữ cảnh
+  const closing =
+    product.category === "ipad"
+      ? "máy nguyên zin, bảo hành tại cửa hàng."
+      : "hỗ trợ fix lỗi sim ghép.";
+
+  return `${product.name} ${categoryLabel[product.category]} ${product.storage}, ${product.condition}, ${product.battery}. Giá ${product.priceFrom} tại Dev Pồ TP.HCM, ${closing}`;
 }
 
 // Pre-render tất cả trang sản phẩm tại build time → tốt cho SEO & tốc độ
@@ -57,7 +63,9 @@ export async function generateMetadata({
       `${product.name} giá rẻ`,
       `mua ${product.name}`,
       categoryLabel[product.category],
-      "iphone lock",
+      ...(product.category === "ipad"
+        ? ["ipad cũ giá rẻ", "máy tính bảng", `${product.name} cũ`]
+        : ["iphone lock"]),
       "Dev Pồ",
       "devpo",
     ],
@@ -95,7 +103,11 @@ export default async function ProductDetailPage({
   // Bảng thông số kỹ thuật hiển thị ở cột phải
   const specs = [
     { label: "Dung lượng", value: product.storage },
-    { label: "Loại sim", value: product.simType },
+    // iPad bán theo bản Wi-Fi/Cellular nên gọi là "Kết nối" cho đúng
+    {
+      label: product.category === "ipad" ? "Kết nối" : "Loại sim",
+      value: product.simType,
+    },
     { label: "Tình trạng máy", value: product.condition },
     { label: "Tình trạng pin", value: product.battery },
     { label: "Danh mục", value: categoryLabel[product.category] },
