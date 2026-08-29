@@ -93,15 +93,16 @@ export function GlobalSearch() {
         aria-label="Tìm kiếm"
         className={cn(
           "inline-flex items-center gap-2 rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/20",
-          // mobile: nút icon tròn; md+: ô tìm kiếm rộng
-          "h-9 w-9 justify-center md:h-9 md:w-56 md:justify-start md:px-3 lg:w-64",
+          // mobile/tablet nhỏ: nút icon tròn 44px (đủ chuẩn vùng chạm);
+          // từ tablet lớn trở lên mới bung thành ô tìm kiếm
+          "h-11 w-11 justify-center min-[900px]:h-10 min-[900px]:w-56 min-[900px]:justify-start min-[900px]:px-3 xl:w-64",
         )}
       >
         <Search className="h-4 w-4 shrink-0" />
-        <span className="hidden flex-1 truncate whitespace-nowrap text-left text-sm md:inline">
+        <span className="hidden flex-1 truncate whitespace-nowrap text-left text-sm min-[900px]:inline">
           Tìm sản phẩm, cẩm nang…
         </span>
-        <kbd className="hidden items-center gap-0.5 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground md:inline-flex">
+        <kbd className="hidden items-center gap-0.5 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground xl:inline-flex">
           ⌘K
         </kbd>
       </button>

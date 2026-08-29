@@ -190,7 +190,7 @@ export function IphoneLockGuides({
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 mb-12">
+        <div className="mb-12 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {currentGuides.map((guide) => (
             <Card
               key={guide.id}
@@ -214,7 +214,7 @@ export function IphoneLockGuides({
                   src={guide.image} // Lưu ý: Nếu dùng link ảnh ngoài (https://...), bạn phải cấu hình trong next.config.ts nhé
                   alt={guide.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {/* Lớp phủ khi hover */}

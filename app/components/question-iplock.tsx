@@ -7,7 +7,7 @@ export function QuestionIPLock() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-0 md:py-24 md:pb-0">
       <div className="container mx-auto px-4">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="grid items-center gap-12 xl:grid-cols-2">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl" />
             <div className="relative overflow-hidden rounded-2xl bg-card hidden md:block ">
@@ -21,7 +21,7 @@ export function QuestionIPLock() {
             </div>
           </div>
           <div className="flex flex-col gap-6">
-            <h2 className="text-balance font-sans text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-5xl">
+            <h2 className="text-balance font-sans text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl xl:text-5xl">
               iPhone Lock là gì?
             </h2>
 
@@ -70,7 +70,7 @@ export function QuestionIPLock() {
           </h2>
 
           {/* Grid layout cho 4 card */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full mb-1">
+          <div className="mb-1 grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
             {/* 1️⃣ Giá cả phải chăng */}
             <div className="flex flex-col h-full items-start gap-4 rounded-xl bg-card p-4 shadow-sm transition-all hover:shadow-md">
               <div className="flex-1">

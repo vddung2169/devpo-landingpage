@@ -67,7 +67,7 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
     <section className="py-12" id="products">
       <div className="container mx-auto px-2 sm:px-4">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-4xl">
             SẢN PHẨM <span className="text-primary">NỔI BẬT</span>
           </h2>
           <p className="mt-2 sm:mt-4 text-sm sm:text-base text-muted-foreground">
@@ -85,7 +85,7 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
               placeholder="Tìm kiếm iPhone, iPad..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="flex h-10 sm:h-12 w-full rounded-full border border-input bg-background px-10 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground"
+              className="flex h-11 w-full rounded-full border border-input bg-background px-10 py-2 text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground sm:h-12"
             />
           </div>
 
@@ -106,7 +106,7 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
 
         {/* LƯỚI SẢN PHẨM */}
         {displayProducts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {displayProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

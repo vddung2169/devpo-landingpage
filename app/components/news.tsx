@@ -20,7 +20,7 @@ export function News() {
         </div>
 
         {/* Lưới danh sách bài viết */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {newsArticles.map((article) => (
             <article
               key={article.id}
@@ -34,6 +34,7 @@ export function News() {
                   src={article.image}
                   alt={article.title}
                   fill
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </Link>

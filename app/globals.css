@@ -121,9 +121,189 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    /* iOS Safari phóng to chữ khi xoay ngang nếu không khoá lại -> vỡ layout landscape. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Lưới an toàn: cắt mọi thứ lỡ tràn ngang mà không phá position:sticky của header
+       (overflow-x:hidden sẽ phá sticky, còn clip thì không). */
+    overflow-x: clip;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: clip;
+    /* Tai thỏ iPhone ăn vào mép trái/phải khi xoay ngang. viewportFit:"cover" ở
+       layout.tsx cho phép tràn ra, env() dưới đây kéo nội dung về vùng an toàn. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
+
+  /* Ảnh/video/iframe luôn co theo khung cha, không bao giờ đẩy rộng trang. */
+  img,
+  video,
+  canvas,
+  svg,
+  iframe {
+    max-width: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  /* Từ tiếng Việt dài (hoặc URL dán vào bài viết) không cắt được -> tràn ngang. */
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  li,
+  td,
+  th {
+    overflow-wrap: break-word;
+  }
+}
+
+/* ==========================================================================
+   Thiết bị cảm ứng (điện thoại + iPad). `pointer: coarse` chỉ đúng với ngón tay,
+   nên desktop dùng chuột giữ nguyên giao diện gọn như cũ.
+   ========================================================================== */
+@media (pointer: coarse) {
+  /* iOS/iPadOS tự zoom trang khi focus vào input có font-size < 16px.
+     Đặt 16px cho mọi ô nhập trên thiết bị cảm ứng để chặn hẳn hành vi này. */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Vùng chạm tối thiểu 44x44 theo chuẩn Apple/Google.
+     `[data-slot="button"]` phủ luôn <Button asChild> render ra thẻ <a>. */
+  [data-slot="button"],
+  [data-slot="select-trigger"],
+  [data-slot="pagination-link"],
+  button:not([data-slot="tabs-trigger"]):not([disabled]),
+  [role="button"],
+  input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    min-height: 44px;
+  }
+
+  /* Nút chỉ có icon (vuông) cần rộng thêm chứ không chỉ cao thêm. */
+  [data-slot="button"]:is(.size-6, .size-7, .size-8, .size-9, .size-10),
+  button:is(.size-6, .size-7, .size-8, .size-9, .size-10),
+  [data-slot="pagination-link"]:is(.size-9, .size-10) {
+    min-width: 44px;
+  }
+
+  /* Tabs: trigger cao theo list (h-[calc(100%-1px)]) và list có padding 3px,
+     nên list phải cao 52px thì trigger mới đạt 44px. */
+  [data-slot="tabs-list"] {
+    min-height: 52px;
+  }
+
+  /* Link điều hướng dạng chữ (breadcrumb, menu chữ) — nới cao vùng chạm. */
+  [aria-label="Breadcrumb"] a,
+  .site-header-bar nav a,
+  .site-header-bar a:has(img) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Nút X đóng modal nằm absolute ở góc: kéo cao 44px sẽ lệch khỏi góc, nên
+     giữ nguyên kích thước và nới vùng chạm bằng pseudo-element. */
+  [data-slot="dialog-close"],
+  [data-slot="sheet-content"] > button:first-of-type {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  [data-slot="dialog-close"]::after,
+  [data-slot="sheet-content"] > button:first-of-type::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Link icon mạng xã hội / link nhỏ trong footer: nới vùng chạm bằng
+     pseudo-element nên kích thước hiển thị không đổi, layout không xê dịch. */
+  .touch-target {
+    position: relative;
+  }
+
+  .touch-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Cụm nút chat nổi — chừa chỗ cho thanh Home ảo của iPhone. */
+.floating-contacts {
+  bottom: calc(env(safe-area-inset-bottom) + 5rem);
+}
+
+/* ==========================================================================
+   Xoay ngang trên điện thoại (và iPad Mini nằm ngang): chiều cao khung nhìn rất
+   thấp, nên header/ticker/nút nổi phải thu gọn để không nuốt mất nội dung.
+   ========================================================================== */
+@media (orientation: landscape) and (max-height: 500px) {
+  .site-header-bar {
+    height: 3rem;
+  }
+
+  .site-header-logo {
+    height: 2rem;
+  }
+
+  .site-ticker {
+    min-height: 0;
+    padding-block: 0.25rem;
+  }
+
+  /* Cụm nút chat nổi: xếp ngang, nhỏ lại, nằm sát mép dưới để chừa chỗ đọc nội dung. */
+  .floating-contacts {
+    right: calc(env(safe-area-inset-right) + 0.75rem);
+    bottom: calc(env(safe-area-inset-bottom) + 0.75rem);
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .floating-contacts a {
+    height: 2.75rem;
+    width: 2.75rem;
+  }
+}
+
+/* Modal/dialog khi xoay ngang: giới hạn theo chiều cao khung nhìn và cho cuộn,
+   nếu không phần nút đóng sẽ nằm ngoài màn hình. */
+@media (orientation: landscape) and (max-height: 560px) {
+  [data-slot="dialog-content"],
+  [data-slot="alert-dialog-content"] {
+    max-height: calc(100dvh - 1.5rem);
+    overflow-y: auto;
+  }
+}
+
+/* ==========================================================================
+   Typography co giãn mượt giữa các breakpoint (không nhảy bậc).
+   ========================================================================== */
+.fluid-lead {
+  font-size: clamp(0.95rem, 0.86rem + 0.4vw, 1.25rem);
+  line-height: 1.65;
 }
 
 @keyframes scroll {
@@ -153,4 +333,72 @@
 .animate-wiggle {
   animation: wiggle 0.5s ease-in-out infinite;
   animation-delay: 2s; /* Rung mỗi 2s */
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero-tablet-landscape-grid {
+    align-items: start;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: 2rem;
+  }
+
+  .hero-tablet-landscape-title {
+    max-width: 8.5ch;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.04;
+  }
+
+  .hero-tablet-landscape-break {
+    display: block;
+  }
+
+  .hero-tablet-landscape-copy {
+    max-width: 24rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .hero-tablet-landscape-actions {
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    max-width: 24rem;
+  }
+
+  .hero-tablet-landscape-primary,
+  .hero-tablet-landscape-secondary {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .hero-tablet-landscape-primary .group\/btn,
+  .hero-tablet-landscape-secondary {
+    height: 3.5rem;
+    padding-inline: 1.25rem;
+  }
+
+  .hero-tablet-landscape-secondary {
+    min-width: 0;
+  }
+
+  .hero-tablet-landscape-secondary a {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero-tablet-landscape-primary .group\/btn .text-base,
+  .hero-tablet-landscape-secondary .text-sm {
+    font-size: 0.95rem;
+  }
+
+  .hero-tablet-landscape-media {
+    align-self: start;
+    width: 100%;
+    padding-top: 3.5rem;
+  }
+
+  .hero-tablet-landscape-frame {
+    aspect-ratio: 1 / 1;
+    max-width: 31rem;
+    margin-left: auto;
+  }
 }

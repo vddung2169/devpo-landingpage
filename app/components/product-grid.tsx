@@ -44,7 +44,7 @@ export function ProductGrid() {
             placeholder="Tìm kiếm iPhone, iPad..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex h-10 sm:h-12 w-full rounded-full border border-input bg-background px-10 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground"
+            className="flex h-11 w-full rounded-full border border-input bg-background px-10 py-2 text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground sm:h-12"
           />
         </div>
       </div>
@@ -65,7 +65,7 @@ export function ProductGrid() {
 
       {/* Lưới sản phẩm */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

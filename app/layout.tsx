@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
@@ -23,6 +23,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+// viewportFit "cover" cho phép nền tràn ra vùng tai thỏ khi xoay ngang; phần
+// padding an toàn (env(safe-area-inset-*)) được xử lý ở body trong globals.css.
+// KHÔNG đặt maximumScale/userScalable: khoá zoom là lỗi trợ năng, người dùng
+// vẫn phải phóng to được. Chống zoom khi focus input đã xử lý bằng font 16px.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f19" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.devpo.vn"),

@@ -29,7 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.image}
           alt={`${product.name} ${product.storage} giá tốt tại TP.HCM - Dev Pồ`}
           fill
-          sizes="(max-width: 1024px) 50vw, 25vw"
+          sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </Link>

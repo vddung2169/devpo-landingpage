@@ -67,7 +67,7 @@ export default function GuidesPage() {
           </div>
 
           {/* Lưới bài viết */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {visibleGuides.map((guide) => (
               <Link
                 key={guide.id}
@@ -79,7 +79,7 @@ export default function GuidesPage() {
                     src={guide.imageUrl}
                     alt={guide.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground backdrop-blur-sm">

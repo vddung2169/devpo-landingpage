@@ -45,30 +45,30 @@ export function Header() {
     // phải tính lại từng frame khi nội dung (đặc biệt là ticker marquee) trượt
     // bên dưới lúc cuộn, gây rung; nền đặc 95% nhìn gần như không khác.
     <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border bg-background/95 md:backdrop-blur md:supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="site-header-bar container mx-auto flex h-16 items-center justify-between gap-3 px-3 sm:px-4">
         {/* Phần Logo và Menu Desktop */}
-        <div className="flex items-center gap-8">
-          <div className="flex items-center justify-center py-4 cursor-pointer">
-            <Link href="/">
+        <div className="flex min-w-0 items-center gap-3 md:gap-4 xl:gap-8">
+          <div className="flex shrink-0 items-center justify-center cursor-pointer">
+            <Link href="/" className="flex items-center">
               <img
                 src="/devpo_logo.jpg"
                 alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
                 width={137}
                 height={56}
-                className="h-14 w-auto block dark:hidden"
+                className="site-header-logo h-10 w-auto block sm:h-12 md:h-11 xl:h-14 dark:hidden"
               />
               <img
                 src="/devpo_logo_white.png"
                 alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
                 width={137}
                 height={56}
-                className="h-9 w-auto hidden dark:block"
+                className="site-header-logo h-8 w-auto hidden sm:h-9 dark:block"
               />
             </Link>
           </div>
 
           {/* Menu Desktop (Ẩn trên mobile) */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-4 md:flex lg:gap-5 xl:gap-8">
            
             <Link
               href="/guides"
@@ -124,7 +124,7 @@ export function Header() {
         </div>
 
         {/* Phần Tìm kiếm + Menu Mobile - Dùng DropdownMenu */}
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {/* Ô tìm kiếm toàn trang */}
           <GlobalSearch />
 
@@ -146,7 +146,7 @@ export function Header() {
             {/* align="end" giúp menu canh lề phải thẳng hàng với nút bấm */}
             <DropdownMenuContent
               align="end"
-              className="w-[220px] p-2 rounded-xl shadow-lg mt-2 md:hidden"
+              className="mt-2 w-[220px] rounded-xl p-2 shadow-lg md:hidden"
             >
               <DropdownMenuItem
                 asChild

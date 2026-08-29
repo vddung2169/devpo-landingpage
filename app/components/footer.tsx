@@ -15,9 +15,9 @@ export function SiteFooter() {
   return (
     <footer className="w-full border-t border-border  dark:bg-background">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8 xl:grid-cols-12 xl:gap-12">
           {/* CỘT 1: Giới thiệu chung (Chiếm 4/12 cột) */}
-          <div className="flex flex-col gap-4 md:col-span-4">
+          <div className="flex flex-col gap-4 xl:col-span-4">
             <Link href="/" className="flex items-center gap-2">
               <img
                 src="/devpo_logo.jpg"
@@ -46,7 +46,7 @@ export function SiteFooter() {
                 href="https://www.facebook.com/profile.php?id=61576332353912"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-blue-600"
+                className="touch-target text-muted-foreground transition-colors hover:text-blue-600"
               >
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
@@ -57,7 +57,7 @@ export function SiteFooter() {
                 href="https://www.instagram.com/dev_po2002?igsh=MXBjbjBmejlrb3J1MQ%3D%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-pink-600"
+                className="touch-target text-muted-foreground transition-colors hover:text-pink-600"
               >
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
@@ -68,7 +68,7 @@ export function SiteFooter() {
                 href="https://www.tiktok.com/@devpo_iphone?_r=1&_t=ZG-94EYLi1dPH6"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-black dark:hover:text-white"
+                className="touch-target text-muted-foreground transition-colors hover:text-black dark:hover:text-white"
               >
                 <svg
                   className="h-5 w-5"
@@ -86,7 +86,7 @@ export function SiteFooter() {
                 href="https://youtube.com/@devpo-iphonehcm?si=v3cJvDxSPUJHHoV1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-red-600"
+                className="touch-target text-muted-foreground transition-colors hover:text-red-600"
               >
                 <Youtube className="h-5 w-5" />
                 <span className="sr-only">YouTube</span>
@@ -97,7 +97,7 @@ export function SiteFooter() {
                 href="https://www.threads.com/@dev_po2002?igshid=NTc4MTIwNjQ2YQ=="
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-black dark:hover:text-white"
+                className="touch-target text-muted-foreground transition-colors hover:text-black dark:hover:text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ export function SiteFooter() {
           </div>
 
           {/* CỘT 2: Thông tin liên hệ & Chính sách (Chiếm 4/12 cột) */}
-          <div className="flex flex-col gap-6 md:col-span-4">
+          <div className="flex flex-col gap-6 xl:col-span-4">
             {/* Khối Liên hệ */}
             <div className="flex flex-col gap-3">
               <h3 className="text-lg font-bold text-foreground">
@@ -130,13 +130,13 @@ export function SiteFooter() {
                   <div className="flex flex-col gap-1">
                     <a
                       href="tel:0399208037"
-                      className="hover:text-primary transition-colors"
+                      className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                     >
                       0399 208 037
                     </a>
                     <a
                       href="tel:0909097177"
-                      className="hover:text-primary transition-colors"
+                      className="inline-flex min-h-11 items-center transition-colors hover:text-primary"
                     >
                       09 09 09 7177
                     </a>
@@ -154,7 +154,7 @@ export function SiteFooter() {
                 <li>
                   <Link
                     href="#"
-                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                    className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
                   >
                     <ChevronRight className="h-4 w-4" /> Chính sách bảo hành
                   </Link>
@@ -162,7 +162,7 @@ export function SiteFooter() {
                 <li>
                   <Link
                     href="#"
-                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                    className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
                   >
                     <ChevronRight className="h-4 w-4" /> Chính sách đổi trả
                   </Link>
@@ -170,7 +170,7 @@ export function SiteFooter() {
                 <li>
                   <Link
                     href="/imsi-codes"
-                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                    className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
                   >
                     <ChevronRight className="h-4 w-4" /> Mã IMSI mới nhất
                   </Link>
@@ -178,7 +178,7 @@ export function SiteFooter() {
                 <li>
                   <Link
                     href="#"
-                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                    className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
                   >
                     <ChevronRight className="h-4 w-4" /> Hướng dẫn mua trả góp
                   </Link>
@@ -188,7 +188,7 @@ export function SiteFooter() {
           </div>
 
           {/* CỘT 3: Bản đồ Google Maps (Chiếm 4/12 cột) */}
-          <div className="flex flex-col gap-3 md:col-span-4">
+          <div className="flex flex-col gap-3 md:col-span-2 xl:col-span-4">
             <h3 className="text-lg font-bold text-foreground">
               Bản đồ cửa hàng
             </h3>

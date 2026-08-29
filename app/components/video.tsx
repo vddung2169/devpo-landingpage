@@ -33,7 +33,7 @@ export function Videos() {
     <section className="bg-secondary/30 py-20">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-balance text-4xl font-bold text-foreground lg:text-5xl">
+          <h2 className="mb-4 text-balance text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
             Watch & Learn
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
@@ -42,7 +42,7 @@ export function Videos() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {videos.map((video, index) => (
             <div key={index} className="group cursor-pointer">
               <div className="relative mb-4 overflow-hidden rounded-lg">
