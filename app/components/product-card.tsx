@@ -2,15 +2,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { categoryLabel, type Product } from "@/data/products";
+import { categoryLabel, ipadConnectivityLabel, type Product } from "@/data/products";
 
 interface ProductCardProps {
   product: Product;
 }
 
+/**
+ * Thông số hiển thị trên card. iPhone quan tâm sim ghép / pin, còn iPad thì
+ * khách hỏi Wi-Fi hay Cellular, dung lượng nào và có dùng được Apple Pencil
+ * không — nên hai nhóm sản phẩm dùng hai bộ thông số khác nhau.
+ */
+function getCardSpecs(product: Product): string[] {
+  if (product.category !== "ipad") {
+    return [product.simType, product.condition, product.battery];
+  }
+
+  const connectivity = product.connectivity
+    ? ipadConnectivityLabel[product.connectivity]
+    : product.simType;
+
+  const storage = product.storageOptions?.length
+    ? `Dung lượng ${product.storageOptions.join(" / ")}`
+    : product.storage;
+
+  const pencil = product.pencil
+    ? product.pencilIncluded
+      ? `Tặng kèm ${product.pencil}`
+      : `Dùng được ${product.pencil} (mua thêm)`
+    : "Hỗ trợ Apple Pencil";
+
+  return [connectivity, storage, pencil, product.condition];
+}
+
 export function ProductCard({ product }: ProductCardProps) {
-  // 3 thông số chính hiển thị trên card (đồng nhất giữa các sản phẩm)
-  const cardSpecs = [product.simType, product.condition, product.battery];
+  const cardSpecs = getCardSpecs(product);
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-background shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">

@@ -551,6 +551,405 @@ export const guides: Guide[] = [
       },
     ],
   },
+  // ===========================================================================
+  // Nhóm bài cẩm nang về iPad — bổ sung song song với mảng nội dung iPhone Lock.
+  // ===========================================================================
+  {
+    id: "9",
+    slug: "ipad-lock-la-gi",
+    title: "iPad Lock Là Gì? Khác Gì iPad Wi-Fi Only Và Bản Cellular",
+    excerpt:
+      "iPad cũng có máy Lock như iPhone? Giải thích rõ iPad Lock là gì, vì sao chỉ bản Cellular mới dính khoá mạng, và cách phân biệt với iPad Wi-Fi only trước khi mua.",
+    content: `
+<p>Khi đi mua iPad cũ, rất nhiều người mang theo nỗi lo quen thuộc từ thị trường iPhone: <strong>"máy này có phải hàng Lock không?"</strong>. Câu hỏi hợp lý, nhưng chuyện khoá mạng trên iPad lại vận hành khác iPhone khá nhiều. Bài viết này giải thích rõ ràng để bạn không mua nhầm, cũng không bỏ lỡ một chiếc máy tốt chỉ vì hiểu sai.</p>
+
+<h2>1. iPad Lock là gì?</h2>
+<p><strong>iPad Lock</strong> là những chiếc iPad bản <strong>Wi-Fi + Cellular</strong> được các nhà mạng nước ngoài — phổ biến là AT&amp;T, Verizon, T-Mobile (Mỹ), Softbank, docomo, au (Nhật) — bán ra kèm gói cước dữ liệu. Để giữ chân thuê bao, nhà mạng khoá luôn phần kết nối di động của máy, khiến khe SIM chỉ nhận đúng SIM của họ.</p>
+<p>Điểm mấu chốt cần nắm: <strong>khoá mạng trên iPad chỉ ảnh hưởng đúng phần lắp SIM.</strong> Toàn bộ phần còn lại của máy — Wi-Fi, App Store, iCloud, Apple Pencil, Magic Keyboard, cập nhật iPadOS, Face ID/Touch ID — đều hoạt động đủ 100% như một chiếc iPad quốc tế. Đây là khác biệt lớn so với iPhone, nơi mất sóng đồng nghĩa với việc mất luôn chức năng cốt lõi là nghe gọi.</p>
+
+<h2>2. Vì sao iPad Wi-Fi only không bao giờ bị Lock?</h2>
+<p>Apple bán mỗi đời iPad theo hai phiên bản phần cứng khác nhau:</p>
+<ul>
+  <li><strong>Bản Wi-Fi only:</strong> không có khe SIM, không có eSIM, và quan trọng nhất là <strong>không có modem di động</strong> bên trong. Máy chỉ vào mạng qua Wi-Fi.</li>
+  <li><strong>Bản Wi-Fi + Cellular:</strong> có thêm modem, khe Nano SIM (hoặc eSIM ở đời mới) và dải ăng-ten nhựa ở cạnh lưng máy.</li>
+</ul>
+<p>Vì bản Wi-Fi only không hề có bộ phận kết nối di động, <strong>nó không tồn tại thứ để mà khoá</strong>. Nói cách khác: nếu bạn mua iPad bản Wi-Fi, khái niệm "iPad Lock" hoàn toàn không liên quan tới bạn. Đây cũng là lý do bản Wi-Fi thường được khuyên cho người dùng phổ thông — vừa rẻ hơn 2 đến 4 triệu, vừa không phải bận tâm chuyện khoá mạng.</p>
+
+<h2>3. Cách phân biệt iPad Wi-Fi và iPad Cellular trong 20 giây</h2>
+<h3>Cách 1: Nhìn cạnh lưng máy</h3>
+<p>Bản Cellular có một <strong>dải nhựa ăng-ten</strong> chạy ngang phần lưng (ở đời cũ nằm ở cạnh trên, đời mới nằm dọc cạnh viền) và có <strong>khay SIM</strong> ở cạnh bên. Bản Wi-Fi lưng liền một khối, không khay SIM.</p>
+<h3>Cách 2: Kiểm tra trong Cài đặt</h3>
+<p>Vào <strong>Cài đặt &gt; Cài đặt chung &gt; Giới thiệu</strong>. Nếu máy là bản Cellular, bạn sẽ thấy các mục như <strong>Số điện thoại di động (Cellular Data Number)</strong>, <strong>IMEI</strong>, <strong>ICCID</strong>. Bản Wi-Fi only không có những dòng này. Ngoài ra, danh sách cài đặt bên trái của bản Cellular có thêm mục <strong>"Dữ liệu di động"</strong>.</p>
+<h3>Cách 3: Tra số Model</h3>
+<p>Cũng trong mục Giới thiệu, xem dòng <strong>Số kiểu máy (Model)</strong>. Số model của mỗi đời máy sẽ khác nhau giữa bản Wi-Fi và bản Cellular — bạn tra nhanh trên trang hỗ trợ của Apple là ra chính xác bản nào, dung lượng bao nhiêu, phát hành thị trường nào.</p>
+<h3>Cách 4: Kiểm tra tình trạng khoá mạng</h3>
+<p>Với máy Cellular, cách chắc chắn nhất là <strong>lắp thử SIM Viettel/Mobifone/VinaPhone ngay tại chỗ</strong>. Nếu máy nhận sóng và vào được 4G/5G, đây là máy dùng SIM bình thường. Nếu báo không có dịch vụ hoặc yêu cầu SIM của nhà mạng khác, máy đang bị khoá mạng.</p>
+
+<h2>4. Có nên mua iPad Cellular đang bị khoá mạng?</h2>
+<p>Câu trả lời phụ thuộc hoàn toàn vào việc <strong>bạn có định lắp SIM hay không</strong>:</p>
+<div class="overflow-x-auto">
+<table>
+  <thead>
+    <tr><th>Trường hợp của bạn</th><th>Lời khuyên</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Chỉ dùng Wi-Fi ở nhà, ở lớp, ở công ty</td><td>Mua thẳng bản Wi-Fi only cho rẻ, hoặc lấy máy Cellular khoá mạng nếu giá tốt — vì bạn không dùng tới khe SIM</td></tr>
+    <tr><td>Cần lắp SIM 4G/5G dùng ngoài đường</td><td>Chỉ chọn bản Cellular đã dùng được SIM Việt Nam, xác nhận bằng cách lắp thử SIM tại chỗ</td></tr>
+    <tr><td>Chưa chắc sau này có cần SIM không</td><td>Ưu tiên bản Cellular chạy SIM bình thường để không phải đổi máy về sau</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Điều tuyệt đối không nên làm là mua một chiếc máy mà người bán <strong>mập mờ không nói rõ máy là bản nào, có khoá mạng hay không</strong>. Đó là dấu hiệu cần cảnh giác, chứ bản thân một chiếc iPad khoá mạng dùng Wi-Fi vẫn là máy hoàn toàn bình thường.</p>
+
+<h2>5. Những thứ cần kiểm tra quan trọng hơn cả chuyện Lock</h2>
+<p>Thực tế, với iPad cũ, rủi ro lớn nhất không nằm ở khoá mạng mà nằm ở ba thứ sau:</p>
+<ul>
+  <li><strong>iCloud ẩn / Activation Lock:</strong> máy còn dính tài khoản chủ cũ sẽ khoá cứng sau khi khôi phục cài đặt gốc. Xem chi tiết tại <a href="/guides/kiem-tra-icloud-activation-lock-ipad">cách kiểm tra iCloud ẩn và Activation Lock trên iPad cũ</a>.</li>
+  <li><strong>Hồ sơ MDM (khoá quản lý từ xa):</strong> hay gặp ở máy từ trường học, doanh nghiệp nước ngoài.</li>
+  <li><strong>Màn hình và cảm ứng:</strong> iPad màn to nên ám màu, hở sáng, điểm chết cảm ứng dễ lộ hơn điện thoại rất nhiều.</li>
+</ul>
+<p>Tại Dev Pồ, mọi chiếc <a href="/ipad">iPad đang bán</a> đều được kiểm tra đủ các mục trên trước khi lên kệ, và tình trạng bản Wi-Fi hay Cellular được ghi rõ ngay trên từng sản phẩm.</p>
+`,
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    category: "so-sanh",
+    tags: ["iPad", "iPad Lock", "iPad Wifi", "iPad Cellular", "mua iPad cũ"],
+    readingTime: 8,
+    imageUrl: "/products/ipadpro2020.png",
+    faq: [
+      {
+        question: "iPad Wi-Fi only có bị khoá mạng không?",
+        answer:
+          "Không. Bản Wi-Fi only không có khe SIM lẫn modem di động nên không tồn tại khái niệm khoá mạng. Chỉ bản Wi-Fi + Cellular mới có thể bị nhà mạng nước ngoài khoá.",
+      },
+      {
+        question: "iPad Lock có dùng bình thường được không?",
+        answer:
+          "Có. Khoá mạng chỉ ảnh hưởng phần lắp SIM. Wi-Fi, App Store, iCloud, Apple Pencil, Magic Keyboard và cập nhật iPadOS đều chạy đủ như iPad quốc tế. Nếu bạn không cần lắp SIM thì máy dùng không khác gì bản thường.",
+      },
+      {
+        question: "Làm sao biết iPad là bản Wi-Fi hay Cellular?",
+        answer:
+          "Nhìn cạnh máy xem có khay SIM và dải nhựa ăng-ten ở lưng không. Hoặc vào Cài đặt > Cài đặt chung > Giới thiệu: bản Cellular sẽ có các dòng IMEI, ICCID và mục Dữ liệu di động, bản Wi-Fi thì không.",
+      },
+      {
+        question: "iPad Cellular có nghe gọi được như iPhone không?",
+        answer:
+          "iPad Cellular dùng SIM để vào mạng 4G/5G và nhắn tin iMessage, nhưng không nghe gọi thoại qua sóng di động như điện thoại. Bạn vẫn gọi được qua FaceTime, Zalo, Messenger bằng dữ liệu di động.",
+      },
+    ],
+  },
+  {
+    id: "10",
+    slug: "chon-dong-ipad-phu-hop",
+    title: "Nên Mua iPad Dòng Nào? So Sánh iPad Pro, Air, Mini Và Gen",
+    excerpt:
+      "iPad Pro, iPad Air, iPad Mini hay iPad Gen thường — mỗi dòng sinh ra cho một kiểu người dùng khác nhau. Bảng so sánh và gợi ý chọn đúng dòng theo nhu cầu và ngân sách.",
+    content: `
+<p>Apple đang bán song song bốn dòng iPad, và tên gọi của chúng không nói lên nhiều điều với người mua lần đầu. Rất nhiều người mua nhầm theo kiểu "cứ Pro là tốt nhất" rồi bỏ ra thêm nhiều triệu cho những tính năng không bao giờ đụng tới. Bài viết này giúp bạn chọn đúng dòng ngay từ đầu.</p>
+
+<h2>1. Bốn dòng iPad khác nhau chỗ nào?</h2>
+<div class="overflow-x-auto">
+<table>
+  <thead>
+    <tr><th>Dòng máy</th><th>Điểm mạnh nhất</th><th>Sinh ra cho ai</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>iPad Pro</strong></td><td>Màn ProMotion 120Hz, chip mạnh nhất, 4 loa, Face ID, LiDAR</td><td>Vẽ digital, dựng video, làm việc chuyên nghiệp</td></tr>
+    <tr><td><strong>iPad Air</strong></td><td>Cân bằng nhất: màn ép kính, chip mạnh, Apple Pencil 2, giá hợp lý</td><td>Đa số người dùng — học, làm việc, vẽ, giải trí</td></tr>
+    <tr><td><strong>iPad Mini</strong></td><td>Màn 8.3 inch, cầm gọn một tay, bỏ túi áo khoác</td><td>Đọc sách, ghi chú nhanh, xem tài liệu khi di chuyển</td></tr>
+    <tr><td><strong>iPad Gen</strong> (bản thường)</td><td>Giá mềm nhất trong cùng thế hệ</td><td>Học sinh, sinh viên, cho bé học, giải trí cơ bản</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>2. Ba khác biệt thực sự đáng tiền</h2>
+<h3>Màn hình ép kính (laminated) hay không ép kính</h3>
+<p>Đây là điểm khác biệt lớn nhất mà ít ai nói với bạn. Màn hình <strong>ép kính</strong> có lớp kính dán sát vào tấm nền, nên khi vẽ bằng Apple Pencil, đầu bút chạm đúng nơi nét hiện ra. Màn hình <strong>không ép kính</strong> (có ở các đời iPad Gen phổ thông) tồn tại một khe không khí mỏng, nhìn thấy được độ dày kính, khiến người vẽ có cảm giác nét chậm hơn đầu bút một chút.</p>
+<p>iPad Pro và iPad Air đều ép kính. Nếu bạn <strong>vẽ nghiêm túc</strong>, đây là lý do đủ mạnh để bỏ qua dòng Gen.</p>
+<h3>Đời Apple Pencil được hỗ trợ</h3>
+<p>Các đời iPad Gen cũ dùng <strong>Apple Pencil 1</strong> — cắm cổng Lightning để sạc, dễ rơi mất nắp. iPad Air và iPad Pro dùng <strong>Apple Pencil 2</strong> — hít nam châm vào cạnh máy và sạc không dây, gõ hai lần vào thân bút để đổi công cụ. Hai đời bút không dùng lẫn nhau được, nên đây là yếu tố cần chốt trước khi mua. Xem thêm tại <a href="/guides/apple-pencil-cho-ipad">bài hướng dẫn chọn Apple Pencil</a>.</p>
+<h3>Tần số quét ProMotion 120Hz</h3>
+<p>Chỉ có trên iPad Pro. Thao tác vuốt chạm và nét vẽ mượt hơn thấy rõ. Với người vẽ chuyên nghiệp thì đáng tiền; với người học tập và xem phim thì gần như không cần thiết.</p>
+
+<h2>3. Gợi ý chọn theo từng nhu cầu cụ thể</h2>
+<h3>Học sinh, sinh viên</h3>
+<p>Ưu tiên <strong>iPad Gen hoặc iPad Air đời cũ</strong>, màn từ 10.2 inch trở lên để đọc PDF giáo trình không mỏi mắt. Dung lượng 64GB là đủ nếu bạn không tải nhiều phim. Bản Wi-Fi hợp lý vì trường học và nhà đều có Wi-Fi.</p>
+<h3>Vẽ, thiết kế, làm nội dung</h3>
+<p>Chọn <strong>iPad Air 5 (chip M1) hoặc iPad Pro</strong>. Cả hai đều có màn ép kính và hỗ trợ Apple Pencil 2. Nếu bạn vẽ file nhiều lớp trong Procreate hoặc dựng video trong LumaFusion, hãy lấy dung lượng từ 128GB trở lên.</p>
+<h3>Làm việc văn phòng, họp online</h3>
+<p><strong>iPad Air 4 hoặc Air 5</strong> là điểm ngọt: ghép Magic Keyboard là thành một chiếc laptop nhẹ, camera trước có Center Stage tự bám theo người khi họp. Nếu hay di chuyển, chọn bản Cellular để lắp SIM.</p>
+<h3>Đọc sách, ghi chú, mang theo người</h3>
+<p><strong>iPad Mini</strong> là dòng duy nhất bỏ vừa túi áo khoác, cầm một tay đọc lâu không mỏi. Đổi lại màn nhỏ nên không hợp chia đôi màn hình làm việc.</p>
+<h3>Mua cho bé học và giải trí</h3>
+<p><strong>iPad Gen</strong> với hình thức đẹp và pin còn tốt là lựa chọn hợp lý nhất. Không cần đời quá cao, quan trọng là máy nguyên zin và có bảo hành.</p>
+
+<h2>4. Đời máy cao hay dòng cao — nên ưu tiên cái nào?</h2>
+<p>Với cùng một ngân sách, nguyên tắc thực dụng là: <strong>ưu tiên đúng dòng trước, rồi mới tính tới đời máy</strong>. Một chiếc iPad Air 4 đời 2020 vẫn phục vụ người vẽ tốt hơn một chiếc iPad Gen đời mới hơn nhưng không ép kính. Ngược lại, nếu bạn chỉ xem phim và học online, iPad Gen giá mềm là lựa chọn khôn ngoan hơn nhiều so với việc cố với lên iPad Pro.</p>
+<p>Tham khảo <a href="/ipad">danh sách iPad đang có tại Dev Pồ</a>, lọc theo dòng máy, kết nối và dung lượng để so sánh trực tiếp. Nếu vẫn phân vân, nhắn Zalo mô tả nhu cầu và ngân sách, cửa hàng sẽ gợi ý đúng máy thay vì đẩy bạn lên đời cao.</p>
+`,
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    category: "so-sanh",
+    tags: ["iPad", "iPad Pro", "iPad Air", "iPad Mini", "iPad Gen", "chọn iPad"],
+    readingTime: 8,
+    imageUrl: "/products/ipadair5.png",
+    faq: [
+      {
+        question: "Người mới mua iPad lần đầu nên chọn dòng nào?",
+        answer:
+          "Với đa số người dùng, iPad Air là điểm cân bằng tốt nhất: màn hình ép kính, chip mạnh, dùng được Apple Pencil 2 mà giá dễ chịu hơn iPad Pro. Nếu ngân sách hạn chế và chỉ học tập, giải trí thì iPad Gen là đủ.",
+      },
+      {
+        question: "Màn hình ép kính và không ép kính khác nhau ra sao?",
+        answer:
+          "Màn ép kính có lớp kính dán sát tấm nền nên nét vẽ bám sát đầu bút và hình ảnh nhìn nổi hơn. Màn không ép kính có khe không khí mỏng, nhìn thấy độ dày kính và cảm giác vẽ hơi trễ. iPad Pro và iPad Air đều ép kính.",
+      },
+      {
+        question: "iPad Air có đủ mạnh để vẽ Procreate không?",
+        answer:
+          "Đủ. iPad Air 4 chạy chip A14 và iPad Air 5 chạy chip M1 đều xử lý tốt file Procreate nhiều lớp, và cả hai đều hỗ trợ Apple Pencil 2 với màn hình ép kính.",
+      },
+      {
+        question: "Nên mua iPad đời mới dòng thấp hay iPad đời cũ dòng cao?",
+        answer:
+          "Nên chọn đúng dòng trước rồi mới tính đời máy. Nếu bạn vẽ hoặc làm việc chuyên sâu, một chiếc iPad Air đời cũ với màn ép kính vẫn tốt hơn iPad Gen đời mới hơn. Nếu chỉ học và giải trí, iPad Gen giá mềm là lựa chọn hợp lý.",
+      },
+    ],
+  },
+  {
+    id: "11",
+    slug: "chon-dung-luong-ipad",
+    title: "Mua iPad Nên Chọn Dung Lượng Bao Nhiêu? 32GB, 64GB Hay 256GB",
+    excerpt:
+      "iPad không có khe thẻ nhớ nên chọn sai dung lượng là chịu suốt đời máy. Hướng dẫn ước lượng đúng nhu cầu để không thừa tiền cũng không thiếu chỗ.",
+    content: `
+<p>Đây là câu hỏi khiến nhiều người đứng tần ngần lâu nhất khi mua iPad, và cũng là quyết định khó sửa nhất. Khác với điện thoại Android, <strong>iPad không có khe thẻ nhớ</strong> — dung lượng bạn mua là dung lượng bạn sống chung suốt vòng đời máy. Nâng cấp đồng nghĩa với bán máy cũ mua máy mới.</p>
+
+<h2>1. Dung lượng thực tế luôn ít hơn con số ghi trên hộp</h2>
+<p>Hệ điều hành iPadOS cùng các ứng dụng mặc định đã chiếm sẵn một phần đáng kể. Trên thực tế, một máy ghi 64GB thường chỉ còn khoảng 55-58GB trống khi mới thiết lập xong, và con số này giảm dần theo mỗi bản cập nhật iPadOS. Với bản 32GB, phần trống còn lại là khá chật ngay từ ngày đầu.</p>
+
+<h2>2. Ước lượng theo nhu cầu thực tế</h2>
+<div class="overflow-x-auto">
+<table>
+  <thead>
+    <tr><th>Dung lượng</th><th>Đủ dùng cho</th><th>Nên tránh nếu</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>32GB</strong></td><td>Xem YouTube/Netflix trực tuyến, lướt web, đọc PDF, vài app học tập</td><td>Bạn tải phim offline, cài game nặng, hoặc vẽ nhiều file</td></tr>
+    <tr><td><strong>64GB</strong></td><td>Học online, ghi chú, đọc giáo trình, xem phim, vài game nhẹ, vẽ cơ bản</td><td>Bạn dựng video hoặc lưu thư viện ảnh lớn ngay trên máy</td></tr>
+    <tr><td><strong>128GB</strong></td><td>Vẽ Procreate thường xuyên, tải phim đi đường dài, nhiều game lớn</td><td>Gần như không có nhược điểm — mức phổ thông đáng tiền nhất</td></tr>
+    <tr><td><strong>256GB trở lên</strong></td><td>Dựng video 4K, lưu file thô, làm việc chuyên nghiệp không cần nghĩ</td><td>Bạn chỉ dùng máy để học và xem phim — thừa không cần thiết</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>3. Vài con số để bạn tự tính</h2>
+<ul>
+  <li>Một bộ phim tải offline chất lượng HD: khoảng <strong>1.5 đến 4GB</strong>.</li>
+  <li>Một game lớn như Genshin Impact hay Call of Duty Mobile: <strong>10 đến 25GB</strong> mỗi tựa.</li>
+  <li>Một file Procreate cỡ A4 nhiều lớp: <strong>200MB đến hơn 1GB</strong>.</li>
+  <li>Một giờ video quay 1080p: khoảng <strong>3GB</strong>; quay 4K thì gấp nhiều lần.</li>
+  <li>Sách PDF, tài liệu học, ghi chú GoodNotes: rất nhẹ, thường chỉ vài chục MB mỗi tệp.</li>
+</ul>
+<p>Nhìn vào bảng trên sẽ thấy ngay: nếu bạn chỉ học và ghi chú thì 64GB dư dả, nhưng chỉ cần cài hai tựa game lớn là bản 32GB đã hết chỗ.</p>
+
+<h2>4. Có cách nào tiết kiệm dung lượng không?</h2>
+<p>Có, và chúng thực sự hiệu quả nếu bạn đang cân nhắc giữa hai mức:</p>
+<ul>
+  <li><strong>Bật iCloud Photos:</strong> ảnh và video lưu trên iCloud, máy chỉ giữ bản xem trước dung lượng thấp. Tiết kiệm rất nhiều nếu thư viện ảnh của bạn lớn.</li>
+  <li><strong>Bật "Gỡ ứng dụng không dùng":</strong> trong Cài đặt &gt; Cài đặt chung &gt; Dung lượng iPad. Máy tự gỡ app lâu không mở nhưng giữ nguyên dữ liệu, mở lại là tải về.</li>
+  <li><strong>Dùng ổ cứng ngoài qua USB-C:</strong> áp dụng cho iPad Air 4 trở lên và iPad Pro. Rất tiện để lưu file dựng video và ảnh thô.</li>
+  <li><strong>Xoá phim đã xem trong Netflix/YouTube:</strong> đây là thứ ngốn dung lượng âm thầm nhất trên iPad.</li>
+</ul>
+
+<h2>5. Lời khuyên cuối cùng</h2>
+<p>Nếu ngân sách cho phép chênh lệch một chút, <strong>hãy chọn mức dung lượng cao hơn thay vì đời máy cao hơn</strong>. Một chiếc iPad Air 4 bản 256GB sẽ phục vụ bạn thoải mái hơn nhiều so với một chiếc iPad Air 5 bản 64GB luôn trong tình trạng đầy bộ nhớ. Chip mạnh hơn giúp bạn nhanh hơn vài giây, còn hết dung lượng thì làm phiền bạn mỗi ngày.</p>
+<p>Tại Dev Pồ, mỗi chiếc <a href="/ipad">iPad đang bán</a> đều ghi rõ các mức dung lượng đang có sẵn, và bạn lọc trực tiếp theo dung lượng ngay trên trang danh mục. Nếu cần đúng một cấu hình cụ thể chưa lên web, nhắn Zalo để cửa hàng kiểm tra kho.</p>
+`,
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    category: "huong-dan",
+    tags: ["iPad", "dung lượng iPad", "mua iPad cũ", "iPad 64GB", "iPad 256GB"],
+    readingTime: 6,
+    imageUrl: "/products/ipadair4.png",
+    faq: [
+      {
+        question: "iPad 64GB có đủ dùng không?",
+        answer:
+          "Đủ cho học online, ghi chú, đọc tài liệu, xem phim trực tuyến và vẽ cơ bản. Nếu bạn tải nhiều phim offline, cài game nặng hoặc vẽ Procreate nhiều lớp thường xuyên thì nên chọn từ 128GB trở lên.",
+      },
+      {
+        question: "iPad có lắp được thẻ nhớ để mở rộng dung lượng không?",
+        answer:
+          "Không. iPad không có khe thẻ nhớ nên dung lượng mua sao dùng vậy. Với iPad Air 4 trở lên và iPad Pro, bạn có thể cắm ổ cứng ngoài qua cổng USB-C để lưu thêm file, nhưng không thể mở rộng bộ nhớ trong.",
+      },
+      {
+        question: "iPad 32GB còn dùng được năm nay không?",
+        answer:
+          "Vẫn dùng được cho nhu cầu rất nhẹ: xem YouTube trực tuyến, lướt web, đọc PDF và vài app học tập. Nhưng iPadOS đã chiếm sẵn khá nhiều nên phần trống còn lại khá chật, không hợp để cài game lớn hay tải phim offline.",
+      },
+      {
+        question: "Nên ưu tiên dung lượng cao hay đời máy mới hơn?",
+        answer:
+          "Nên ưu tiên dung lượng cao hơn. Chip mạnh hơn chỉ giúp bạn nhanh hơn vài giây, còn máy đầy bộ nhớ thì gây phiền mỗi ngày và không có cách khắc phục triệt để.",
+      },
+    ],
+  },
+  {
+    id: "12",
+    slug: "apple-pencil-cho-ipad",
+    title: "Apple Pencil 1 Hay 2? Chọn Đúng Bút Cho iPad Của Bạn",
+    excerpt:
+      "Apple Pencil 1 và 2 không dùng lẫn cho nhau được. Cách xác định iPad của bạn hợp bút nào, khác biệt thực tế khi dùng, và có nên mua bút thay thế giá rẻ không.",
+    content: `
+<p>Rất nhiều người mua iPad xong mới đi mua bút, và phát hiện ra cây Apple Pencil vừa mua không hoạt động với máy của mình. Đây là lỗi phổ biến đến mức đáng để nói rõ ngay từ đầu: <strong>Apple Pencil 1 và Apple Pencil 2 hoàn toàn không dùng lẫn cho nhau được</strong>, dù nhìn bề ngoài khá giống nhau.</p>
+
+<h2>1. Khác biệt cơ bản giữa hai đời bút</h2>
+<div class="overflow-x-auto">
+<table>
+  <thead>
+    <tr><th>Tiêu chí</th><th>Apple Pencil 1</th><th>Apple Pencil 2</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Cách sạc</td><td>Cắm đầu Lightning vào máy hoặc dùng cục chuyển</td><td>Hít nam châm vào cạnh iPad, sạc không dây</td></tr>
+    <tr><td>Thân bút</td><td>Tròn hoàn toàn, dễ lăn khỏi bàn</td><td>Có một cạnh phẳng, không lăn</td></tr>
+    <tr><td>Thao tác gõ hai lần</td><td>Không có</td><td>Có — đổi nhanh giữa bút và tẩy</td></tr>
+    <tr><td>Nắp đậy</td><td>Có nắp rời, rất dễ làm mất</td><td>Không cần nắp</td></tr>
+    <tr><td>Cất giữ</td><td>Bỏ rời, dễ thất lạc</td><td>Dính vào cạnh máy</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Về chất lượng nét vẽ, độ nhạy áp lực và độ nghiêng, hai đời bút cho trải nghiệm rất gần nhau. Khác biệt lớn nhất nằm ở <strong>sự tiện dụng hằng ngày</strong>: Apple Pencil 2 luôn dính sẵn trên máy và luôn đầy pin, còn Apple Pencil 1 thì bạn phải nhớ mang theo và nhớ nắp bút.</p>
+
+<h2>2. iPad của bạn dùng bút nào?</h2>
+<p>Nguyên tắc chung dễ nhớ: <strong>máy có dải sạc nam châm ở cạnh bên thì dùng Apple Pencil 2</strong>. Cụ thể với các dòng máy phổ biến trên thị trường máy cũ:</p>
+<ul>
+  <li><strong>iPad Gen 7, Gen 8, Gen 9:</strong> dùng <strong>Apple Pencil 1</strong>.</li>
+  <li><strong>iPad Air 4, iPad Air 5:</strong> dùng <strong>Apple Pencil 2</strong>.</li>
+  <li><strong>iPad Pro 11 inch và 12.9 inch (từ 2018 trở đi, gồm bản 2020):</strong> dùng <strong>Apple Pencil 2</strong>.</li>
+  <li><strong>iPad Mini 5:</strong> dùng Apple Pencil 1. <strong>iPad Mini 6:</strong> dùng Apple Pencil 2.</li>
+  <li><strong>iPad Pro đời 2015-2017 và iPad Air 3:</strong> dùng Apple Pencil 1.</li>
+</ul>
+<p>Cách kiểm tra chắc chắn nhất khi cầm máy trên tay: <strong>đặt thử cây bút vào cạnh máy</strong>. Nếu bút hít chặt bằng nam châm và màn hình hiện thông báo ghép nối kèm phần trăm pin, đó là máy dùng Apple Pencil 2.</p>
+
+<h2>3. Có nên mua bút thay thế của hãng thứ ba?</h2>
+<p>Trên thị trường có nhiều loại bút cảm ứng giá rẻ hơn Apple Pencil nhiều lần. Chúng dùng được, nhưng bạn cần biết rõ mình đánh đổi gì:</p>
+<ul>
+  <li><strong>Phù hợp nếu</strong> bạn chỉ ghi chú, đánh dấu tài liệu PDF, ký tên, viết bài giảng — những việc không cần độ nhạy áp lực.</li>
+  <li><strong>Không phù hợp nếu</strong> bạn vẽ digital nghiêm túc: hầu hết bút thay thế <strong>không hỗ trợ cảm biến lực nhấn</strong>, nghĩa là nét vẽ không đậm nhạt theo lực tay — thứ quan trọng bậc nhất trong Procreate.</li>
+  <li>Một số dòng cũng không hỗ trợ độ nghiêng để tô bóng, và độ trễ cao hơn thấy rõ.</li>
+</ul>
+<p>Lời khuyên thực tế: nếu vẽ là mục đích chính khi mua iPad, hãy để dành tiền cho Apple Pencil chính hãng. Nếu chỉ ghi chú và học tập, bút thay thế tốt là lựa chọn tiết kiệm hợp lý.</p>
+
+<h2>4. Vài mẹo dùng bút bền hơn</h2>
+<ul>
+  <li><strong>Thay ngòi khi nét bắt đầu rít:</strong> ngòi Apple Pencil là vật tư tiêu hao, mòn dần theo thời gian và có thể làm xước màn hình nếu để mòn quá.</li>
+  <li><strong>Dán miếng dán giống giấy (paperlike)</strong> nếu muốn cảm giác vẽ như trên giấy — đổi lại màn hình bớt trong và ngòi bút mòn nhanh hơn.</li>
+  <li><strong>Với Apple Pencil 1:</strong> mua thêm một nắp dự phòng và một cục chuyển sạc ngay từ đầu, vì đây là hai thứ mất nhiều nhất.</li>
+  <li><strong>Với Apple Pencil 2:</strong> tránh dùng ốp lưng quá dày che mất dải nam châm ở cạnh máy, bút sẽ không sạc được.</li>
+</ul>
+
+<h2>5. Chốt lại</h2>
+<p>Trước khi mua bút, hãy xác định chắc chắn iPad của bạn thuộc nhóm nào. Trên trang <a href="/ipad">danh mục iPad tại Dev Pồ</a>, mỗi máy đều ghi rõ đời Apple Pencil tương thích ngay trên thẻ sản phẩm, nên bạn không cần tra cứu thêm. Nếu chưa chọn được máy, tham khảo bài <a href="/guides/chon-dong-ipad-phu-hop">nên mua iPad dòng nào</a> trước rồi mới tính tới bút.</p>
+`,
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    category: "huong-dan",
+    tags: ["iPad", "Apple Pencil", "Apple Pencil 2", "vẽ trên iPad", "phụ kiện iPad"],
+    readingTime: 6,
+    imageUrl: "/products/ipadgen7.png",
+    faq: [
+      {
+        question: "Apple Pencil 1 có dùng được cho iPad Air 5 không?",
+        answer:
+          "Không. iPad Air 4, Air 5 và iPad Pro từ 2018 trở đi chỉ dùng được Apple Pencil 2 sạc nam châm. Apple Pencil 1 chỉ dùng cho các dòng iPad Gen 7/8/9, iPad Air 3, iPad Mini 5 và iPad Pro đời 2015-2017.",
+      },
+      {
+        question: "Làm sao biết iPad của mình dùng bút đời nào?",
+        answer:
+          "Đặt thử bút vào cạnh bên của máy. Nếu bút hít chặt bằng nam châm và màn hình hiện thông báo ghép nối kèm phần trăm pin thì máy dùng Apple Pencil 2. Nếu không có dải nam châm ở cạnh, máy dùng Apple Pencil 1.",
+      },
+      {
+        question: "Bút cảm ứng giá rẻ có thay được Apple Pencil không?",
+        answer:
+          "Dùng được cho ghi chú, đánh dấu PDF và ký tên. Nhưng hầu hết bút thay thế không hỗ trợ cảm biến lực nhấn nên nét vẽ không đậm nhạt theo lực tay, không phù hợp nếu bạn vẽ digital nghiêm túc trong Procreate.",
+      },
+      {
+        question: "Mua iPad tại Dev Pồ có tặng kèm Apple Pencil không?",
+        answer:
+          "Apple Pencil là phụ kiện mua thêm, không mặc định đi kèm máy trừ khi có ghi chú tặng kèm trong chương trình khuyến mãi. Trên mỗi sản phẩm iPad đều ghi rõ máy dùng được đời bút nào để bạn chọn đúng.",
+      },
+    ],
+  },
+  {
+    id: "13",
+    slug: "kiem-tra-icloud-activation-lock-ipad",
+    title: "Cách Kiểm Tra iCloud Ẩn Và Activation Lock Trên iPad Cũ",
+    excerpt:
+      "iCloud ẩn là rủi ro lớn nhất khi mua iPad cũ — máy đang chạy ngon vẫn có thể khoá cứng sau khi khôi phục. 6 bước kiểm tra ngay tại chỗ trước khi trả tiền.",
+    content: `
+<p>Trong tất cả rủi ro khi mua iPad cũ, <strong>iCloud ẩn</strong> là thứ nguy hiểm nhất — vì máy vẫn chạy hoàn toàn bình thường lúc bạn cầm xem. Vấn đề chỉ lộ ra vài tuần sau, khi bạn khôi phục cài đặt gốc hoặc cập nhật iPadOS: máy hiện màn hình yêu cầu đăng nhập Apple ID của chủ cũ và trở thành một tấm kính chặn giấy. Bài viết này là quy trình kiểm tra bạn nên làm ngay tại chỗ, trước khi trả tiền.</p>
+
+<h2>1. Activation Lock và iCloud ẩn là gì?</h2>
+<p><strong>Activation Lock (Khoá kích hoạt)</strong> là tính năng bảo mật của Apple, tự động bật khi người dùng bật "Tìm iPad" (Find My). Mục đích rất chính đáng: máy bị mất cắp thì kẻ trộm không thể xoá và bán lại. Nhưng nó cũng có nghĩa là <strong>chỉ Apple ID của chủ cũ mới mở được máy</strong> — không cửa hàng nào, không kỹ thuật viên nào can thiệp được, kể cả Apple cũng không hỗ trợ nếu bạn không chứng minh được quyền sở hữu.</p>
+<p><strong>iCloud ẩn</strong> là cách gọi dân gian cho tình trạng máy đã được xoá tài khoản khỏi giao diện Cài đặt nhưng vẫn còn liên kết ở tầng máy chủ Apple, hoặc tài khoản được giấu khéo léo. Máy dùng bình thường cho tới lúc bị reset thì lộ.</p>
+
+<h2>2. Sáu bước kiểm tra ngay khi cầm máy</h2>
+<h3>Bước 1: Kiểm tra mục Apple ID trên cùng</h3>
+<p>Mở <strong>Cài đặt</strong>. Ngay trên cùng danh sách bên trái, nếu thấy tên người và ảnh đại diện — nghĩa là máy <strong>đang đăng nhập một Apple ID</strong>. Yêu cầu người bán đăng xuất ngay tại chỗ; họ phải nhập được mật khẩu để đăng xuất. Nếu họ viện lý do quên mật khẩu, đây là dấu hiệu dừng giao dịch.</p>
+<h3>Bước 2: Kiểm tra "Tìm iPad" đã tắt chưa</h3>
+<p>Vào <strong>Cài đặt &gt; [tên tài khoản] &gt; Tìm &gt; Tìm iPad</strong>. Trạng thái phải là <strong>Tắt</strong>. Chừng nào tính năng này còn bật, Activation Lock vẫn còn hiệu lực.</p>
+<h3>Bước 3: Kiểm tra hồ sơ MDM (khoá quản lý từ xa)</h3>
+<p>Vào <strong>Cài đặt &gt; Cài đặt chung &gt; VPN &amp; Quản lý thiết bị</strong>. Khu vực này phải trống. Nếu xuất hiện hồ sơ lạ mang tên một trường học, công ty hay tổ chức nước ngoài, đó là máy dính <strong>MDM</strong> — sẽ bị khoá và bị quản trị viên điều khiển từ xa sau khi reset. Xem thêm về vấn đề này tại <a href="/cong-cu-mua-iphone/bypass-mdm">công cụ bypass MDM</a>.</p>
+<h3>Bước 4: Kiểm tra hạn chế nội dung</h3>
+<p>Vào <strong>Cài đặt &gt; Thời gian sử dụng</strong>. Nếu mục này đang bật và bị đặt mật mã mà người bán không biết, một số chức năng của máy sẽ bị chặn và bạn không tự gỡ được.</p>
+<h3>Bước 5: Bước quan trọng nhất — reset thử ngay tại chỗ</h3>
+<p>Đây là phép thử duy nhất cho kết quả chắc chắn. Vào <strong>Cài đặt &gt; Cài đặt chung &gt; Chuyển hoặc Đặt lại iPad &gt; Xoá tất cả nội dung và cài đặt</strong>. Chờ máy khởi động lại và tự thiết lập như máy mới.</p>
+<ul>
+  <li>Nếu máy đi qua màn hình chào và <strong>không hỏi Apple ID nào cả</strong> → máy sạch, an toàn để mua.</li>
+  <li>Nếu máy hiện <strong>"iPad được liên kết với Apple ID a***@icloud.com"</strong> → máy dính Activation Lock. Không mua, dù người bán hứa hẹn gì.</li>
+</ul>
+<p>Người bán uy tín sẽ sẵn sàng cho bạn làm bước này. Người từ chối với lý do "mất thời gian", "máy đang có dữ liệu" thường là người có gì đó cần giấu.</p>
+<h3>Bước 6: Kiểm tra số Serial và IMEI</h3>
+<p>Vào <strong>Cài đặt &gt; Cài đặt chung &gt; Giới thiệu</strong> để lấy số Serial. Đối chiếu với số in trên vỏ máy và trên hộp (nếu còn) — ba số này phải khớp nhau. Số không khớp là dấu hiệu máy đã thay vỏ hoặc bị ghép linh kiện. Với bản Cellular, kiểm tra thêm IMEI để tra nguồn gốc máy.</p>
+
+<h2>3. Nếu lỡ mua phải máy dính iCloud thì sao?</h2>
+<p>Nói thẳng: <strong>gần như không có cách xử lý an toàn</strong>. Các dịch vụ quảng cáo "mở iCloud" trên mạng phần lớn là lừa đảo, hoặc dùng thủ thuật tạm thời khiến máy mất chức năng, không cập nhật được và có thể khoá lại bất cứ lúc nào. Hướng giải quyết thực tế duy nhất là liên hệ lại người bán để trả máy, hoặc tìm được chủ cũ để họ gỡ thiết bị khỏi tài khoản iCloud của mình.</p>
+<p>Vì vậy, năm phút kiểm tra trước khi trả tiền đáng giá hơn nhiều so với mọi cách khắc phục sau đó.</p>
+
+<h2>4. Mua ở đâu để không phải lo bước này?</h2>
+<p>Toàn bộ <a href="/ipad">iPad tại Dev Pồ</a> đều được kiểm tra iCloud, Activation Lock và hồ sơ MDM trước khi lên kệ, và cửa hàng luôn sẵn sàng reset máy tại chỗ cùng khách trước khi giao. Khách ở tỉnh được quay video quá trình test và đóng gói. Đây là quy trình chúng tôi áp dụng chung cho cả iPhone lẫn iPad, không có ngoại lệ.</p>
+`,
+    publishedAt: "2026-09-05",
+    updatedAt: "2026-09-05",
+    category: "thu-thuat",
+    tags: ["iPad", "iCloud ẩn", "Activation Lock", "kiểm tra iPad cũ", "MDM"],
+    readingTime: 7,
+    imageUrl: "/products/ipadpro2020.png",
+    faq: [
+      {
+        question: "Cách chắc chắn nhất để biết iPad cũ có dính iCloud ẩn?",
+        answer:
+          "Khôi phục cài đặt gốc ngay tại chỗ qua Cài đặt > Cài đặt chung > Chuyển hoặc Đặt lại iPad > Xoá tất cả nội dung và cài đặt, rồi thiết lập lại như máy mới. Nếu máy không hỏi Apple ID của chủ cũ thì máy sạch; nếu hiện thông báo liên kết Apple ID thì máy dính Activation Lock.",
+      },
+      {
+        question: "iPad dính Activation Lock có mở được không?",
+        answer:
+          "Gần như không có cách mở an toàn. Chỉ Apple ID của chủ cũ mới gỡ được thiết bị khỏi iCloud. Các dịch vụ quảng cáo mở iCloud trên mạng phần lớn là lừa đảo hoặc chỉ xử lý tạm thời khiến máy mất chức năng và có thể khoá lại bất cứ lúc nào.",
+      },
+      {
+        question: "MDM trên iPad là gì và có nguy hiểm không?",
+        answer:
+          "MDM là hồ sơ quản lý thiết bị từ xa, thường có trên máy của trường học hoặc doanh nghiệp nước ngoài. Máy dính MDM sẽ bị khoá và bị quản trị viên điều khiển sau khi reset. Kiểm tra tại Cài đặt > Cài đặt chung > VPN & Quản lý thiết bị, khu vực này phải trống.",
+      },
+      {
+        question: "Người bán không cho reset máy tại chỗ thì sao?",
+        answer:
+          "Nên cân nhắc dừng giao dịch. Reset tại chỗ là phép thử duy nhất cho kết quả chắc chắn về iCloud, và người bán uy tín luôn sẵn sàng thực hiện cùng khách trước khi giao máy.",
+      },
+    ],
+  },
 ];
 
 /** Bài thuộc chuyên mục Tin tức — tách riêng, hiển thị tại /news */

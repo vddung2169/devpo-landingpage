@@ -35,8 +35,8 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Chuyên cung cấp các dòng iPhone Lock, Quốc tế chính hãng. Uy tín,
-              chất lượng, giá tốt nhất thị trường kèm dịch vụ hỗ trợ trọn đời.
+              Chuyên iPhone Lock, iPhone Quốc tế và iPad chính hãng — máy zin
+              nguyên bản, giá tốt nhất thị trường kèm dịch vụ hỗ trợ trọn đời.
             </p>
 
             {/* DÀN ICON MẠNG XÃ HỘI */}
@@ -173,6 +173,14 @@ export function SiteFooter() {
                     className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
                   >
                     <ChevronRight className="h-4 w-4" /> Mã IMSI mới nhất
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/ipad"
+                    className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
+                  >
+                    <ChevronRight className="h-4 w-4" /> iPad cũ giá tốt
                   </Link>
                 </li>
                 <li>

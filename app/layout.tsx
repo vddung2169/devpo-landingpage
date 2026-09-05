@@ -41,11 +41,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.devpo.vn"),
   title: {
-    default: "Dev Pồ - Chuyên iPhone Lock, Quốc tế giá tốt",
+    default: "Dev Pồ - Chuyên iPhone Lock, Quốc tế & iPad giá tốt",
     template: "%s | Dev Pồ",
   },
   description:
-    "Mua iPhone Lock, iPhone Quốc tế và iPad giá tốt tại TP.HCM. Dev Pồ bán máy zin, hỗ trợ fix lỗi sim ghép và bảo hành tận tâm.",
+    "Dev Pồ chuyên iPhone Lock, iPhone Quốc tế và iPad cũ giá tốt tại TP.HCM. Máy zin nguyên bản, kiểm tra kỹ trước khi giao, hỗ trợ fix lỗi sim ghép trọn đời và bảo hành tận tâm.",
   keywords: [
     "iPhone Lock",
     "iPhone Quốc tế",
@@ -57,6 +57,11 @@ export const metadata: Metadata = {
     "fix lỗi iphone lock",
     "iphone tp hồ chí minh",
     "iphone uy tín",
+    "iPad cũ",
+    "mua iPad HCM",
+    "iPad Air cũ",
+    "iPad Pro cũ",
+    "iPad giá rẻ",
   ],
   authors: [{ name: "Dev Pồ", url: "https://www.devpo.vn" }],
   creator: "Dev Pồ",
@@ -65,23 +70,23 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: "https://www.devpo.vn",
     siteName: "Dev Pồ - DevpoStore",
-    title: "Dev Pồ - Chuyên iPhone Lock, Quốc tế giá tốt tại HCM",
+    title: "Dev Pồ - iPhone Lock, iPhone Quốc tế & iPad giá tốt tại HCM",
     description:
-      "Mua iPhone Lock, iPhone Quốc tế và iPad giá tốt tại TP.HCM. Máy zin, hỗ trợ fix lỗi sim ghép, bảo hành tận tâm tại Dev Pồ.",
+      "Dev Pồ chuyên iPhone Lock, iPhone Quốc tế và iPad cũ giá tốt tại TP.HCM. Máy zin, hỗ trợ fix lỗi sim ghép, bảo hành tận tâm.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Dev Pồ - Chuyên iPhone Lock tại TP.HCM",
+        alt: "Dev Pồ - iPhone Lock, iPhone Quốc tế và iPad tại TP.HCM",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dev Pồ - Chuyên iPhone Lock, Quốc tế",
+    title: "Dev Pồ - iPhone Lock, iPhone Quốc tế & iPad",
     description:
-      "Mua iPhone Lock, iPhone Quốc tế và iPad giá tốt tại TP.HCM. Máy zin, hỗ trợ fix lỗi sim ghép, bảo hành tận tâm.",
+      "Dev Pồ chuyên iPhone Lock, iPhone Quốc tế và iPad cũ giá tốt tại TP.HCM. Máy zin, hỗ trợ fix lỗi sim ghép, bảo hành tận tâm.",
     images: ["/og-image.jpg"],
   },
   robots: {

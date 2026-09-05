@@ -47,41 +47,84 @@ const faqs: { question: string; answer: string }[] = [
     answer:
       "Dev Pồ có địa chỉ tại 3/39A Bình Giã, Phường Tân Bình, TP. Hồ Chí Minh. Quý khách có thể ghé trực tiếp cửa hàng để xem máy hoặc liên hệ Zalo/Messenger để được tư vấn từ xa.",
   },
+
+  // ----- Nhóm câu hỏi về iPad -----
+  {
+    question: "iPad Lock là gì? Có khác iPad Wi-Fi only không?",
+    answer:
+      "iPad Lock là iPad bản Wi-Fi + Cellular được nhà mạng nước ngoài (AT&T, Verizon, Softbank...) bán kèm hợp đồng nên khe SIM bị khoá mạng. Bản Wi-Fi only không có khe SIM lẫn modem nên không bao giờ dính khoá mạng. Khoá mạng trên iPad chỉ ảnh hưởng phần lắp SIM, còn Wi-Fi, App Store, iCloud, Apple Pencil và cập nhật iPadOS vẫn dùng bình thường.",
+  },
+  {
+    question: "Nên mua iPad bản Wi-Fi hay bản Wi-Fi + Cellular?",
+    answer:
+      "Nếu bạn chủ yếu dùng máy ở nhà, ở lớp hoặc ở văn phòng nơi luôn có Wi-Fi thì bản Wi-Fi only là lựa chọn hợp lý, rẻ hơn khoảng 2-4 triệu để dồn tiền lên dung lượng cao hơn. Nếu hay mang máy ra ngoài, đi học, đi làm, bán hàng hay giao hàng thì nên chọn bản Cellular để lắp SIM 4G/5G dùng ở bất cứ đâu mà không cần phát Wi-Fi từ điện thoại.",
+  },
+  {
+    question: "Mua iPad cũ nên chọn dung lượng bao nhiêu?",
+    answer:
+      "iPad không có khe thẻ nhớ nên dung lượng mua sao dùng vậy. Học tập, xem phim, lướt web và ghi chú cơ bản thì 64GB là đủ. Nếu vẽ Procreate nhiều lớp, tải phim offline, cài nhiều game nặng hoặc dựng video thì nên chọn từ 128GB đến 256GB. Riêng bản 32GB chỉ phù hợp nhu cầu rất nhẹ nhàng.",
+  },
+  {
+    question: "iPad tại Dev Pồ có dùng được Apple Pencil không?",
+    answer:
+      "Có, nhưng mỗi dòng dùng một đời bút khác nhau: iPad Gen 7 dùng Apple Pencil 1, còn iPad Air 4, Air 5 và iPad Pro 2020 dùng Apple Pencil 2 sạc nam châm. Thông tin đời bút tương thích được ghi rõ trên từng sản phẩm. Bút là phụ kiện mua thêm, không mặc định đi kèm máy, trừ khi có ghi chú tặng kèm trong chương trình khuyến mãi.",
+  },
+  {
+    question: "Làm sao biết iPad cũ có dính iCloud ẩn hay Activation Lock?",
+    answer:
+      "Cách chắc chắn nhất là khôi phục cài đặt gốc ngay tại chỗ (Cài đặt > Cài đặt chung > Chuyển hoặc Đặt lại iPad > Xoá tất cả nội dung và cài đặt) rồi thiết lập lại như máy mới; nếu máy không hỏi Apple ID của chủ cũ thì máy sạch. Ngoài ra cần kiểm tra mục Cài đặt > tên tài khoản trên cùng phải trống và không có hồ sơ MDM lạ trong Cài đặt > Cài đặt chung > VPN & Quản lý thiết bị. Mọi iPad tại Dev Pồ đều được kiểm tra iCloud, Activation Lock và MDM trước khi giao.",
+  },
 ];
 
-// FAQPage JSON-LD sinh từ chính mảng faqs ở trên (single source of truth).
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
-};
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
 
-export function FaqSection() {
+interface FaqSectionProps {
+  /** Bộ câu hỏi hiển thị — mặc định là FAQ trang chủ ở trên */
+  items?: FaqItem[];
+  title?: string;
+  subtitle?: string;
+}
+
+// FAQPage JSON-LD sinh từ chính mảng câu hỏi đang hiển thị (single source of
+// truth) — Google yêu cầu text trong structured data khớp với text trên trang.
+function buildFaqSchema(items: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
+export function FaqSection({
+  items = faqs,
+  title = "Câu hỏi thường gặp",
+  subtitle = "Giải đáp nhanh các thắc mắc khi mua iPhone Lock, iPhone Quốc tế và iPad tại Dev Pồ",
+}: FaqSectionProps = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="py-16 bg-slate-50 dark:bg-[#0b0f19]">
-      <JsonLd data={faqSchema} />
+      <JsonLd data={buildFaqSchema(items)} />
       <div className="container mx-auto max-w-3xl px-4">
         <div className="mb-10 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Câu hỏi thường gặp
+            {title}
           </h2>
-          <p className="mt-4 text-slate-500 dark:text-slate-400">
-            Giải đáp nhanh các thắc mắc khi mua iPhone Lock, iPhone Quốc tế tại
-            Dev Pồ
-          </p>
+          <p className="mt-4 text-slate-500 dark:text-slate-400">{subtitle}</p>
         </div>
 
         <div className="space-y-3">
-          {faqs.map((faq, index) => {
+          {items.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div

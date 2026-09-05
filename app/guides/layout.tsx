@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 // Trang /guides là Client Component nên không export được metadata trực tiếp.
 // Đặt metadata ở layout của segment này.
 export const metadata: Metadata = {
-  title: "Cẩm nang iPhone Lock - Hướng dẫn ghép sim, fix lỗi",
+  title: "Cẩm nang iPhone Lock & iPad - Hướng dẫn chọn máy, fix lỗi",
   description:
-    "Tổng hợp cẩm nang iPhone Lock: hướng dẫn ghép sim, fix lỗi sim ghép, cập nhật iOS an toàn và mẹo dùng iPhone Lock như máy quốc tế tại Dev Pồ.",
+    "Tổng hợp cẩm nang iPhone Lock (ghép sim, fix lỗi sim ghép, cập nhật iOS an toàn) và cẩm nang iPad (chọn dòng máy, dung lượng, Apple Pencil, kiểm tra iCloud) tại Dev Pồ.",
   alternates: { canonical: "/guides" },
 };
 

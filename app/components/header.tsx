@@ -120,6 +120,12 @@ export function Header() {
             >
               Sản phẩm
             </Link>
+            <Link
+              href="/ipad"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              iPad
+            </Link>
           </nav>
         </div>
 
@@ -238,8 +244,25 @@ export function Header() {
                 asChild
                 className="p-3 text-base cursor-pointer rounded-lg mt-1"
               >
-                <Link href="/featured-products" className="w-full font-medium">
+                <Link
+                  href="/featured-products"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-medium"
+                >
                   Sản phẩm
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                asChild
+                className="p-3 text-base cursor-pointer rounded-lg mt-1"
+              >
+                <Link
+                  href="/ipad"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-medium"
+                >
+                  iPad
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -45,7 +45,7 @@ const staticPages: Omit<SearchDoc, "haystack">[] = [
     id: "page-home",
     type: "page",
     title: "Trang chủ",
-    subtitle: "Dev Pồ — iPhone Lock & Quốc tế uy tín",
+    subtitle: "Dev Pồ — iPhone Lock, Quốc tế & iPad uy tín",
     href: "/",
   },
   {
@@ -54,6 +54,13 @@ const staticPages: Omit<SearchDoc, "haystack">[] = [
     title: "Sản phẩm nổi bật",
     subtitle: "Danh sách iPhone Lock, Quốc tế và iPad",
     href: "/featured-products",
+  },
+  {
+    id: "page-ipad",
+    type: "page",
+    title: "iPad cũ giá tốt",
+    subtitle: "iPad Pro, Air, Mini, Gen — lọc theo dòng máy, Wi-Fi/Cellular, dung lượng",
+    href: "/ipad",
   },
   {
     id: "page-guides",

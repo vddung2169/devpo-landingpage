@@ -10,6 +10,7 @@ import { News } from "./components/news";
 import { Newsletter } from "./components/newsletter";
 import { PromoModal } from "./components/promo-modal";
 import { QuestionIPLock } from "./components/question-iplock";
+import { QuestionIPad } from "./components/question-ipad";
 import { Ticker } from "./components/ticker";
 import { Videos } from "./components/video";
 import { FeaturedProducts } from "./components/featured-products";
@@ -29,10 +30,14 @@ export default function Home() {
 
       {/* Các section dưới đây fade + trượt lên khi cuộn tới */}
       <Reveal>
-        <FeaturedProducts limit={4} />
+        <FeaturedProducts limit={8} />
       </Reveal>
       <Reveal>
         <QuestionIPLock />
+      </Reveal>
+      {/* Khối iPad đặt ngay sau khối iPhone Lock — song song, không thay thế */}
+      <Reveal>
+        <QuestionIPad />
       </Reveal>
       <Reveal>
         <IphoneLockGuides />
@@ -52,8 +57,9 @@ export default function Home() {
               Dev Pồ - Cửa hàng bán iPhone Lock, Quốc tế, iPad uy tín hàng đầu tại TP. Hồ Chí Minh
             </h2>
             <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">
-              Chúng tôi tự hào là đơn vị cung cấp các dòng iPhone Lock, Quốc tế, iPad với chất lượng zin nguyên bản,
-              cam kết giá tốt nhất thị trường và dịch vụ hỗ trợ fix lỗi sim ghép trọn đời tại TP. Hồ Chí Minh.
+              Chúng tôi cung cấp song song hai mảng: iPhone Lock &amp; iPhone Quốc tế zin nguyên bản kèm dịch vụ fix lỗi
+              sim ghép trọn đời, và iPad cũ (iPad Pro, iPad Air, iPad Mini, iPad Gen) đã kiểm tra kỹ màn hình, pin và
+              iCloud. Cam kết giá tốt nhất thị trường, bảo hành tận tâm tại TP. Hồ Chí Minh.
             </p>
           </div>
         </section>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 // Nhớ import thêm icon Search từ lucide-react nhé
 import { ArrowRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
-import { categoryLabel, products } from "@/data/products";
+import { categoryLabel, featuredRank, products } from "@/data/products";
 import { ProductCard } from "./product-card";
 
 interface FeaturedProductsProps {
@@ -44,12 +44,17 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
   // BƯỚC 2: CẮT MẢNG ĐÃ LỌC ĐỂ HIỂN THỊ
+  // Ở bản rút gọn (trang chủ) sắp lại theo thứ tự nổi bật đã chọn sẵn — iPhone
+  // xen kẽ iPad để khối này không chỉ toàn iPhone. Bản đầy đủ giữ nguyên thứ tự
+  // theo id để phân trang ổn định.
   const displayProducts = isPaginated
     ? filteredProducts.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE,
       )
-    : filteredProducts.slice(0, limit);
+    : [...filteredProducts]
+        .sort((a, b) => featuredRank(a) - featuredRank(b))
+        .slice(0, limit);
 
   // Hàm xử lý khi bấm chuyển Tab
   const handleTabChange = (category: string) => {

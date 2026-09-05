@@ -39,11 +39,11 @@ export default function GuidesPage() {
         <div className="container mx-auto px-4">
           <div className="mb-8 flex flex-col gap-4 text-center">
             <h1 className="text-balance font-sans text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              CẨM NANG &amp; HƯỚNG DẪN iPHONE LOCK
+              CẨM NANG &amp; HƯỚNG DẪN iPHONE, iPAD
             </h1>
             <p className="text-pretty mx-auto max-w-2xl text-lg text-muted-foreground">
               Tổng hợp bài viết kiến thức, so sánh và thủ thuật giúp bạn chọn mua
-              và sử dụng iPhone Lock đúng cách.
+              và sử dụng iPhone Lock, iPhone Quốc tế và iPad đúng cách.
             </p>
           </div>
 
