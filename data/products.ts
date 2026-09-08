@@ -2032,6 +2032,19 @@ const supplementalTechSpecsByIpad: Record<string, IpadQuickSpec> = {
     releaseYear: "2021",
   },
 
+  "ipad-pro-m1-12-9-2021": {
+  chip: "Apple M1 (CPU 8 nhân, GPU 8 nhân)",
+  ram: "8GB",
+  display:
+    "Liquid Retina XDR 12.9 inch, Mini-LED, ProMotion 120Hz, True Tone",
+  camera: "12MP góc rộng + 10MP góc siêu rộng, cảm biến LiDAR",
+  frontCamera: "12MP Ultra Wide, Center Stage",
+  speakers: "4 loa stereo",
+  connector: "Thunderbolt / USB 4",
+  biometric: "Face ID",
+  releaseYear: "2021",
+},
+
   "ipad-gen-8-2020": {
     chip: "Apple A12 Bionic",
     ram: "3GB",
@@ -3228,6 +3241,45 @@ techSpecs: techSpecsByIpad["ipad-air-5"],
     pencilIncluded: false,
     techSpecs: quickIpadSpecToGroups(supplementalTechSpecsByIpad["ipad-pro-2018-12-9"]),
   },
+
+  {
+  id: 36,
+  slug: "ipad-pro-m1-12-9-inch",
+  name: "iPad Pro M1 12.9 inch",
+  category: "ipad",
+  badge: "Hot Nhất",
+  priceFrom: "Từ 14.990.000đ",
+  priceOriginal: "17.990.000đ",
+  storage: "128GB / 256GB - Wi-Fi / 5G",
+  simType: "Có bản Wi-Fi hoặc Wi-Fi + 5G",
+  condition: "Hình thức 98-99%",
+  battery: "Pin 9x%",
+  image: "/products/ipadprom1-12-9.png",
+
+  description:
+    "iPad Pro M1 12.9 inch (2021) là lựa chọn cực kỳ phù hợp cho người cần một chiếc iPad màn hình lớn để thiết kế, dựng video, vẽ Procreate và làm việc chuyên nghiệp. Máy được trang bị chip Apple M1 mạnh ngang MacBook, RAM 8GB trên phiên bản 128GB và 256GB, xử lý mượt các tác vụ nặng và đa nhiệm. Màn hình Liquid Retina XDR 12.9 inch sử dụng công nghệ Mini-LED, hỗ trợ ProMotion 120Hz, hiển thị sắc nét, độ sáng cao và màu sắc sống động. Cụm camera sau 12MP kết hợp camera góc siêu rộng 10MP cùng cảm biến LiDAR, camera trước 12MP Ultra Wide hỗ trợ Center Stage. Máy có Face ID, 4 loa stereo, cổng Thunderbolt và hỗ trợ Apple Pencil 2 cùng Magic Keyboard. Có sẵn bản Wi-Fi và Wi-Fi + 5G, dung lượng 128GB hoặc 256GB.",
+
+  features: [
+    "Chip Apple M1 mạnh ngang MacBook, RAM 8GB",
+    "Màn hình Liquid Retina XDR 12.9 inch sử dụng Mini-LED",
+    "ProMotion 120Hz cho thao tác vuốt chạm và nét vẽ cực mượt",
+    "Camera 12MP + 10MP góc siêu rộng, cảm biến LiDAR",
+    "Camera trước 12MP Ultra Wide hỗ trợ Center Stage",
+    "Face ID, 4 loa stereo và cổng Thunderbolt / USB 4",
+    "Hỗ trợ Apple Pencil 2 và Magic Keyboard",
+    "Có bản Wi-Fi hoặc Wi-Fi + 5G, dung lượng 128GB và 256GB",
+  ],
+
+  ipadLine: "pro",
+  connectivity: "both",
+  storageOptions: ["128GB", "256GB"],
+  pencil: "Apple Pencil 2",
+  pencilIncluded: false,
+
+  techSpecs: quickIpadSpecToGroups(
+    supplementalTechSpecsByIpad["ipad-pro-m1-12-9-2021"],
+  ),
+},
 ];
 
 /** Mô tả sinh tự động — iPad không nói chuyện sim ghép nên tách riêng nội dung */
