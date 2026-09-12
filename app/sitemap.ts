@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/products", priority: 0.9, changeFrequency: "daily" },
     { path: "/featured-products", priority: 0.8, changeFrequency: "daily" },
     { path: "/ipad", priority: 0.9, changeFrequency: "daily" },
+    { path: "/dat-coc-18pro", priority: 0.9, changeFrequency: "daily" },
     { path: "/iphonelock", priority: 0.7, changeFrequency: "weekly" },
     { path: "/cong-cu-mua-iphone", priority: 0.7, changeFrequency: "weekly" },
     { path: "/cong-cu-mua-iphone/tra-gop", priority: 0.7, changeFrequency: "weekly" },
