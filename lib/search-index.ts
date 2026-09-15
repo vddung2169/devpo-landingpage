@@ -84,6 +84,13 @@ const staticPages: Omit<SearchDoc, "haystack">[] = [
     href: "/imsi-codes",
   },
   {
+    id: "page-fix-loi",
+    type: "page",
+    title: "Hướng dẫn fix lỗi iPhone Lock",
+    subtitle: "Không dịch vụ, không có sim, sim không hợp lệ — sim ghép, CNC EID, E-Sim EID",
+    href: "/fix-loi",
+  },
+  {
     id: "page-tools",
     type: "page",
     title: "Công cụ mua iPhone",

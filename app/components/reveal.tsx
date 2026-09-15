@@ -48,6 +48,12 @@ export function Reveal({
       return;
     }
 
+    // threshold tính theo DIỆN TÍCH CỦA CHÍNH PHẦN TỬ, nên khối nội dung cao hơn
+    // màn hình sẽ không bao giờ đạt 15% -> kẹt ở opacity-0 cho tới khi cuộn.
+    // Với khối cao, quy đổi về "15% chiều cao khung nhìn đã lộ ra" thay vì 15% khối.
+    const height = el.getBoundingClientRect().height || 1;
+    const threshold = Math.min(0.15, (window.innerHeight * 0.15) / height);
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -59,7 +65,7 @@ export function Reveal({
           }
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      { threshold, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

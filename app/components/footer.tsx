@@ -169,6 +169,14 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <Link
+                    href="/fix-loi"
+                    className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
+                  >
+                    <ChevronRight className="h-4 w-4" /> Hướng dẫn fix lỗi iPhone Lock
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/imsi-codes"
                     className="flex min-h-11 items-center gap-1 transition-colors hover:text-primary"
                   >

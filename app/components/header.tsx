@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, ChevronDown, Menu, ShieldCheck, Sparkles } from "lucide-react";
+import { Calculator, ChevronDown, Menu, ShieldCheck, Sparkles, Wrench } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { GlobalSearch } from "./global-search";
 import {
@@ -33,6 +33,16 @@ const TOOL_LINKS = [
     icon: Sparkles,
     title: "Tư vấn máy",
     desc: "Quiz 3 câu chọn iPhone",
+  },
+];
+
+// Nhóm hỗ trợ sau mua — tách khỏi TOOL_LINKS vì không thuộc bộ công cụ mua máy
+const SUPPORT_LINKS = [
+  {
+    href: "/fix-loi",
+    icon: Wrench,
+    title: "Fix lỗi iPhone Lock",
+    desc: "Không dịch vụ, không có sim, sim lỗi",
   },
 ];
 
@@ -108,6 +118,26 @@ export function Header() {
                       <span className="flex flex-col">
                         <span className="text-sm font-medium text-foreground">{tool.title}</span>
                         <span className="text-xs text-muted-foreground">{tool.desc}</span>
+                      </span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuLabel className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Hỗ trợ sau mua
+                </DropdownMenuLabel>
+                {SUPPORT_LINKS.map((item) => (
+                  <DropdownMenuItem
+                    key={item.href}
+                    asChild
+                    className="cursor-pointer gap-3 rounded-lg p-3"
+                  >
+                    <Link href={item.href}>
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
+                        <item.icon className="h-4 w-4" />
+                      </span>
+                      <span className="flex flex-col">
+                        <span className="text-sm font-medium text-foreground">{item.title}</span>
+                        <span className="text-xs text-muted-foreground">{item.desc}</span>
                       </span>
                     </Link>
                   </DropdownMenuItem>
@@ -236,6 +266,28 @@ export function Header() {
                       <tool.icon className="h-4 w-4" />
                     </span>
                     <span className="font-medium">{tool.title}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+
+              <DropdownMenuLabel className="mt-1 px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Hỗ trợ sau mua
+              </DropdownMenuLabel>
+              {SUPPORT_LINKS.map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className="cursor-pointer gap-3 rounded-lg p-3"
+                >
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="w-full"
+                  >
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
+                      <item.icon className="h-4 w-4" />
+                    </span>
+                    <span className="font-medium">{item.title}</span>
                   </Link>
                 </DropdownMenuItem>
               ))}

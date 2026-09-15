@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/give-away", priority: 0.6, changeFrequency: "daily" },
     { path: "/guides", priority: 0.7, changeFrequency: "weekly" },
     { path: "/imsi-codes", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/fix-loi", priority: 0.8, changeFrequency: "monthly" },
     { path: "/news", priority: 0.6, changeFrequency: "weekly" },
   ];
 
