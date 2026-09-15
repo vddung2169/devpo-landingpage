@@ -33,10 +33,20 @@ export function FixGuide() {
   const [symptom, setSymptom] = useState<Symptom | null>(null);
   const [done, setDone] = useState<number[]>([]);
 
+  // Câu chốt "liên hệ shop" không phải một cách để tick -> tách khỏi checklist
+  const actionSteps = useMemo(
+    () => symptom?.steps.filter((s) => !s.contact) ?? [],
+    [symptom],
+  );
+  const contactStep = useMemo(
+    () => symptom?.steps.find((s) => s.contact),
+    [symptom],
+  );
+
   const progress = useMemo(() => {
-    if (!symptom) return 0;
-    return Math.round((done.length / symptom.steps.length) * 100);
-  }, [done, symptom]);
+    if (!actionSteps.length) return 0;
+    return Math.round((done.length / actionSteps.length) * 100);
+  }, [done, actionSteps]);
 
   function pickDevice(d: DeviceType) {
     setDevice(d);
@@ -186,7 +196,7 @@ export function FixGuide() {
               Bước 3 · Làm lần lượt từ trên xuống
             </h2>
             <span className="text-xs text-muted-foreground">
-              Đã thử {done.length}/{symptom.steps.length} cách
+              Đã thử {done.length}/{actionSteps.length} cách
             </span>
           </div>
 
@@ -199,7 +209,7 @@ export function FixGuide() {
           </div>
 
           <ol className="mt-5 space-y-3">
-            {symptom.steps.map((step, i) => {
+            {actionSteps.map((step, i) => {
               const checked = done.includes(i);
               return (
                 <li key={step.text}>
@@ -257,11 +267,16 @@ export function FixGuide() {
           {/* Vẫn chưa được → nhắn Dev Pồ */}
           <div className="mt-6 rounded-xl border border-border bg-secondary/50 p-5">
             <p className="text-sm font-semibold text-foreground">
-              Đã thử hết nhưng máy vẫn lỗi?
+              {contactStep?.text ?? "Nếu vẫn chưa được, hãy liên hệ shop để được hỗ trợ"}
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Nhắn cho Dev Pồ kèm ảnh chụp màn hình Cài đặt → Di động, shop kiểm
-              tra và hỗ trợ fix miễn phí cho khách đã mua máy tại shop.
+            {contactStep?.note && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {contactStep.note}
+              </p>
+            )}
+            <p className="mt-2 text-sm text-muted-foreground">
+              Nhắn cho Dev Pồ kèm ảnh chụp màn hình Cài đặt → Di động để shop
+              xem đúng tình trạng máy và hướng dẫn nhanh hơn.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Button asChild size="sm">
@@ -274,8 +289,8 @@ export function FixGuide() {
                 </a>
               </Button>
               <Button asChild size="sm" variant="outline">
-                <a href="tel:0399208037">
-                  <Phone className="h-4 w-4" /> 0399 208 037
+                <a href="tel:0909097177">
+                  <Phone className="h-4 w-4" /> 0909 097 177
                 </a>
               </Button>
             </div>

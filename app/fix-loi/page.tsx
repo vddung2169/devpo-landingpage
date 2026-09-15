@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Wrench, TriangleAlert, ArrowRight } from "lucide-react";
+import { Wrench, TriangleAlert, ArrowRight, MessageCircle, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ToolPageLayout } from "@/components/cong-cu-mua-iphone/tool-page-layout";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { deviceTypes } from "./fix-data";
@@ -146,11 +147,15 @@ export default function FixLoiPage() {
                               className={
                                 step.warning
                                   ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-amber-500/60 text-amber-600 dark:text-amber-400"
-                                  : "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-xs font-semibold text-muted-foreground"
+                                  : step.contact
+                                    ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-foreground/60 text-foreground"
+                                    : "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-xs font-semibold text-muted-foreground"
                               }
                             >
                               {step.warning ? (
                                 <TriangleAlert className="h-3 w-3" />
+                              ) : step.contact ? (
+                                <MessageCircle className="h-3 w-3" />
                               ) : (
                                 i + 1
                               )}
@@ -173,6 +178,34 @@ export default function FixLoiPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </section>
+
+        {/* Liên hệ — dành cho khách đọc hết hướng dẫn mà chưa xử lý được */}
+        <section className="mt-10 rounded-2xl border border-border bg-secondary/40 p-5 md:p-7">
+          <h2 className="text-lg font-bold text-foreground md:text-xl">
+            Làm hết các cách trên mà vẫn chưa được?
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground md:text-base">
+            Mỗi loại sim ghép và chip độ sim lại có cách xử lý riêng, nên gần
+            như trường hợp nào cũng vẫn còn cách fix. Nhắn cho Dev Pồ kèm ảnh
+            chụp màn hình Cài đặt → Di động, shop sẽ kiểm tra và hướng dẫn tiếp.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Button asChild size="sm">
+              <a
+                href="https://zalo.me/4289073059490896771"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="h-4 w-4" /> Chat Zalo với Dev Pồ
+              </a>
+            </Button>
+            <Button asChild size="sm" variant="outline">
+              <a href="tel:0909097177">
+                <Phone className="h-4 w-4" /> 0909 097 177
+              </a>
+            </Button>
           </div>
         </section>
 

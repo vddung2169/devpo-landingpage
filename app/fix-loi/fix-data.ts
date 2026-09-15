@@ -13,6 +13,8 @@ export interface FixStep {
   note?: string;
   /** true → bước kết luận phần cứng, hiển thị dạng cảnh báo thay vì bước thường */
   warning?: boolean;
+  /** true → câu chốt mời khách liên hệ shop; không đánh số, không tính vào tiến độ */
+  contact?: boolean;
 }
 
 export interface Symptom {
@@ -57,7 +59,14 @@ const SELECT_CARRIER: FixStep = {
   note: "Danh sách có thể mất 30–60 giây mới hiện, đừng thoát ra sớm.",
 };
 
-export const deviceTypes: DeviceType[] = [
+// Câu chốt gắn tự động vào cuối mọi nhánh — xem `withContactStep` ở cuối file
+const CONTACT_SHOP: FixStep = {
+  text: "Nếu vẫn chưa được, hãy liên hệ shop để được hỗ trợ",
+  note: "Mỗi loại sim ghép và chip độ sim lại có cách xử lý riêng, nên gần như trường hợp nào cũng vẫn còn cách fix — Dev Pồ sẽ kiểm tra và hướng dẫn tiếp cho bạn.",
+  contact: true,
+};
+
+const rawDeviceTypes: DeviceType[] = [
   {
     id: "sim-ghep",
     label: "Máy dùng sim ghép",
@@ -205,6 +214,18 @@ export const deviceTypes: DeviceType[] = [
     ],
   },
 ];
+
+/**
+ * Gắn câu chốt liên hệ shop vào cuối mọi nhánh lỗi — làm ở một chỗ để không bao
+ * giờ sót nhánh nào khi thêm loại máy hoặc lỗi mới.
+ */
+export const deviceTypes: DeviceType[] = rawDeviceTypes.map((device) => ({
+  ...device,
+  symptoms: device.symptoms.map((symptom) => ({
+    ...symptom,
+    steps: [...symptom.steps, CONTACT_SHOP],
+  })),
+}));
 
 /** Tra nhanh một nhánh theo id — dùng cho trình chẩn đoán. */
 export function findDevice(id: string) {
