@@ -30,10 +30,10 @@ const videos = [
 
 export function Videos() {
   return (
-    <section className="bg-secondary/30 py-20">
-      <div className="container mx-auto px-4">
+    <section className="bg-surface py-section">
+      <div className="container-page">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-balance text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+          <h2 className="text-h1 mb-4 text-balance text-foreground">
             Watch & Learn
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg text-muted-foreground">
@@ -64,7 +64,7 @@ export function Videos() {
                   </div>
                 </div>
               </div>
-              <h3 className="mb-2 text-balance text-xl font-semibold text-foreground group-hover:text-primary">
+              <h3 className="text-h3 mb-2 text-balance text-foreground">
                 {video.title}
               </h3>
               <p className="mb-3 text-pretty text-sm text-muted-foreground">

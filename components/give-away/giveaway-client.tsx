@@ -180,7 +180,7 @@ export function GiveawayClient() {
       
 
       {/* Thân trang */}
-      <div className="container mx-auto px-4">
+      <div className="container-page">
         <div
           className={cn(
             "mx-auto max-w-6xl gap-6 py-6",
@@ -330,7 +330,7 @@ function UpcomingState({
     <div className="flex flex-col gap-4">
       <PrizeHeader giveaway={g} badge="Sắp diễn ra" />
 
-      <div className="rounded-2xl border border-border bg-card p-5 text-center shadow-sm sm:p-6">
+      <div className="rounded-media bg-surface p-5 text-center shadow-sm sm:p-6">
         <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-secondary">
           <Clock className="h-5 w-5 text-foreground" />
         </div>
@@ -371,7 +371,7 @@ function OpenState({
     <div className="flex flex-col gap-4">
       <PrizeHeader giveaway={data.active!} badge="Đang diễn ra" />
 
-      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+      <div className="rounded-media bg-surface p-5 shadow-sm sm:p-6">
         <Countdown remainingMs={remaining} label="Còn lại để đăng ký" />
         <div className="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted-foreground">
           <Users className="h-4 w-4" />
@@ -388,8 +388,8 @@ function OpenState({
       {myTicket ? (
         <TicketCard ticket={myTicket} drawAt={g.drawAt} />
       ) : (
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
-          <h2 className="mb-4 text-lg font-bold text-foreground">
+        <div className="rounded-media bg-surface p-5 shadow-sm sm:p-6">
+          <h2 className="text-h3 mb-4 text-foreground">
             Đăng ký nhận vé
           </h2>
           <RegisterForm onRegistered={onRegistered} onClosed={onCountdownDone} />
@@ -427,7 +427,7 @@ function ClosedState({
     <div className="flex flex-col gap-4">
       <PrizeHeader giveaway={g} badge="Đã đóng đăng ký" />
 
-      <div className="rounded-2xl border border-border bg-card p-5 text-center shadow-sm sm:p-6">
+      <div className="rounded-media bg-surface p-5 text-center shadow-sm sm:p-6">
         <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-secondary">
           <Clock className="h-5 w-5 text-foreground" />
         </div>
@@ -473,8 +473,8 @@ function AnnouncedState({
       <PrizeHeader giveaway={g} badge="Đã có kết quả" />
 
       <div className="rounded-2xl border border-primary/30 bg-card p-6 text-center shadow-sm sm:p-8">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-500/15">
-          <PartyPopper className="h-7 w-7 text-amber-500" />
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-warning-soft">
+          <PartyPopper className="size-7 text-warning-ink" />
         </div>
         <div className="text-sm font-medium text-muted-foreground">
           Chúc mừng người trúng thưởng
@@ -519,7 +519,7 @@ function AnnouncedState({
 
 function PublicDrawVideo() {
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
+    <div className="rounded-media bg-surface p-4 shadow-sm sm:p-5">
       <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
         <Clapperboard className="h-4 w-4" />
         Video quay thưởng công khai
@@ -544,11 +544,11 @@ function PublicDrawVideo() {
 
 function EmptyState() {
   return (
-    <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
+    <div className="rounded-media bg-surface p-8 text-center shadow-sm">
       <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-secondary">
         <Gift className="h-7 w-7 text-muted-foreground" />
       </div>
-      <h2 className="text-xl font-bold text-foreground">
+      <h2 className="text-h3 text-foreground">
         Hiện không có giveaway nào đang diễn ra
       </h2>
       <p className="mx-auto mt-2 max-w-md text-muted-foreground">
@@ -586,11 +586,11 @@ function PrizeHeader({
   badge: string;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 text-center shadow-sm">
+    <div className="rounded-media bg-surface p-5 text-center shadow-sm">
       <Badge variant="secondary" className="mb-2">
         {badge}
       </Badge>
-      <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
+      <h2 className="text-h3 text-foreground">
         {giveaway.title}
       </h2>
       <div className="mt-2 inline-flex items-center gap-2 rounded-xl bg-secondary px-4 py-1.5">
@@ -660,8 +660,8 @@ function LookupForm({
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
-      <h2 className="mb-1 text-lg font-bold text-foreground">Tra lại mã vé</h2>
+    <div className="rounded-media bg-surface p-5 shadow-sm sm:p-6">
+      <h2 className="text-h3 mb-1 text-foreground">Tra lại mã vé</h2>
       <p className="mb-4 text-sm text-muted-foreground">
         Nhập số điện thoại đã đăng ký để xem lại mã vé của bạn.
       </p>
@@ -774,12 +774,12 @@ function AdminDraw({
 function MainSkeleton() {
   return (
     <div className="flex flex-col gap-6" aria-hidden>
-      <div className="rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
+      <div className="rounded-media bg-surface p-6 text-center shadow-sm">
         <Skeleton className="mx-auto h-6 w-28" />
         <Skeleton className="mx-auto mt-3 h-7 w-64" />
         <Skeleton className="mx-auto mt-3 h-10 w-40" />
       </div>
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="rounded-media bg-surface p-6 shadow-sm">
         <Skeleton className="mx-auto h-4 w-40" />
         <div className="mt-4 flex justify-center gap-3">
           <Skeleton className="h-20 w-16" />
@@ -787,7 +787,7 @@ function MainSkeleton() {
           <Skeleton className="h-20 w-16" />
         </div>
       </div>
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="rounded-media bg-surface p-6 shadow-sm">
         <Skeleton className="h-5 w-40" />
         <Skeleton className="mt-4 h-11 w-full" />
         <Skeleton className="mt-3 h-11 w-full" />
@@ -805,8 +805,8 @@ function ErrorState({
   onRetry: () => void;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-      <h2 className="text-lg font-bold text-foreground">Không tải được dữ liệu</h2>
+    <div className="rounded-media bg-surface p-8 text-center shadow-sm">
+      <h2 className="text-h3 text-foreground">Không tải được dữ liệu</h2>
       <p className="mx-auto mt-2 max-w-md text-muted-foreground">{message}</p>
       <Button onClick={onRetry} className="mt-5 font-semibold">
         Thử lại

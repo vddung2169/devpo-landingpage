@@ -72,7 +72,7 @@ export function FixGuide() {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-8">
+    <div className="rounded-media bg-surface p-5 shadow-sm md:p-8">
       {/* Thanh trạng thái: cho biết đang ở bước nào, bấm để quay lại */}
       <div className="flex flex-wrap items-center gap-2 text-sm">
         <span className="font-semibold text-foreground">Chẩn đoán nhanh</span>
@@ -107,7 +107,7 @@ export function FixGuide() {
 
       {/* BƯỚC 1 — loại máy */}
       <div className="mt-6">
-        <h2 className="text-base font-semibold text-foreground md:text-lg">
+        <h2 className="text-h3 text-foreground">
           Bước 1 · Máy bạn thuộc loại nào?
         </h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -145,7 +145,7 @@ export function FixGuide() {
       {/* BƯỚC 2 — lỗi đang gặp */}
       {device && (
         <div className="mt-8">
-          <h2 className="text-base font-semibold text-foreground md:text-lg">
+          <h2 className="text-h3 text-foreground">
             Bước 2 · Máy đang báo lỗi gì?
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -192,7 +192,7 @@ export function FixGuide() {
       {device && symptom && (
         <div className="mt-8">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="text-base font-semibold text-foreground md:text-lg">
+            <h2 className="text-h3 text-foreground">
               Bước 3 · Làm lần lượt từ trên xuống
             </h2>
             <span className="text-xs text-muted-foreground">
@@ -220,7 +220,7 @@ export function FixGuide() {
                     className={cn(
                       "flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-all",
                       step.warning
-                        ? "border-amber-500/40 bg-amber-500/5"
+                        ? "border-warning/40 bg-warning-soft"
                         : "border-border bg-background hover:border-foreground/30",
                       checked && "opacity-60",
                     )}
@@ -231,7 +231,7 @@ export function FixGuide() {
                         checked
                           ? "border-foreground bg-foreground text-background"
                           : step.warning
-                            ? "border-amber-500/60 text-amber-600 dark:text-amber-400"
+                            ? "border-warning/60 text-warning-ink"
                             : "border-border text-muted-foreground",
                       )}
                     >

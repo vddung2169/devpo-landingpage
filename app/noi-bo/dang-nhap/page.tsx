@@ -16,12 +16,12 @@ export default async function NoiBoLoginPage({
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-secondary/40 px-4 py-16">
-      <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <div className="w-full max-w-sm rounded-media bg-surface p-6 shadow-sm sm:p-8">
         <div className="mb-6 flex flex-col items-center text-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background">
             <Lock className="h-5 w-5 text-foreground" />
           </div>
-          <h1 className="mt-4 text-xl font-bold tracking-tight text-foreground">
+          <h1 className="text-h2 mt-4 text-foreground">
             Khu vực nội bộ · Dev Pồ
           </h1>
         </div>

@@ -1,14 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronDown, ExternalLink } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Section, SectionHeader } from "@/components/ds/section";
 import {
-  PlayCircle,
-  ExternalLink,
-  Smartphone,
-  ChevronDown,
-} from "lucide-react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Pagination,
   PaginationContent,
@@ -17,15 +22,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Image from "next/image";
-import Link from "next/link";
 
 // Định nghĩa kiểu dữ liệu cho từng đường link
 interface GuideLink {
@@ -152,10 +148,17 @@ const tiktokGuides: TikTokGuide[] = [
   },
 ];
 
-export function IphoneLockGuides({ 
+/** Nhãn trên thẻ video → tông màu ngữ nghĩa. Nhãn lạ thì về trung tính. */
+const BADGE_TONE: Record<string, "sale" | "info" | "success" | "warning" | "neutral"> = {
+  "Mới nhất": "info",
+  Hot: "warning",
+  "Thủ thuật": "success",
+};
+
+export function IphoneLockGuides({
   hideViewAll = false,
-  itemsPerPage = 4
-}: { 
+  itemsPerPage = 4,
+}: {
   hideViewAll?: boolean;
   itemsPerPage?: number;
 } = {}): React.ReactElement {
@@ -174,161 +177,152 @@ export function IphoneLockGuides({
   };
 
   return (
-    <section
-      className="py-10 md:py-16 bg-slate-50 dark:bg-slate-900"
-      id="guides"
-    >
-      <div className="container mx-auto px-4">
-        {/* Header section giữ nguyên */}
-        <div className="mb-6 flex flex-col gap-4 text-center">
-          <h2 className="text-balance font-sans text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            CẨM NANG iPHONE LOCK
-          </h2>
-          <p className="text-pretty text-lg text-muted-foreground max-w-4xl mx-auto">
-            Tổng hợp toàn bộ kiến thức, cách ghép sim, và hướng dẫn fix lỗi chi
-            tiết trên iPhone Lock
-          </p>
-        </div>
+    <Section id="guides" tone="surface">
+      <SectionHeader
+        align="center"
+        eyebrow="Video hướng dẫn"
+        title="Cẩm nang iPhone Lock"
+        description="Tổng hợp kiến thức, cách ghép sim và hướng dẫn fix lỗi chi tiết trên iPhone Lock."
+      />
 
-        <div className="mb-12 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-          {currentGuides.map((guide) => (
-            <Card
-              key={guide.id}
-              className="group relative flex flex-col justify-between overflow-hidden transition-all hover:shadow-lg"
-            >
-              {/* Badge nằm đè lên ảnh */}
+      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+        {currentGuides.map((guide) => (
+          <article key={guide.id} className="group flex flex-col">
+            <div className="media-frame aspect-video w-full bg-background">
+              <Image
+                src={guide.image}
+                alt={guide.title}
+                fill
+                loading="lazy"
+                sizes="(max-width: 639px) 45vw, (max-width: 1023px) 45vw, (max-width: 1279px) 30vw, 23vw"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+              />
               {guide.badge && (
-                <div className="absolute left-2 top-2 z-20 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm backdrop-blur-sm">
+                <Badge
+                  variant={BADGE_TONE[guide.badge] ?? "neutral"}
+                  tint="solid"
+                  size="sm"
+                  className="absolute left-3 top-3 shadow-e1"
+                >
                   {guide.badge}
-                </div>
+                </Badge>
               )}
+            </div>
 
-              {/* Vùng chứa ảnh tràn viền - Nằm trực tiếp trong Card */}
-              <div className="relative w-full aspect-video overflow-hidden bg-secondary rounded-t-xl">
-                {/* <img
-                  src={guide.image}
-                  alt={guide.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-102"
-                /> */}
-                <Image
-                  src={guide.image} // Lưu ý: Nếu dùng link ảnh ngoài (https://...), bạn phải cấu hình trong next.config.ts nhé
-                  alt={guide.title}
-                  fill
-                  sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                {/* Lớp phủ khi hover */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  {/* <PlayCircle className="h-12 w-12 text-white drop-shadow-lg" /> */}
-                </div>
-              </div>
+            <h3 className="text-h4 mt-3 line-clamp-2 text-foreground">
+              {guide.title}
+            </h3>
 
-              <CardTitle className="px-4 line-clamp-2 text-lg leading-snug">
-                {guide.title}
-              </CardTitle>
-
-              <CardContent className="flex flex-col gap-2 pt-2 pb-4 px-4 mt-auto">
-                {guide.links.length === 1 ? (
-                  // Nếu chỉ có 1 link: Hiển thị 1 nút bình thường
-                  <Button
-                    className="cursor-pointer w-full flex items-center justify-between group/btn"
-                    asChild
-                    onClick={() => window.open(guide.links[0].url, "_blank")}
+            <div className="mt-auto pt-3">
+              {guide.links.length === 1 ? (
+                // Một video: nút là thẻ <a> thật — bản cũ bọc thẻ <p> nên không
+                // bấm được bằng bàn phím và trình đọc màn hình không hiểu là link.
+                <Button asChild variant="outline" size="sm" className="w-full">
+                  <a
+                    href={guide.links[0].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <p>
-                      {guide.links[0].label}
-                      <ExternalLink className="h-4 w-4 ml-2 opacity-70 transition-transform group-hover/btn:scale-110" />
-                    </p>
-                  </Button>
-                ) : (
-                  // Nếu có nhiều link: Hiển thị Dropdown Menu
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button className="w-full flex items-center justify-between group/btn">
-                        <span>Danh sách phần ({guide.links.length})</span>
-                        <ChevronDown className="h-4 w-4 ml-2 opacity-70 transition-transform group-data-[state=open]:rotate-180" />
-                      </Button>
-                    </DropdownMenuTrigger>
-
-                    {/* align="end" giúp menu căn lề phải, w-[--radix-dropdown-menu-trigger-width] ép dropdown rộng bằng đúng nút trigger */}
-                    <DropdownMenuContent
-                      align="end"
-                      className="w-[var(--radix-dropdown-menu-trigger-width)]"
+                    {guide.links[0].label}
+                    <ExternalLink className="size-3.5 opacity-70" aria-hidden="true" />
+                  </a>
+                </Button>
+              ) : (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="group/btn w-full"
                     >
-                      {guide.links.map((link, index) => (
-                        <DropdownMenuItem
-                          key={index}
-                          asChild
-                          className="cursor-pointer"
-                        >
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between w-full"
-                          >
-                            {link.label}
-                            <ExternalLink className="h-3.5 w-3.5 opacity-50" />
-                          </a>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                      Danh sách phần ({guide.links.length})
+                      <ChevronDown
+                        className="size-3.5 opacity-70 transition-transform group-data-[state=open]/btn:rotate-180"
+                        aria-hidden="true"
+                      />
+                    </Button>
+                  </DropdownMenuTrigger>
 
-        {/* Pagination giữ nguyên */}
-        {totalPages > 1 && (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                  className={
-                    currentPage === 1
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
-                />
-              </PaginationItem>
-              {[...Array(totalPages)].map((_, i) => (
-                <PaginationItem key={i}>
-                  <PaginationLink
-                    onClick={() => handlePageChange(i + 1)}
-                    isActive={currentPage === i + 1}
-                    className="cursor-pointer"
+                  {/* Ép dropdown rộng bằng đúng nút trigger */}
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-[var(--radix-dropdown-menu-trigger-width)]"
                   >
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() =>
-                    handlePageChange(Math.min(totalPages, currentPage + 1))
-                  }
-                  className={
-                    currentPage === totalPages
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        )}
-
-        {!hideViewAll && (
-          <div className="flex justify-center mt-6">
-            <Button asChild className="cursor-pointer px-8">
-              <Link href="/guides">Xem chi tiết</Link>
-            </Button>
-          </div>
-        )}
+                    {guide.links.map((link, index) => (
+                      <DropdownMenuItem
+                        key={index}
+                        asChild
+                        className="cursor-pointer"
+                      >
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex w-full items-center justify-between"
+                        >
+                          {link.label}
+                          <ExternalLink
+                            className="size-3.5 opacity-50"
+                            aria-hidden="true"
+                          />
+                        </a>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </div>
+          </article>
+        ))}
       </div>
-    </section>
+
+      {totalPages > 1 && (
+        <Pagination className="mt-block">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                className={
+                  currentPage === 1
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
+              />
+            </PaginationItem>
+            {[...Array(totalPages)].map((_, i) => (
+              <PaginationItem key={i}>
+                <PaginationLink
+                  onClick={() => handlePageChange(i + 1)}
+                  isActive={currentPage === i + 1}
+                  className="cursor-pointer"
+                >
+                  {i + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() =>
+                  handlePageChange(Math.min(totalPages, currentPage + 1))
+                }
+                className={
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
+
+      {!hideViewAll && (
+        <div className="mt-block flex justify-center">
+          <Button asChild size="lg">
+            <Link href="/guides">Xem tất cả cẩm nang</Link>
+          </Button>
+        </div>
+      )}
+    </Section>
   );
 }

@@ -129,7 +129,7 @@ export function ProductQuiz() {
             <Sparkles className="h-10 w-10 text-primary" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold tracking-tight">Trả lời 3 câu để tìm máy hợp bạn</h3>
+            <h3 className="text-h2 text-foreground">Trả lời 3 câu để tìm máy hợp bạn</h3>
             <p className="text-muted-foreground">
               Dev Pồ sẽ gợi ý ngay 2 mẫu máy phù hợp nhất với ngân sách và nhu cầu của bạn.
             </p>
@@ -146,7 +146,7 @@ export function ProductQuiz() {
             <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
               Câu hỏi 1/3
             </Badge>
-            <h3 className="text-2xl font-bold tracking-tight">Ngân sách của bạn khoảng bao nhiêu?</h3>
+            <h3 className="text-h2 text-foreground">Ngân sách của bạn khoảng bao nhiêu?</h3>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {BUDGET_OPTIONS.map((opt) => (
@@ -172,7 +172,7 @@ export function ProductQuiz() {
             <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
               Câu hỏi 2/3
             </Badge>
-            <h3 className="text-2xl font-bold tracking-tight">Bạn ưu tiên điều gì nhất?</h3>
+            <h3 className="text-h2 text-foreground">Bạn ưu tiên điều gì nhất?</h3>
           </div>
           <div className="grid gap-3">
             {NEED_OPTIONS.map((opt) => (
@@ -199,7 +199,7 @@ export function ProductQuiz() {
             <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
               Câu hỏi 3/3
             </Badge>
-            <h3 className="text-2xl font-bold tracking-tight">Bạn muốn loại máy nào?</h3>
+            <h3 className="text-h2 text-foreground">Bạn muốn loại máy nào?</h3>
           </div>
           <div className="grid gap-3">
             {CATEGORY_OPTIONS.map((opt) => (
@@ -223,10 +223,10 @@ export function ProductQuiz() {
       {step === 4 && (
         <div className="flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-500">
           <div className="flex flex-col items-center gap-2 text-center">
-            <Badge className="bg-green-500/10 px-3 py-1 text-sm font-medium text-green-600 hover:bg-green-500/10 dark:text-green-500">
+            <Badge variant="success">
               Gợi ý dành cho bạn
             </Badge>
-            <h3 className="text-2xl font-bold tracking-tight">2 mẫu máy hợp với bạn nhất</h3>
+            <h3 className="text-h2 text-foreground">2 mẫu máy hợp với bạn nhất</h3>
           </div>
 
           {recommendations.length > 0 ? (

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, Clock } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import { Section, SectionHeader } from "@/components/ds/section";
+import { ArticleCard } from "@/components/ds/article-card";
 import { FaqSection } from "@/components/FaqSection";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { guides } from "@/data/guides";
@@ -125,7 +127,7 @@ const USE_CASES = [
 
 export default function IpadPage() {
   return (
-    <main className="min-h-screen dark:bg-background">
+    <>
       <JsonLd
         data={[
           collectionSchema,
@@ -137,187 +139,145 @@ export default function IpadPage() {
       />
 
       {/* Hero danh mục — H1 nhắm từ khoá "iPad cũ" */}
-      <section className="w-full bg-gradient-to-b from-slate-50 to-white px-4 py-12 dark:from-[#0b0f19] dark:to-background sm:py-16">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-            iPad cũ giá tốt{" "}
-            <span className="text-primary">TP. Hồ Chí Minh</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            iPad Pro, iPad Air, iPad Mini và iPad Gen đã qua kiểm tra kỹ màn hình,
-            cảm ứng, pin, khe SIM và tình trạng iCloud. Lọc nhanh theo dòng máy,
-            bản Wi-Fi hay Wi-Fi + Cellular, dung lượng và tình trạng máy để tìm
-            đúng chiếc hợp với bạn.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg">
-              <Link href="#danh-sach-ipad">Xem iPad đang bán</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/guides/chon-dong-ipad-phu-hop">
-                Chưa biết chọn dòng nào?
-              </Link>
-            </Button>
-          </div>
+      <Section tone="surface" containerClassName="max-w-3xl text-center">
+        <h1 className="text-h1 text-balance text-foreground">
+          iPad cũ giá tốt TP. Hồ Chí Minh
+        </h1>
+        <p className="text-lead mx-auto mt-4 max-w-2xl text-pretty text-muted-foreground">
+          iPad Pro, iPad Air, iPad Mini và iPad Gen đã qua kiểm tra kỹ màn hình,
+          cảm ứng, pin, khe SIM và tình trạng iCloud. Lọc nhanh theo dòng máy,
+          bản Wi-Fi hay Wi-Fi + Cellular, dung lượng và tình trạng máy để tìm
+          đúng chiếc hợp với bạn.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Button asChild size="lg">
+            <Link href="#danh-sach-ipad">Xem iPad đang bán</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/guides/chon-dong-ipad-phu-hop">
+              Chưa biết chọn dòng nào?
+            </Link>
+          </Button>
         </div>
-      </section>
+      </Section>
 
       {/* Bộ lọc + lưới sản phẩm */}
       <IpadGrid />
 
       {/* Gợi ý chọn iPad theo nhu cầu */}
-      <section className="w-full px-4 py-12 sm:py-16">
-        <div className="container mx-auto">
-          <div className="mb-8 max-w-2xl">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Chọn iPad theo nhu cầu, không chọn theo tên đời máy
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              Đời máy cao chưa chắc là lựa chọn đúng. Điều quyết định là bạn dùng
-              iPad để làm gì, và cần bản Wi-Fi hay bản lắp được SIM.
-            </p>
-          </div>
+      <Section tone="plain">
+        <SectionHeader
+          title="Chọn iPad theo nhu cầu, không chọn theo tên đời máy"
+          description="Đời máy cao chưa chắc là lựa chọn đúng. Điều quyết định là bạn dùng iPad để làm gì, và cần bản Wi-Fi hay bản lắp được SIM."
+        />
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
-            {USE_CASES.map((item) => (
-              <div
-                key={item.title}
-                className="flex h-full flex-col gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:shadow-md sm:p-5"
-              >
-                <h3 className="text-md font-semibold text-foreground">
-                  {item.title}
-                </h3>
-                <p className="flex items-start gap-2 text-sm font-medium text-primary">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span>{item.pick}</span>
-                </p>
-                <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {USE_CASES.map((item) => (
+            <div
+              key={item.title}
+              className="flex h-full flex-col gap-3 rounded-media bg-surface p-5 sm:p-6"
+            >
+              <h3 className="text-h4 text-foreground">{item.title}</h3>
+              <p className="flex items-start gap-2 text-body font-medium text-foreground">
+                <Check
+                  className="mt-0.5 size-4 shrink-0 text-success"
+                  aria-hidden="true"
+                />
+                <span>{item.pick}</span>
+              </p>
+              <p className="text-body text-pretty text-muted-foreground">
+                {item.desc}
+              </p>
+            </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
       {/* Cẩm nang iPad */}
       {ipadGuides.length > 0 && (
-        <section className="w-full bg-slate-50 px-4 py-12 dark:bg-[#0b0f19] sm:py-16">
-          <div className="container mx-auto">
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-              <div className="max-w-2xl">
-                <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                  Cẩm nang mua iPad
-                </h2>
-                <p className="mt-3 text-muted-foreground">
-                  Đọc trước khi xuống tiền: chọn dòng máy, chọn dung lượng, chọn
-                  bút và cách kiểm tra iCloud ẩn trên máy cũ.
-                </p>
-              </div>
-              <Button asChild variant="outline" className="rounded-full">
+        <Section tone="surface">
+          <SectionHeader
+            title="Cẩm nang mua iPad"
+            description="Đọc trước khi xuống tiền: chọn dòng máy, chọn dung lượng, chọn bút và cách kiểm tra iCloud ẩn trên máy cũ."
+            action={
+              <Button asChild variant="outline">
                 <Link href="/guides">
-                  Tất cả cẩm nang <ArrowRight className="ml-2 h-4 w-4" />
+                  Tất cả cẩm nang
+                  <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
-            </div>
+            }
+          />
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {ipadGuides.map((guide) => (
-                <Link
-                  key={guide.id}
-                  href={`/guides/${guide.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:shadow-lg"
-                >
-                  <div className="relative aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    <Image
-                      src={guide.imageUrl}
-                      alt={guide.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col gap-2 p-5">
-                    <h3 className="line-clamp-2 text-base font-bold text-foreground transition-colors group-hover:text-primary">
-                      {guide.title}
-                    </h3>
-                    <p className="line-clamp-3 flex-1 text-sm text-muted-foreground">
-                      {guide.excerpt}
-                    </p>
-                    <span className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <Clock className="h-3.5 w-3.5" />
-                      {guide.readingTime} phút đọc
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+          <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
+            {ipadGuides.map((guide) => (
+              <ArticleCard
+                key={guide.id}
+                href={`/guides/${guide.slug}`}
+                title={guide.title}
+                excerpt={guide.excerpt}
+                image={guide.imageUrl}
+                readingTime={guide.readingTime}
+              />
+            ))}
           </div>
-        </section>
+        </Section>
       )}
 
       {/* Nội dung SEO — vì sao mua iPad tại Dev Pồ */}
-      <section className="w-full px-4 py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Mua iPad cũ tại Dev Pồ có gì khác?
-          </h2>
-          <div className="mt-5 flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
-            <p>
-              Dev Pồ được biết đến nhiều nhất với mảng{" "}
-              <Link href="/iphonelock" className="text-primary hover:underline">
-                iPhone Lock
-              </Link>{" "}
-              và iPhone Quốc tế, nhưng quy trình kiểm máy khắt khe của mảng đó
-              cũng chính là thứ chúng tôi áp dụng cho iPad. Mỗi chiếc iPad về
-              kho đều đi qua cùng một danh sách kiểm tra: màn hình có ám/hở sáng
-              không, cảm ứng đa điểm có điểm chết không, độ chai pin bao nhiêu,
-              loa - mic - camera - cổng sạc có zin không, khe SIM còn nhận sóng
-              không, và quan trọng nhất là máy có sạch iCloud, sạch Activation
-              Lock, sạch hồ sơ MDM hay không.
-            </p>
-            <p>
-              Trên website, mỗi sản phẩm iPad đều ghi rõ ba thứ khách hay hỏi
-              nhất mà nhiều nơi bỏ trống: máy là bản{" "}
-              <strong className="text-foreground">Wi-Fi hay Wi-Fi + Cellular</strong>
-              , đang có những{" "}
-              <strong className="text-foreground">mức dung lượng</strong> nào, và
-              máy dùng được{" "}
-              <strong className="text-foreground">Apple Pencil đời mấy</strong>.
-              Nhờ vậy bạn không cần nhắn tin hỏi lại từng máy mới biết có hợp nhu
-              cầu hay không.
-            </p>
-            <p>
-              Giá iPad cũ dao động theo tình trạng máy và dung lượng, nên bảng
-              giá trên trang là mức khởi điểm. Nhắn Zalo để được báo giá chính
-              xác theo đúng cấu hình bạn cần, kèm tư vấn nên lấy bản Wi-Fi hay
-              Cellular. Cửa hàng hỗ trợ trả góp 0%, giao hàng toàn quốc và bảo
-              hành tại cửa hàng.
-            </p>
-          </div>
+      <Section tone="plain" containerClassName="max-w-prose">
+        <h2 className="text-h2 text-foreground">
+          Mua iPad cũ tại Dev Pồ có gì khác?
+        </h2>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <Link
-                href="https://zalo.me/4289073059490896771"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Nhắn Zalo báo giá iPad
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/products">Xem toàn bộ sản phẩm</Link>
-            </Button>
-          </div>
+        <div className="rich-text mt-5">
+          <p>
+            Dev Pồ được biết đến nhiều nhất với mảng{" "}
+            <Link href="/iphonelock">iPhone Lock</Link> và iPhone Quốc tế, nhưng
+            quy trình kiểm máy khắt khe của mảng đó cũng chính là thứ chúng tôi
+            áp dụng cho iPad. Mỗi chiếc iPad về kho đều đi qua cùng một danh
+            sách kiểm tra: màn hình có ám/hở sáng không, cảm ứng đa điểm có điểm
+            chết không, độ chai pin bao nhiêu, loa - mic - camera - cổng sạc có
+            zin không, khe SIM còn nhận sóng không, và quan trọng nhất là máy có
+            sạch iCloud, sạch Activation Lock, sạch hồ sơ MDM hay không.
+          </p>
+          <p>
+            Trên website, mỗi sản phẩm iPad đều ghi rõ ba thứ khách hay hỏi nhất
+            mà nhiều nơi bỏ trống: máy là bản{" "}
+            <strong>Wi-Fi hay Wi-Fi + Cellular</strong>, đang có những{" "}
+            <strong>mức dung lượng</strong> nào, và máy dùng được{" "}
+            <strong>Apple Pencil đời mấy</strong>. Nhờ vậy bạn không cần nhắn tin
+            hỏi lại từng máy mới biết có hợp nhu cầu hay không.
+          </p>
+          <p>
+            Giá iPad cũ dao động theo tình trạng máy và dung lượng, nên bảng giá
+            trên trang là mức khởi điểm. Nhắn Zalo để được báo giá chính xác theo
+            đúng cấu hình bạn cần, kèm tư vấn nên lấy bản Wi-Fi hay Cellular. Cửa
+            hàng hỗ trợ trả góp 0%, giao hàng toàn quốc và bảo hành tại cửa hàng.
+          </p>
         </div>
-      </section>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button asChild size="lg">
+            <a
+              href="https://zalo.me/4289073059490896771"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Nhắn Zalo báo giá iPad
+            </a>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/products">Xem toàn bộ sản phẩm</Link>
+          </Button>
+        </div>
+      </Section>
 
       <FaqSection
         items={ipadFaqs}
         title="Câu hỏi thường gặp khi mua iPad"
         subtitle="Những điều khách hỏi nhiều nhất trước khi chốt một chiếc iPad cũ tại Dev Pồ"
       />
-    </main>
+    </>
   );
 }

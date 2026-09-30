@@ -329,7 +329,7 @@ export const guides: Guide[] = [
   <li><strong>Bảo hành trọn đời lỗi sim ghép:</strong> hỗ trợ kỹ thuật 24/7, kể cả sau khi cập nhật iOS.</li>
   <li><strong>Free ship toàn quốc</strong>, hỗ trợ kiểm tra máy trước khi thanh toán tùy đơn vị vận chuyển.</li>
   <li><strong>Trả góp 0%</strong> qua thẻ tín dụng và các app tài chính, thủ tục nhanh gọn.</li>
-  <li>Hơn <strong>1.800 khách hàng</strong> đã trải nghiệm, đánh giá trung bình <strong>9.9/10</strong>.</li>
+  <li>Hơn <strong>2.800 khách hàng</strong> đã trải nghiệm, đánh giá trung bình <strong>9.9/10</strong>.</li>
   <li>Địa chỉ trực tiếp tại <strong>3/39A Bình Giã, P.Tân Bình, TP. Hồ Chí Minh</strong>.</li>
 </ul>
 <p>Xem bảng giá và các mẫu máy hiện có tại <a href="/featured-products">Sản phẩm iPhone Lock</a>.</p>

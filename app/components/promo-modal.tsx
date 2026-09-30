@@ -35,7 +35,7 @@ export function PromoModal() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-md overflow-hidden p-0 border-none shadow-2xl">
         {/* Phần ảnh bìa / Header của quảng cáo */}
-        <div className="relative flex h-40 flex-col items-center justify-center bg-gradient-to-br from-primary via-blue-600 to-purple-600">
+        <div className="relative flex h-40 flex-col items-center justify-center bg-primary">
           <Gift className="h-16 w-16 text-white animate-bounce drop-shadow-md" />
           {/* Nút X đóng mặc định của DialogContent sẽ tự động có ở góc trên bên phải, màu đen. Mình có thể đè style bằng CSS hoặc để nguyên. */}
         </div>

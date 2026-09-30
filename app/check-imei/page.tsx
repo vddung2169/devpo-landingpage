@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function CheckImeiPage() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-5 md:py-7">
+      <div className="container-page py-section-sm">
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
@@ -34,7 +34,7 @@ export default function CheckImeiPage() {
 
         {/* Tiêu đề nén: một hàng, không hero */}
         <div className="mt-4 mb-5 md:mb-6">
-          <h1 className="flex items-center gap-2 text-xl font-bold tracking-tight text-foreground md:text-2xl">
+          <h1 className="text-h2 flex items-center gap-2 text-foreground">
             <Smartphone className="h-5 w-5 md:h-6 md:w-6" />
             Tra cứu thông tin iPhone bằng IMEI
           </h1>

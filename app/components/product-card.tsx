@@ -1,21 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { categoryLabel, ipadConnectivityLabel, type Product } from "@/data/products";
+
+import { cn } from "@/lib/utils";
+import { Price } from "@/components/ds/price";
+import {
+  InstallmentBadge,
+  ProductBadge,
+  SaleBadge,
+  hasDiscount,
+} from "@/components/ds/product-badge";
+import {
+  categoryLabel,
+  ipadConnectivityLabel,
+  type Product,
+} from "@/data/products";
 
 interface ProductCardProps {
   product: Product;
+  /** Ảnh của 4 card đầu ở màn hình lớn nên tải ngay để cải thiện LCP */
+  priority?: boolean;
+  className?: string;
 }
 
 /**
- * Thông số hiển thị trên card. iPhone quan tâm sim ghép / pin, còn iPad thì
- * khách hỏi Wi-Fi hay Cellular, dung lượng nào và có dùng được Apple Pencil
- * không — nên hai nhóm sản phẩm dùng hai bộ thông số khác nhau.
+ * Dòng thông số gọn hiển thị dưới tên máy.
+ * iPhone: dung lượng · sim · pin. iPad: dung lượng · kết nối · Apple Pencil.
+ * Tối đa 3 mục để dòng không bị xuống hàng trên màn 375px.
  */
 function getCardSpecs(product: Product): string[] {
   if (product.category !== "ipad") {
-    return [product.simType, product.condition, product.battery];
+    return [product.storage, product.simType, product.battery];
   }
 
   const connectivity = product.connectivity
@@ -23,92 +37,74 @@ function getCardSpecs(product: Product): string[] {
     : product.simType;
 
   const storage = product.storageOptions?.length
-    ? `Dung lượng ${product.storageOptions.join(" / ")}`
+    ? product.storageOptions.join(" / ")
     : product.storage;
 
-  const pencil = product.pencil
-    ? product.pencilIncluded
-      ? `Tặng kèm ${product.pencil}`
-      : `Dùng được ${product.pencil} (mua thêm)`
-    : "Hỗ trợ Apple Pencil";
-
-  return [connectivity, storage, pencil, product.condition];
+  return [storage, connectivity, product.condition];
 }
 
-export function ProductCard({ product }: ProductCardProps) {
-  const cardSpecs = getCardSpecs(product);
+/**
+ * ProductCard — card sản phẩm chuẩn của toàn site.
+ *
+ * Bố cục lấy từ apple.com: khung ảnh vuông nền xám, máy nằm trọn bên trong
+ * (object-contain) chứ không bị cắt như bản cũ dùng object-cover; phần chữ nằm
+ * dưới ảnh, không viền, không bóng — để ảnh sản phẩm là thứ bắt mắt duy nhất.
+ *
+ * Cả card là một liên kết duy nhất: chỉ 1 điểm dừng khi đi bằng phím Tab và
+ * vùng bấm trên mobile rộng bằng cả card.
+ */
+export function ProductCard({ product, priority, className }: ProductCardProps) {
+  const specs = getCardSpecs(product);
+  const discounted = hasDiscount(product);
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-background shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
-      {product.badge && (
-        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 rounded-full bg-red-500 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-bold text-white shadow-sm">
-          {product.badge}
-        </div>
+    <Link
+      href={`/products/${product.slug}`}
+      className={cn(
+        "group flex flex-col rounded-media outline-none",
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+        className,
       )}
-
-      {/* Cả ảnh dẫn tới trang chi tiết để tăng nội dung Google index được */}
-      <Link
-        href={`/products/${product.slug}`}
-        className="relative aspect-square w-full overflow-hidden bg-slate-100 dark:bg-slate-800"
-      >
+    >
+      {/* Khung ảnh: nền xám cố định tỉ lệ 1:1 nên lưới không bị so le chiều cao */}
+      <div className="media-frame aspect-square w-full">
         <Image
           src={product.image}
-          alt={`${product.name} ${product.storage} giá tốt tại TP.HCM - Dev Pồ`}
+          alt={`${product.name} ${product.storage} chính hãng giá tốt tại Dev Pồ TP.HCM`}
           fill
-          sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
+          sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, (max-width: 1279px) 30vw, 23vw"
+          className="object-contain p-5 transition-transform duration-500 ease-out group-hover:scale-[1.04] sm:p-7"
         />
-      </Link>
 
-      <div className="flex flex-1 flex-col p-3 sm:p-5">
-        <h3 className="text-sm sm:text-lg font-bold text-foreground line-clamp-1">
-          <Link
-            href={`/products/${product.slug}`}
-            className="transition-colors hover:text-primary"
-          >
-            {product.name}
-          </Link>
+        {/* Nhãn trạng thái — tối đa 2 nhãn để không che mất máy */}
+        <div className="pointer-events-none absolute left-2.5 top-2.5 flex flex-wrap gap-1">
+          {product.badge && <ProductBadge label={product.badge} />}
+          {discounted && <SaleBadge />}
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-1.5 px-1 pt-3 sm:pt-4">
+        <h3 className="text-h4 text-foreground transition-colors group-hover:text-foreground/70">
+          {product.name}
         </h3>
 
-        <div className="mt-1 flex items-center gap-1 sm:gap-2 text-[11px] sm:text-sm font-medium text-muted-foreground">
-          <span>{categoryLabel[product.category]}</span>
-          <span className="h-1 w-1 rounded-full bg-muted-foreground/50" />
-          <span className="text-foreground">{product.storage}</span>
-        </div>
+        <p className="text-caption text-muted-foreground">
+          {categoryLabel[product.category]} · {specs.join(" · ")}
+        </p>
 
-        <div className="mt-2 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2">
-          <span className="text-base sm:text-xl font-bold text-red-500">
-            {product.priceFrom}
-          </span>
-          {product.priceOriginal && (
-            <span className="text-[11px] sm:text-sm text-muted-foreground line-through">
-              {product.priceOriginal}
-            </span>
-          )}
-        </div>
-
-        <hr className="my-3 sm:my-4 border-border" />
-
-        <ul className="mb-3 sm:mb-6 flex flex-1 flex-col gap-1 sm:gap-2 text-[11px] sm:text-sm text-muted-foreground">
-          {cardSpecs.map((spec, index) => (
-            <li key={index} className="flex items-start gap-1.5 sm:gap-2">
-              <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-500 shrink-0 mt-0.5" />
-              <span>{spec}</span>
-            </li>
-          ))}
-        </ul>
-
-        <Button
-          asChild
-          className="w-full font-semibold text-xs sm:text-base h-9 sm:h-11"
+        <Price
+          value={product.priceFrom}
+          original={product.priceOriginal}
           size="sm"
-        >
-          <Link href={`/products/${product.slug}`}>
-            Xem chi tiết
-            <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-          </Link>
-        </Button>
+          className="mt-1"
+        />
+
+        <div className="mt-auto pt-2">
+          <InstallmentBadge />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

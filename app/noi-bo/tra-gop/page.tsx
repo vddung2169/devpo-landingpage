@@ -15,9 +15,9 @@ export default function NoiBoTraGopPage() {
   return (
     <main className="bg-background">
       <section className="border-b border-border bg-secondary/40">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container-page py-4">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-1">
-            <h1 className="flex items-center gap-2 text-xl font-bold tracking-tight text-foreground md:text-2xl">
+            <h1 className="text-h2 flex items-center gap-2 text-foreground">
               <Calculator className="h-5 w-5" />
               Báo giá trả góp nhanh
             </h1>
@@ -29,7 +29,7 @@ export default function NoiBoTraGopPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4">
+      <div className="container-page">
         <div className="mx-auto max-w-6xl py-5">
           <Reveal>
             <TraGopBaoKhach />

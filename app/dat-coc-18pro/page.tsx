@@ -158,8 +158,8 @@ export default function DatCoc18ProPage() {
           trở lên, banner dọc ở mobile. Nếu render hai <Image> rồi ẩn bằng CSS
           thì cả hai vẫn bị tải. width/height khai báo riêng cho từng nguồn để
           trình duyệt chừa đúng chỗ, không bị giật layout lúc ảnh tải xong. */}
-      <section className="w-full bg-gradient-to-b from-slate-50 to-white px-4 pt-6 dark:from-[#0b0f19] dark:to-background sm:pt-16">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl bg-white shadow-sm">
+      <section className="w-full bg-surface px-gutter pt-6 sm:pt-section">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-media bg-background">
           <picture>
             <source
               media="(min-width: 640px)"
@@ -180,15 +180,15 @@ export default function DatCoc18ProPage() {
       </section>
 
       {/* Tiêu đề + chốt nhanh thông tin chiến dịch */}
-      <section className="w-full bg-gradient-to-b from-white to-white px-4 pb-10 pt-8 dark:from-background dark:to-background sm:pb-14 sm:pt-10">
+      <section className="w-full bg-background px-gutter pb-section-sm pt-8">
         <div className="mx-auto max-w-3xl text-center">
         
-          <h1 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="text-h1 mt-3 text-balance text-foreground">
             Đặt cọc iPhone 18 Pro, 18 Pro Max &amp; iPhone Duo
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
+          <p className="text-lead mx-auto mt-5 max-w-2xl text-pretty text-muted-foreground">
             Bảng giá đầy đủ cả 3 dòng máy mới, giá niêm yết từ{" "}
-            <strong className="text-red-500">{formatVnd(lowPrice)}</strong>. Giữ
+            <strong className="font-bold text-price">{formatVnd(lowPrice)}</strong>. Giữ
             suất sớm để nằm trong nhóm nhận máy ngay đợt hàng đầu tiên.
           </p>
 
@@ -197,13 +197,13 @@ export default function DatCoc18ProPage() {
             {TIMELINE.map((item) => (
               <div
                 key={item.date}
-                className="flex min-w-[150px] flex-1 basis-52 flex-col items-center gap-1 rounded-xl border border-border bg-card px-4 py-3 text-center shadow-sm"
+                className="flex min-w-[150px] flex-1 basis-52 flex-col items-center gap-1 rounded-media bg-surface px-4 py-3 text-center"
               >
-                <span className="text-xl font-bold text-primary">{item.date}</span>
-                <span className="text-sm font-semibold text-foreground">
+                <span className="text-h3 text-foreground">{item.date}</span>
+                <span className="text-body font-semibold text-foreground">
                   {item.title}
                 </span>
-                <span className="text-xs leading-relaxed text-muted-foreground">
+                <span className="text-caption leading-relaxed text-muted-foreground">
                   {item.desc}
                 </span>
               </div>
@@ -226,12 +226,12 @@ export default function DatCoc18ProPage() {
 
       {/* Thông số kỹ thuật */}
       <section
-        className="w-full bg-slate-50 px-4 py-12 dark:bg-[#0b0f19] sm:py-16"
+        className="w-full bg-surface px-gutter py-section"
         id="thong-so"
       >
-        <div className="container mx-auto">
+        <div className="container-page">
           <div className="mb-8 max-w-2xl">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            <h2 className="text-h2 text-foreground">
               Thông số nổi bật iPhone 18 Pro Max
             </h2>
             <p className="mt-3 text-muted-foreground">
@@ -244,9 +244,9 @@ export default function DatCoc18ProPage() {
             {HIGHLIGHT_SPECS.map((group) => (
               <div
                 key={group.group}
-                className="overflow-hidden rounded-xl border border-border bg-card shadow-sm"
+                className="overflow-hidden rounded-media bg-surface"
               >
-                <h3 className="border-b border-border px-4 py-3 text-sm font-bold text-foreground">
+                <h3 className="border-b border-border px-4 py-3 text-h4 text-foreground">
                   {group.group}
                 </h3>
                 <dl className="divide-y divide-border">

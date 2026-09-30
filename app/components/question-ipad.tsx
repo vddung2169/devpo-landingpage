@@ -1,12 +1,12 @@
-"use client";
-
-import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Wifi, SignalHigh, Lock } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Check, Lock, SignalHigh, Wifi } from "lucide-react";
 
-// 3 loại iPad khách hay nhầm lẫn khi đi mua máy cũ. Đặt cạnh nhau cho dễ đối chiếu,
-// dùng đúng bố cục card của khối "Ưu điểm iPhone Lock" để đồng bộ thương hiệu.
+import { Button } from "@/components/ui/button";
+import { Section, SectionHeader } from "@/components/ds/section";
+import { FeatureCard } from "@/components/ds/feature-card";
+
+// 3 loại iPad khách hay nhầm lẫn khi đi mua máy cũ. Đặt cạnh nhau cho dễ đối chiếu.
 const IPAD_TYPES = [
   {
     icon: Wifi,
@@ -25,130 +25,118 @@ const IPAD_TYPES = [
   },
 ];
 
+const ADVICE = [
+  <>
+    Dùng ở nhà, ở lớp, ở văn phòng — nơi luôn có Wi-Fi:{" "}
+    <strong className="font-semibold text-foreground">chọn bản Wi-Fi only</strong>{" "}
+    để tiết kiệm 2-4 triệu, dồn tiền lên dung lượng cao hơn.
+  </>,
+  <>
+    Hay mang đi làm, đi học, đi công trình, dùng cho bán hàng / giao hàng:{" "}
+    <strong className="font-semibold text-foreground">
+      chọn bản Wi-Fi + Cellular
+    </strong>{" "}
+    để lắp SIM dùng 4G/5G bất cứ đâu.
+  </>,
+  <>
+    Toàn bộ iPad tại Dev Pồ đều được kiểm tra kỹ khe SIM, iCloud và tình trạng
+    khoá mạng trước khi giao — bản nào ra bản đó, ghi rõ Wi-Fi hay Cellular ngay
+    trên từng sản phẩm.
+  </>,
+];
+
 export function QuestionIPad() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background to-secondary py-12 md:py-24">
-      <div className="container mx-auto px-4">
-        <div className="grid items-center gap-12 xl:grid-cols-2">
-          <div className="flex flex-col gap-6 xl:order-2">
-            <h2 className="text-balance font-sans text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl xl:text-5xl">
-              iPad Lock là gì? Khác gì iPad Wi-Fi only?
-            </h2>
-
-            <p className="text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Khác với iPhone, chuyện &ldquo;Lock&rdquo; trên iPad chỉ xảy ra ở
-              bản <strong className="text-foreground">Wi-Fi + Cellular</strong> —
-              tức bản có khe SIM. Khi nhà mạng nước ngoài bán máy kèm gói cước,
-              họ khoá luôn khe SIM đó lại, và đó chính là{" "}
-              <strong className="text-foreground">iPad Lock</strong>.
-            </p>
-
-            <p className="text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Còn bản <strong className="text-foreground">Wi-Fi only</strong>{" "}
-              vốn không có khe SIM lẫn modem, nên không bao giờ có khái niệm khoá
-              mạng. Điều quan trọng cần nhớ: khoá mạng trên iPad{" "}
-              <strong className="text-foreground">
-                chỉ ảnh hưởng đúng phần lắp SIM
-              </strong>
-              . Wi-Fi, App Store, iCloud, Apple Pencil, Magic Keyboard, cập nhật
-              iPadOS… vẫn chạy đủ 100% như máy quốc tế.
-            </p>
-
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button asChild size="lg" className="gap-2">
-                <Link href="/ipad">
-                  Xem iPad đang bán
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/guides/ipad-lock-la-gi">Đọc cẩm nang iPad</Link>
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative xl:order-1">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl" />
-            <div className="relative hidden overflow-hidden rounded-2xl bg-card md:block">
-              <Image
-                src="/products/ipadair5.png"
-                alt="iPad Air, iPad Pro bản Wi-Fi và Wi-Fi + Cellular tại Dev Pồ"
-                width={790}
-                height={500}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* PHÂN BIỆT 3 LOẠI iPAD */}
-      <div className="container mx-auto mt-12 px-4 md:mt-20">
-        <div className="flex w-full flex-col gap-6">
-          <h2 className="text-balance font-sans text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl lg:text-3xl">
-            Phân biệt nhanh 3 loại iPad khi đi mua máy
+    <Section tone="surface">
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="flex flex-col gap-5 lg:order-2">
+          <h2 className="text-h1 text-balance text-foreground">
+            iPad Lock là gì? Khác gì iPad Wi-Fi only?
           </h2>
 
-          <div className="mb-1 grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
-            {IPAD_TYPES.map((type) => (
-              <div
-                key={type.title}
-                className="flex h-full flex-col items-start gap-4 rounded-xl bg-card p-4 shadow-sm transition-all hover:shadow-md"
-              >
-                <div className="flex-1">
-                  <div className="mb-4 flex items-center justify-start gap-4">
-                    <div className="hidden h-10 w-10 items-center justify-center rounded-full bg-primary/10 md:flex">
-                      <type.icon className="h-6 w-6 text-green-500" />
-                    </div>
-                    <h3 className="text-md font-semibold text-foreground">
-                      {type.title}
-                    </h3>
-                  </div>
-                  <p className="text-pretty leading-relaxed text-muted-foreground">
-                    {type.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="text-lead text-pretty text-muted-foreground">
+            Khác với iPhone, chuyện &ldquo;Lock&rdquo; trên iPad chỉ xảy ra ở bản{" "}
+            <strong className="font-semibold text-foreground">
+              Wi-Fi + Cellular
+            </strong>{" "}
+            — tức bản có khe SIM. Khi nhà mạng nước ngoài bán máy kèm gói cước,
+            họ khoá luôn khe SIM đó lại, và đó chính là{" "}
+            <strong className="font-semibold text-foreground">iPad Lock</strong>.
+          </p>
 
-          {/* Lời khuyên chọn bản — phần khách hỏi nhiều nhất */}
-          <div className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
-            <h3 className="text-md mb-3 font-semibold text-foreground">
-              Vậy nên chọn bản nào?
-            </h3>
-            <ul className="flex flex-col gap-2 text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
-                <span>
-                  Dùng ở nhà, ở lớp, ở văn phòng — nơi luôn có Wi-Fi:{" "}
-                  <strong className="text-foreground">chọn bản Wi-Fi only</strong>{" "}
-                  để tiết kiệm 2-4 triệu, dồn tiền lên dung lượng cao hơn.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
-                <span>
-                  Hay mang đi làm, đi học, đi công trình, dùng cho bán hàng /
-                  giao hàng:{" "}
-                  <strong className="text-foreground">
-                    chọn bản Wi-Fi + Cellular
-                  </strong>{" "}
-                  để lắp SIM dùng 4G/5G bất cứ đâu.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
-                <span>
-                  Toàn bộ iPad tại Dev Pồ đều được kiểm tra kỹ khe SIM, iCloud và
-                  tình trạng khoá mạng trước khi giao — bản nào ra bản đó, ghi rõ
-                  Wi-Fi hay Cellular ngay trên từng sản phẩm.
-                </span>
-              </li>
-            </ul>
+          <p className="text-lead text-pretty text-muted-foreground">
+            Còn bản{" "}
+            <strong className="font-semibold text-foreground">Wi-Fi only</strong>{" "}
+            vốn không có khe SIM lẫn modem nên không bao giờ có khái niệm khoá
+            mạng. Quan trọng nhất: khoá mạng trên iPad{" "}
+            <strong className="font-semibold text-foreground">
+              chỉ ảnh hưởng đúng phần lắp SIM
+            </strong>
+            . Wi-Fi, App Store, iCloud, Apple Pencil, Magic Keyboard, cập nhật
+            iPadOS… vẫn chạy đủ 100% như máy quốc tế.
+          </p>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg">
+              <Link href="/ipad">
+                Xem iPad đang bán
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/guides/ipad-lock-la-gi">Đọc cẩm nang iPad</Link>
+            </Button>
           </div>
         </div>
+
+        <div className="media-frame aspect-[4/3] w-full bg-background lg:order-1">
+          <Image
+            src="/products/ipadair5.png"
+            alt="iPad Air và iPad Pro bản Wi-Fi và Wi-Fi + Cellular tại Dev Pồ"
+            fill
+            loading="lazy"
+            sizes="(max-width: 1023px) 92vw, 46vw"
+            className="object-contain p-6"
+          />
+        </div>
       </div>
-    </section>
+
+      {/* --- Phân biệt 3 loại iPad --- */}
+      <div className="mt-section">
+        <SectionHeader
+          as="h3"
+          title="Phân biệt nhanh 3 loại iPad khi đi mua máy"
+        />
+
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {IPAD_TYPES.map((type) => (
+            <FeatureCard
+              key={type.title}
+              icon={type.icon}
+              title={type.title}
+              tone="plain"
+            >
+              {type.desc}
+            </FeatureCard>
+          ))}
+        </div>
+
+        {/* Lời khuyên chọn bản — phần khách hỏi nhiều nhất */}
+        <div className="mt-4 rounded-media bg-background p-5 sm:p-6">
+          <h4 className="text-h4 mb-3 text-foreground">Vậy nên chọn bản nào?</h4>
+          <ul className="flex flex-col gap-2.5 text-body text-muted-foreground">
+            {ADVICE.map((item, index) => (
+              <li key={index} className="flex items-start gap-2.5">
+                <Check
+                  className="mt-0.5 size-4 shrink-0 text-success"
+                  aria-hidden="true"
+                />
+                <span className="text-pretty">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Section>
   );
 }

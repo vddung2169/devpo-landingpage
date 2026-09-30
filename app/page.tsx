@@ -1,22 +1,15 @@
+import type { Metadata } from "next";
+
 import { CarrierTable } from "./components/carrier-table";
 import { CustomerGallery } from "./components/custom-gallery";
+import { FeaturedProducts } from "./components/featured-products";
 import { IphoneLockGuides } from "./components/guides";
-
-import { Features } from "./components/features";
-import { FloatingContacts } from "./components/floating-contacts";
-import { Header } from "./components/header";
 import { Hero } from "./components/hero";
-import { News } from "./components/news";
-import { Newsletter } from "./components/newsletter";
-import { PromoModal } from "./components/promo-modal";
 import { QuestionIPLock } from "./components/question-iplock";
 import { QuestionIPad } from "./components/question-ipad";
-import { Ticker } from "./components/ticker";
-import { Videos } from "./components/video";
-import { FeaturedProducts } from "./components/featured-products";
-import type { Metadata } from "next";
-import { FaqSection } from "@/components/FaqSection";
 import { Reveal } from "./components/reveal";
+import { FaqSection } from "@/components/FaqSection";
+import { Section } from "@/components/ds/section";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -24,11 +17,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="h-full">
-      {/* <PromoModal /> */}
+    <>
       <Hero />
 
-      {/* Các section dưới đây fade + trượt lên khi cuộn tới */}
+      {/* Các khối dưới đây fade + trượt lên khi cuộn tới.
+          Nền xen kẽ trắng / xám nhạt để mắt tách được từng khối mà không cần kẻ viền. */}
       <Reveal>
         <FeaturedProducts limit={8} />
       </Reveal>
@@ -49,26 +42,25 @@ export default function Home() {
         <CustomerGallery />
       </Reveal>
 
-      {/* SEO Section */}
+      {/* Đoạn mô tả cửa hàng — phục vụ SEO, đồng thời khép lại trang */}
       <Reveal>
-        <section className="py-12 bg-white dark:bg-[#0b0f19]">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">
-              Dev Pồ - Cửa hàng bán iPhone Lock, Quốc tế, iPad uy tín hàng đầu tại TP. Hồ Chí Minh
-            </h2>
-            <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">
-              Chúng tôi cung cấp song song hai mảng: iPhone Lock &amp; iPhone Quốc tế zin nguyên bản kèm dịch vụ fix lỗi
-              sim ghép trọn đời, và iPad cũ (iPad Pro, iPad Air, iPad Mini, iPad Gen) đã kiểm tra kỹ màn hình, pin và
-              iCloud. Cam kết giá tốt nhất thị trường, bảo hành tận tâm tại TP. Hồ Chí Minh.
-            </p>
-          </div>
-        </section>
+        <Section tone="plain" size="sm" containerClassName="max-w-4xl text-center">
+          <h2 className="text-h2 text-balance text-foreground">
+            Cửa hàng iPhone Lock, iPhone Quốc tế và iPad uy tín tại TP. Hồ Chí Minh
+          </h2>
+          <p className="text-lead mt-4 text-pretty text-muted-foreground">
+            Dev Pồ cung cấp song song hai mảng: iPhone Lock &amp; iPhone Quốc tế
+            zin nguyên bản kèm dịch vụ fix lỗi sim ghép trọn đời, và iPad cũ
+            (iPad Pro, iPad Air, iPad Mini, iPad Gen) Cam kết giá tốt nhất thị trường, bảo hành tận tâm tại
+            TP. Hồ Chí Minh.
+          </p>
+        </Section>
       </Reveal>
 
       {/* FAQ — đặt sau đánh giá khách hàng, trước footer (footer render trong layout) */}
       <Reveal>
         <FaqSection />
       </Reveal>
-    </main>
+    </>
   );
 }

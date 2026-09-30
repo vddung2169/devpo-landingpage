@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Section, SectionHeader } from "@/components/ds/section";
+import { cn } from "@/lib/utils";
 
 // Nguồn dữ liệu FAQ duy nhất — dùng chung cho cả UI accordion và FAQPage JSON-LD,
 // tránh lệch nội dung giữa phần hiển thị và structured data.
@@ -113,57 +115,64 @@ export function FaqSection({
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-16 bg-slate-50 dark:bg-[#0b0f19]">
+    <Section tone="surface" containerClassName="max-w-4xl">
       <JsonLd data={buildFaqSchema(items)} />
-      <div className="container mx-auto max-w-3xl px-4">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-slate-500 dark:text-slate-400">{subtitle}</p>
-        </div>
 
-        <div className="space-y-3">
-          {items.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div
-                key={faq.question}
-                className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-[#111827]"
-              >
-                <h3>
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-800 transition-colors hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800/40"
-                  >
-                    <span>{faq.question}</span>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                </h3>
-                <div
-                  className={`grid transition-all duration-300 ease-in-out ${
-                    isOpen
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
+      <SectionHeader align="center" title={title} description={subtitle} />
+
+      <div className="flex flex-col gap-3">
+        {items.map((faq, index) => {
+          const isOpen = openIndex === index;
+          const panelId = `faq-panel-${index}`;
+          const buttonId = `faq-button-${index}`;
+
+          return (
+            <div
+              key={faq.question}
+              className="overflow-hidden rounded-media bg-background"
+            >
+              <h3>
+                <button
+                  type="button"
+                  id={buttonId}
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-h4 text-foreground transition-colors hover:bg-surface"
                 >
-                  <div className="overflow-hidden">
-                    <p className="px-5 pb-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                      {faq.answer}
-                    </p>
-                  </div>
+                  <span>{faq.question}</span>
+                  <ChevronDown
+                    className={cn(
+                      "size-5 shrink-0 text-muted-foreground transition-transform duration-300",
+                      isOpen && "rotate-180",
+                    )}
+                    aria-hidden="true"
+                  />
+                </button>
+              </h3>
+
+              {/* grid-rows 0fr -> 1fr: mở/đóng mượt mà vẫn để chiều cao tự tính */}
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
+                className={cn(
+                  "grid transition-all duration-300 ease-in-out",
+                  isOpen
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0",
+                )}
+              >
+                <div className="overflow-hidden">
+                  <p className="px-5 pb-5 text-body leading-relaxed text-muted-foreground">
+                    {faq.answer}
+                  </p>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
-    </section>
+    </Section>
   );
 }

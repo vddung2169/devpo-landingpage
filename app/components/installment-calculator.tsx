@@ -49,7 +49,7 @@ export function InstallmentCalculator() {
   const monthlyPayment = months > 0 ? Math.round(remaining / months) : 0;
 
   return (
-    <div className="grid gap-6 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8 lg:grid-cols-2 lg:gap-10">
+    <div className="grid gap-6 rounded-media bg-surface p-5 shadow-sm sm:p-8 lg:grid-cols-2 lg:gap-10">
       {/* Cột trái: các lựa chọn đầu vào */}
       <div className="flex flex-col gap-6">
         <div>

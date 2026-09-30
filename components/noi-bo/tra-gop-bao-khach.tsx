@@ -151,7 +151,7 @@ export function TraGopBaoKhach() {
       {/* ------------------------------------------------------------------ */}
       {/* Cột trái: đầu vào                                                    */}
       {/* ------------------------------------------------------------------ */}
-      <div className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+      <div className="flex flex-col gap-5 rounded-media bg-surface p-5 shadow-sm sm:p-6">
         {/* Số tiền máy */}
         <MoneyField
           label="Số tiền máy"
@@ -225,7 +225,7 @@ export function TraGopBaoKhach() {
 
         {/* Cảnh báo trả trước tối thiểu */}
         {belowMinDown && (
-          <div className="flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-700 dark:text-amber-400">
+          <div className="flex items-start gap-2 rounded-lg border border-warning/40 bg-warning-soft p-3 text-body text-warning-ink">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             <span>
               {config.label} yêu cầu trả trước tối thiểu{" "}
@@ -240,7 +240,7 @@ export function TraGopBaoKhach() {
       {/* Cột phải: bảng kết quả + báo khách                                  */}
       {/* ------------------------------------------------------------------ */}
       <div className="flex flex-col gap-4">
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+        <div className="rounded-media bg-surface p-5 shadow-sm sm:p-6">
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <Badge variant="secondary">{config.label}</Badge>
             <span className="text-sm text-muted-foreground">{config.note}</span>
@@ -291,7 +291,7 @@ export function TraGopBaoKhach() {
                           aria-label={`Copy báo giá ${r.months} tháng`}
                         >
                           {copiedKey === key ? (
-                            <Check className="h-4 w-4 text-green-600" />
+                            <Check className="size-4 text-success" />
                           ) : (
                             <Copy className="h-4 w-4" />
                           )}
@@ -327,7 +327,7 @@ export function TraGopBaoKhach() {
                     >
                       {copiedKey === key ? (
                         <>
-                          <Check className="h-4 w-4 text-green-600" />
+                          <Check className="size-4 text-success" />
                           Đã copy
                         </>
                       ) : (

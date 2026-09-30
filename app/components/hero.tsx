@@ -1,85 +1,116 @@
-import { Button } from "@/components/ui/button";
-import { Calculator } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Calculator } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { QuoteCTA } from "./quote-cta";
 
+const STATS = [
+  { value: "30+", label: "Mẫu máy sẵn kho" },
+  { value: "2.800+", label: "Khách đã mua" },
+  { value: "9.9", label: "Điểm đánh giá" },
+];
+
+/**
+ * Hero trang chủ — hai cột từ lg, xếp dọc ở mobile.
+ *
+ * Bản cũ phải nhờ ~50 dòng CSS riêng (.hero-tablet-landscape-*) để chữa layout
+ * ở dải 1024–1279px, cộng một thẻ <br> ẩn/hiện theo breakpoint. Bản này bỏ hết:
+ * tiêu đề dùng cỡ chữ clamp nên tự co, lưới chuyển 1→2 cột đúng một lần ở lg,
+ * và cụm nút dùng flex-wrap nên không bao giờ tràn.
+ */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-10 md:py-10">
-      <div className="container mx-auto px-4">
-        <div className="hero-tablet-landscape-grid grid items-center gap-10 xl:grid-cols-2 xl:gap-12">
-          <div className="flex flex-col gap-5 text-center md:gap-8 lg:text-left">
-            {/* Badge trạng thái */}
-            <div className="inline-flex items-center gap-2 self-center rounded-full lg:self-start bg-primary/10 px-3 py-1 text-xs font-medium text-primary md:text-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400"></span>
-              </span>
-              Sẵn hàng đủ mã
-            </div>
+    <section className="w-full overflow-hidden bg-surface">
+      {/* Từ 1280px cột chữ được nới rộng hơn cột ảnh (1.15fr / 0.85fr): hai nút
+          CTA đặt cạnh nhau cần 633px, mà chia đôi đều thì cột chữ chỉ được 584px
+          — thiếu 49px. Với tỉ lệ này cột chữ đạt 672px, dư 39px. */}
+      {/* Từ 1280px hero cao bằng phần màn hình còn lại, nên khối "Sản phẩm nổi
+          bật" nằm hẳn dưới nếp gấp chứ không ló lên như trước.
+          Phần khung dính trên đầu trang cao 109px (header 72px + viền 1px +
+          ticker 36px); trừ 6.5rem = 104px, tức để hero DƯ ~5px — thà hero thò
+          xuống vài pixel còn hơn khối sau ló lên.
+          dvh (không phải vh) để trên trình duyệt di động có thanh công cụ thu
+          vào/trượt ra thì chiều cao vẫn tính đúng.
+          items-center căn nội dung vào giữa chiều cao đó. */}
+      <div className="container-page grid items-center gap-10 py-section lg:grid-cols-2 lg:gap-16 xl:min-h-[calc(100dvh-6.5rem)] xl:grid-cols-[1.15fr_0.85fr]">
+        {/* --- Cột chữ --- */}
+        <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+          <p className="inline-flex items-center gap-2 rounded-full bg-background px-3 py-1.5 text-caption font-medium text-foreground">
+            <span className="relative flex size-2" aria-hidden="true">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-success" />
+            </span>
+            Sẵn hàng đủ mã
+          </p>
 
-            {/* Tiêu đề chính */}
-            <h1 className="hero-tablet-landscape-title mx-auto max-w-[12ch] text-balance lg:mx-0 font-sans text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-7xl">
-              Dẫn đầu thị trường <br className="hero-tablet-landscape-break hidden xl:block" />
-              <span className="text-primary">iPhone Lock - Quốc tế - iPad</span>
-            </h1>
+          <h1 className="text-display max-w-[14ch] text-balance text-foreground">
+            iPhone Lock, Quốc tế &amp; iPad
+          </h1>
 
-            <p className="hero-tablet-landscape-copy fluid-lead mx-auto max-w-[600px] text-pretty text-muted-foreground lg:mx-0">
-              Khám phá bộ sưu tập iPhone iPad chất lượng cao, giá cả phải chăng nhất thị trường hiện nay.
-            </p>
+          <p className="text-lead max-w-lg text-pretty text-muted-foreground">
+            Khám phá bộ sưu tập iPhone iPad chất lượng cao, giá cả phải chăng nhất thị trường hiện nay.
+          </p>
 
-            {/* Nút Nhận báo giá Sale ngay */}
-            <div className="hero-tablet-landscape-actions flex flex-col items-center gap-4 min-[900px]:flex-row min-[900px]:flex-wrap min-[900px]:justify-center lg:items-stretch lg:justify-start">
-              <QuoteCTA />
+          {/* Hai nút CTA luôn xếp dọc và RỘNG BẰNG NHAU.
+              Đo bằng chính file font: "Nhận báo giá ngay" rộng 294px, "Tính trả
+              góp & chọn máy" rộng 323px (ở 1280px) -> đặt cạnh nhau cần 629px,
+              trong khi cột chữ của hero rộng nhất cũng chỉ 584px. Tức là chúng
+              không bao giờ vừa một hàng, kể cả trên desktop — bản cũ dùng
+              sm:flex-row nên luôn bị xuống dòng và hai nút lệch nhau 30px.
 
-              <Button
-                asChild
-                variant="outline"
-                className="hero-tablet-landscape-secondary h-14 w-full sm:w-auto sm:px-6 xl:px-8"
-              >
-                <Link
-                  href="/cong-cu-mua-iphone"
-                  className="flex items-center justify-center gap-2 text-sm font-semibold sm:text-base"
-                >
-                  <Calculator className="h-5 w-5" />
-                  Tính trả góp &amp; Quiz chọn máy
-                </Link>
-              </Button>
-            </div>
+              grid-cols-[max-content] + w-fit: cột grid co đúng bằng nút DÀI
+              NHẤT, hai nút cùng giãn ra bằng cột đó. Nhờ vậy chúng bằng nhau mà
+              vẫn ôm sát nội dung, không cần đặt bề rộng cố định bằng tay.
 
-            {/* Thống kê (Stats) - Responsive tối ưu */}
-            <div className="flex flex-wrap items-center justify-center gap-6 pt-4 md:gap-10 lg:justify-start">
-              <div className="min-w-[80px]">
-                <div className="text-2xl font-bold text-foreground md:text-3xl">30+</div>
-                <div className="text-xs text-muted-foreground md:text-sm">Sản phẩm</div>
-              </div>
-              <div className="hidden h-10 w-px bg-border md:block" />
-              <div className="min-w-[80px]">
-                <div className="text-2xl font-bold text-foreground md:text-3xl">1800+</div>
-                <div className="text-xs text-muted-foreground md:text-sm">Khách hàng</div>
-              </div>
-              <div className="hidden h-10 w-px bg-border md:block" />
-              <div className="min-w-[80px]">
-                <div className="text-2xl font-bold text-foreground md:text-3xl">9.9</div>
-                <div className="text-xs text-muted-foreground md:text-sm">Đánh giá</div>
-              </div>
-            </div>
+              Từ 1280px (xl) mới đủ chỗ xếp ngang: grid-cols-2 trong khung w-fit
+              cho hai cột 1fr, và dưới ràng buộc max-content thì cả hai track đều
+              nhận bề rộng của nút dài nhất -> vẫn bằng nhau, chỉ khác là nằm
+              cùng một hàng. */}
+          <div className="grid w-full grid-cols-1 gap-3 sm:w-fit sm:grid-cols-[max-content] xl:grid-cols-2">
+            <QuoteCTA className="w-full" />
+
+            <Button asChild variant="outline" size="xl" className="w-full">
+              <Link href="/cong-cu-mua-iphone">
+                <Calculator className="size-5" aria-hidden="true" />
+                Tính trả góp &amp; chọn máy
+              </Link>
+            </Button>
           </div>
 
-          {/* Hình ảnh bên phải/dưới */}
-          <div className="hero-tablet-landscape-media relative xl:justify-self-end xl:w-full">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl opacity-50" />
-            <div className="hero-tablet-landscape-frame relative mx-auto aspect-[4/3] w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-card shadow-2xl md:aspect-square xl:max-w-none">
-              <Image
-                src="/background-2.jpg"
-                alt="iPhone Lock và iPhone Quốc tế chính hãng tại Dev Pồ"
-                fill
-                priority
-                sizes="(max-width: 1279px) 100vw, 50vw"
-                className="object-cover transition-transform duration-500 hover:scale-105"
-              />
-            </div>
+          {/* Thống kê — dl/dt/dd để trình đọc màn hình hiểu đây là cặp số–nhãn */}
+          <dl className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 pt-2 lg:justify-start">
+            {STATS.map((stat) => (
+              <div key={stat.label}>
+                <dt className="sr-only">{stat.label}</dt>
+                <dd>
+                  <span className="block text-h2 text-foreground">
+                    {stat.value}
+                  </span>
+                  <span className="block text-caption text-muted-foreground">
+                    {stat.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {/* --- Cột ảnh ---
+            Tới 1279px: khung theo tỉ lệ cố định như cũ.
+            Từ 1280px: ảnh kéo cao bằng hero để lấp khoảng trống dọc mới sinh ra,
+            chặn trên 44rem để trên màn rất cao ảnh không thành dải dọc hẹp.
+            Lớp bọc flex + items-center giữ ảnh ở giữa khi đã chạm trần đó. */}
+        <div className="w-full xl:flex xl:h-full xl:items-center xl:self-stretch">
+          <div className="media-frame aspect-[4/3] w-full bg-background lg:aspect-square xl:aspect-auto xl:h-full xl:max-h-[44rem] xl:min-h-[26rem]">
+            <Image
+              src="/background-2.jpg"
+              alt="iPhone Lock và iPhone Quốc tế chính hãng trưng bày tại cửa hàng Dev Pồ"
+              fill
+              priority
+              sizes="(max-width: 1023px) 92vw, 46vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { Section } from "@/components/ds/section";
 import { ProductGrid } from "../components/product-grid";
 
 // Khai báo SEO riêng cho trang Sản phẩm
@@ -11,17 +13,17 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
   return (
-    <main className="min-h-screen dark:bg-background">
-      <div className="container mx-auto px-4 pt-8 text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-          Tất cả <span className="text-primary">sản phẩm</span>
+    <>
+      <Section tone="surface" size="sm" containerClassName="max-w-3xl text-center">
+        <h1 className="text-h1 text-balance text-foreground">
+          Tất cả sản phẩm
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-          iPhone Lock, iPhone Quốc tế và iPad nguyên zin — giá tốt nhất tại Dev Pồ
+        <p className="text-lead mt-3 text-pretty text-muted-foreground">
+          iPhone Lock, iPhone Quốc tế và iPad nguyên zin — giá tốt nhất tại Dev Pồ.
         </p>
-      </div>
+      </Section>
 
       <ProductGrid />
-    </main>
+    </>
   );
 }

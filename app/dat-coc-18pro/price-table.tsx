@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ImageIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ZALO_LINK } from "@/data/products";
 import {
@@ -33,8 +34,9 @@ function VariantCard({
             src={storage.image}
             alt={`${model.name} ${storage.size} chính hãng tại Dev Pồ`}
             fill
+            loading="lazy"
             sizes="(max-width: 1023px) 50vw, 25vw"
-            className="object-cover"
+            className="object-contain p-4"
           />
         ) : (
           <div
@@ -56,19 +58,19 @@ function VariantCard({
         )}
       </div>
 
-      <h3 className="text-center text-xs font-bold leading-snug text-foreground sm:text-sm">
+      <h3 className="text-center text-body font-bold leading-snug text-foreground">
         {model.name} {storage.size} | Chính Hãng
       </h3>
-      <p className="mt-2 text-center text-[11px] text-muted-foreground sm:text-xs">
+      <p className="mt-2 text-center text-caption text-muted-foreground">
         Giá niêm yết
       </p>
-      <p className="text-center text-base font-bold text-red-500 sm:text-lg">
+      <p className="text-center text-h3 font-bold text-price">
         {formatVnd(storage.listPrice)}
       </p>
 
       {/* CTA — mt-auto giữ đáy các card thẳng hàng nhau */}
       <div className="mt-auto pt-3">
-        <Button asChild className="h-9 w-full text-xs font-semibold sm:h-10 sm:text-sm">
+        <Button asChild size="sm" className="w-full font-semibold">
           <Link
             href={`${ZALO_LINK}?text=${zaloText}`}
             target="_blank"
@@ -88,11 +90,11 @@ export function PriceTable() {
 
   return (
     <section
-      className="w-full bg-slate-50 px-2 py-12 dark:bg-[#0b0f19] sm:px-4 sm:py-16"
+      className="w-full bg-surface px-gutter py-section"
       id="bang-gia"
     >
-      <div className="container mx-auto">
-        <h2 className="text-balance text-center text-2xl font-bold tracking-tight text-red-500 sm:text-3xl md:text-4xl">
+      <div className="container-page">
+        <h2 className="text-h2 text-balance text-center text-foreground">
           Bảng giá iPhone 18 Pro | iPhone 18 Pro Max | iPhone Duo
         </h2>
 
@@ -113,11 +115,12 @@ export function PriceTable() {
                 aria-selected={isActive}
                 aria-controls={`panel-${model.id}`}
                 onClick={() => setActiveId(model.id)}
-                className={`rounded-full border px-4 py-1.5 text-xs font-medium transition-all duration-300 sm:px-5 sm:py-2 sm:text-sm ${
+                className={cn(
+                  "rounded-full px-4 py-2 text-body font-medium transition-colors",
                   isActive
-                    ? "border-red-500 bg-red-500 text-white shadow-sm"
-                    : "border-border bg-background text-muted-foreground hover:border-red-500/40 hover:text-foreground"
-                }`}
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-background text-muted-foreground hover:text-foreground",
+                )}
               >
                 {model.tabLabel}
               </button>

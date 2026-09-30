@@ -65,7 +65,7 @@ const isDriveConfigured = DRIVE_LINK !== "#" && DRIVE_LINK.length > 0;
 
 export function MdmBypass() {
   return (
-    <div className="grid gap-6 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8">
+    <div className="grid gap-6 rounded-media bg-surface p-5 shadow-sm sm:p-8">
       {/* Khối tải tool */}
       <div className="flex flex-col gap-5 rounded-xl bg-secondary p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div className="flex items-start gap-4">
@@ -105,7 +105,7 @@ export function MdmBypass() {
 
       {/* Hướng dẫn skip — accordion */}
       <div>
-        <h3 className="mb-3 text-sm font-semibold text-foreground">
+        <h3 className="text-h4 mb-3 text-foreground">
           Hướng dẫn skip MDM
         </h3>
         <Accordion type="single" collapsible className="w-full">
@@ -173,7 +173,7 @@ function StepImage({ src, alt }: { src: string; alt: string }) {
         alt={alt}
         loading="lazy"
         onError={() => setErrored(true)}
-        className="block h-auto w-full object-fit"
+        className="block h-auto w-full object-cover"
       />
     </div>
   );

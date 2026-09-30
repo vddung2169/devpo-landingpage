@@ -1,11 +1,21 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import {
+  Calculator,
+  ChevronDown,
+  Menu,
+  ShieldCheck,
+  Sparkles,
+  Wrench,
+  X,
+} from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calculator, ChevronDown, Menu, ShieldCheck, Sparkles, Wrench } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
-import { GlobalSearch } from "./global-search";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +23,24 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ThemeToggle } from "./theme-toggle";
+import { GlobalSearch } from "./global-search";
+
+/** Liên kết chính — thứ tự đặt mua hàng trước, nội dung sau. */
+const NAV_LINKS = [
+  { href: "/featured-products", label: "Sản phẩm" },
+  { href: "/ipad", label: "iPad" },
+  { href: "/guides", label: "Cẩm nang" },
+  { href: "/news", label: "Tin tức" },
+  { href: "/imsi-codes", label: "Mã IMSI" },
+];
 
 // 3 công cụ con — dùng chung cho dropdown desktop lẫn menu mobile
 const TOOL_LINKS = [
@@ -46,279 +74,226 @@ const SUPPORT_LINKS = [
   },
 ];
 
+/**
+ * Nội dung một mục "Công cụ" — icon vuông + tên + mô tả ngắn.
+ * Chỉ trả về phần bên trong, KHÔNG tự bọc <Link>, vì ở menu mobile thẻ <Link>
+ * đã do <SheetClose asChild> dựng lên — bọc thêm sẽ thành link lồng link.
+ */
+function ToolItemContent({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: typeof Calculator;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <>
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-surface text-foreground">
+        <Icon className="size-4" aria-hidden="true" />
+      </span>
+      <span className="flex flex-col">
+        <span className="text-body font-medium text-foreground">{title}</span>
+        <span className="text-caption text-muted-foreground">{desc}</span>
+      </span>
+    </>
+  );
+}
+
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Đổi trang thì đóng menu mobile (bấm link trong Sheet không tự đóng).
+  useEffect(() => setIsOpen(false), [pathname]);
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     // transform-gpu: đẩy header lên compositor layer riêng, hết giật sticky
     // trên iOS Safari. backdrop-blur chỉ bật từ md trở lên — trên mobile, blur
     // phải tính lại từng frame khi nội dung (đặc biệt là ticker marquee) trượt
     // bên dưới lúc cuộn, gây rung; nền đặc 95% nhìn gần như không khác.
-    <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border bg-background/95 md:backdrop-blur md:supports-[backdrop-filter]:bg-background/60">
-      <div className="site-header-bar container mx-auto flex h-16 items-center justify-between gap-3 px-3 sm:px-4">
-        {/* Phần Logo và Menu Desktop */}
-        <div className="flex min-w-0 items-center gap-3 md:gap-4 xl:gap-8">
-          <div className="flex shrink-0 items-center justify-center cursor-pointer">
-            <Link href="/" className="flex items-center">
-              <img
-                src="/devpo_logo.jpg"
-                alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
-                width={137}
-                height={56}
-                className="site-header-logo h-10 w-auto block sm:h-12 md:h-11 xl:h-14 dark:hidden"
-              />
-              <img
-                src="/devpo_logo_white.png"
-                alt="Dev Pồ - Cửa hàng iPhone Lock uy tín tại TP.HCM"
-                width={137}
-                height={56}
-                className="site-header-logo h-8 w-auto hidden sm:h-9 dark:block"
-              />
-            </Link>
-          </div>
+    <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border bg-background/95 md:backdrop-blur-xl md:supports-[backdrop-filter]:bg-background/75">
+      <div className="site-header-bar container-page flex h-16 items-center justify-between gap-3 lg:h-18">
+        {/* --- Logo + menu desktop --- */}
+        <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-10">
+          <Link
+            href="/"
+            className="flex shrink-0 items-center rounded-md"
+            aria-label="Dev Pồ — về trang chủ"
+          >
+            <Image
+              src="/devpo_logo.jpg"
+              alt="Dev Pồ - Cửa hàng iPhone Lock, iPhone Quốc tế và iPad tại TP.HCM"
+              width={137}
+              height={56}
+              priority
+              className="site-header-logo h-9 w-auto sm:h-14 dark:hidden"
+            />
+            <Image
+              src="/devpo_logo_white.png"
+              alt="Dev Pồ - Cửa hàng iPhone Lock, iPhone Quốc tế và iPad tại TP.HCM"
+              width={137}
+              height={56}
+              priority
+              className="site-header-logo hidden h-8 w-auto sm:h-8 dark:block"
+            />
+          </Link>
 
-          {/* Menu Desktop (Ẩn trên mobile) */}
-          <nav className="hidden items-center gap-4 md:flex lg:gap-5 xl:gap-8">
-           
-            <Link
-              href="/guides"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Cẩm nang
-            </Link>
-            <Link
-              href="/news"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Tin tức
-            </Link>
-            <Link
-              href="/imsi-codes"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Mã IMSI
-            </Link>
-            {/* "Công cụ" mở dropdown 3 công cụ con */}
+          <nav
+            aria-label="Điều hướng chính"
+            className="hidden shrink-0 items-center gap-0.5 whitespace-nowrap lg:flex xl:gap-1"
+          >
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={cn(
+                  "rounded-full px-2.5 py-2 text-body font-medium transition-colors xl:px-3",
+                  isActive(link.href)
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            {/* "Công cụ" mở dropdown 3 công cụ con + hỗ trợ sau mua */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground data-[state=open]:text-foreground">
+              <DropdownMenuTrigger className="group flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-body font-medium text-muted-foreground outline-none transition-colors hover:text-foreground data-[state=open]:text-foreground xl:px-3">
                 Công cụ
-                <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                <ChevronDown
+                  className="size-4 transition-transform duration-200 group-data-[state=open]:rotate-180"
+                  aria-hidden="true"
+                />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-64 rounded-xl p-2 shadow-lg">
+              <DropdownMenuContent
+                align="start"
+                className="w-72 rounded-xl p-2 shadow-e3"
+              >
                 {TOOL_LINKS.map((tool) => (
                   <DropdownMenuItem
                     key={tool.href}
                     asChild
-                    className="cursor-pointer gap-3 rounded-lg p-3"
+                    className="cursor-pointer rounded-lg p-2.5"
                   >
-                    <Link href={tool.href}>
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
-                        <tool.icon className="h-4 w-4" />
-                      </span>
-                      <span className="flex flex-col">
-                        <span className="text-sm font-medium text-foreground">{tool.title}</span>
-                        <span className="text-xs text-muted-foreground">{tool.desc}</span>
-                      </span>
+                    <Link href={tool.href} className="flex items-center gap-3">
+                      <ToolItemContent {...tool} />
                     </Link>
                   </DropdownMenuItem>
                 ))}
-                <DropdownMenuLabel className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <DropdownMenuLabel className="px-2.5 pb-1 pt-3 text-overline uppercase text-muted-foreground">
                   Hỗ trợ sau mua
                 </DropdownMenuLabel>
                 {SUPPORT_LINKS.map((item) => (
                   <DropdownMenuItem
                     key={item.href}
                     asChild
-                    className="cursor-pointer gap-3 rounded-lg p-3"
+                    className="cursor-pointer rounded-lg p-2.5"
                   >
-                    <Link href={item.href}>
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
-                        <item.icon className="h-4 w-4" />
-                      </span>
-                      <span className="flex flex-col">
-                        <span className="text-sm font-medium text-foreground">{item.title}</span>
-                        <span className="text-xs text-muted-foreground">{item.desc}</span>
-                      </span>
+                    <Link href={item.href} className="flex items-center gap-3">
+                      <ToolItemContent {...item} />
                     </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link
-              href="/featured-products"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Sản phẩm
-            </Link>
-            <Link
-              href="/ipad"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              iPad
-            </Link>
           </nav>
         </div>
 
-        {/* Phần Tìm kiếm + Menu Mobile - Dùng DropdownMenu */}
-        <div className="flex shrink-0 items-center gap-2">
-          {/* Ô tìm kiếm toàn trang */}
+        {/* --- Tìm kiếm + chế độ sáng/tối + menu mobile --- */}
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <GlobalSearch />
-
-          {/* Nút chuyển chế độ sáng/tối */}
           <ThemeToggle />
 
-          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-            <DropdownMenuTrigger asChild>
+          {/* Menu mobile dạng Sheet: cao hết màn hình, dễ chạm hơn dropdown nhỏ */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden outline-none"
+                className="lg:hidden"
+                aria-label="Mở menu"
               >
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Menu</span>
+                <Menu className="size-5" aria-hidden="true" />
               </Button>
-            </DropdownMenuTrigger>
+            </SheetTrigger>
 
-            {/* align="end" giúp menu canh lề phải thẳng hàng với nút bấm */}
-            <DropdownMenuContent
-              align="end"
-              className="mt-2 w-[220px] rounded-xl p-2 shadow-lg md:hidden"
+            <SheetContent
+              side="right"
+              className="w-[min(20rem,88vw)] gap-0 overflow-y-auto p-0 [&>button:first-of-type]:hidden"
             >
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg"
-              >
-                <Link
-                  href="/"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  Trang chủ
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg"
-              >
-                <Link
-                  href="/#guides"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  Sổ tay iPhone Lock
-                </Link>
-              </DropdownMenuItem>
+              <div className="flex items-center justify-between border-b border-border px-5 py-4">
+                <SheetTitle className="text-h4">Menu</SheetTitle>
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon-sm" aria-label="Đóng menu">
+                    <X className="size-5" aria-hidden="true" />
+                  </Button>
+                </SheetClose>
+              </div>
 
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg mt-1"
-              >
-                <Link
-                  href="/guides"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  Cẩm nang
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg mt-1"
-              >
-                <Link
-                  href="/news"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  Tin tức
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg mt-1"
-              >
-                <Link
-                  href="/imsi-codes"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  Mã IMSI
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuLabel className="mt-1 px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Công cụ mua iPhone
-              </DropdownMenuLabel>
-              {TOOL_LINKS.map((tool) => (
-                <DropdownMenuItem
-                  key={tool.href}
-                  asChild
-                  className="cursor-pointer gap-3 rounded-lg p-3"
-                >
+              <nav aria-label="Điều hướng chính" className="flex flex-col p-3">
+                <SheetClose asChild>
                   <Link
-                    href={tool.href}
-                    onClick={() => setIsOpen(false)}
-                    className="w-full"
+                    href="/"
+                    className="rounded-lg px-3 py-3 text-lead font-medium text-foreground transition-colors hover:bg-surface"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
-                      <tool.icon className="h-4 w-4" />
-                    </span>
-                    <span className="font-medium">{tool.title}</span>
+                    Trang chủ
                   </Link>
-                </DropdownMenuItem>
-              ))}
+                </SheetClose>
 
-              <DropdownMenuLabel className="mt-1 px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Hỗ trợ sau mua
-              </DropdownMenuLabel>
-              {SUPPORT_LINKS.map((item) => (
-                <DropdownMenuItem
-                  key={item.href}
-                  asChild
-                  className="cursor-pointer gap-3 rounded-lg p-3"
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="w-full"
-                  >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground">
-                      <item.icon className="h-4 w-4" />
-                    </span>
-                    <span className="font-medium">{item.title}</span>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
+                {NAV_LINKS.map((link) => (
+                  <SheetClose asChild key={link.href}>
+                    <Link
+                      href={link.href}
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                      className={cn(
+                        "rounded-lg px-3 py-3 text-lead font-medium transition-colors hover:bg-surface",
+                        isActive(link.href)
+                          ? "bg-surface text-foreground"
+                          : "text-foreground",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </SheetClose>
+                ))}
 
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg mt-1"
-              >
-                <Link
-                  href="/featured-products"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  Sản phẩm
-                </Link>
-              </DropdownMenuItem>
+                <p className="px-3 pb-2 pt-5 text-overline uppercase text-muted-foreground">
+                  Công cụ mua iPhone
+                </p>
+                {TOOL_LINKS.map((tool) => (
+                  <SheetClose asChild key={tool.href}>
+                    <Link
+                      href={tool.href}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-surface"
+                    >
+                      <ToolItemContent {...tool} />
+                    </Link>
+                  </SheetClose>
+                ))}
 
-              <DropdownMenuItem
-                asChild
-                className="p-3 text-base cursor-pointer rounded-lg mt-1"
-              >
-                <Link
-                  href="/ipad"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full font-medium"
-                >
-                  iPad
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                <p className="px-3 pb-2 pt-5 text-overline uppercase text-muted-foreground">
+                  Hỗ trợ sau mua
+                </p>
+                {SUPPORT_LINKS.map((item) => (
+                  <SheetClose asChild key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-surface"
+                    >
+                      <ToolItemContent {...item} />
+                    </Link>
+                  </SheetClose>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>

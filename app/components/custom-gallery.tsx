@@ -81,18 +81,17 @@ export function CustomerGallery(): React.ReactElement {
   const duplicatedImages = [...customerImages, ...customerImages];
 
   return (
-    <section className="py-16 bg-slate-50 dark:bg-[#0b0f19]/50 overflow-hidden border-t border-slate-200 dark:border-slate-800/50">
-      <div className="container mx-auto px-4 mb-10 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Khách hàng tin tưởng <span className="text-primary">DEV PỒ</span>
+    <section className="w-full overflow-hidden border-t border-border bg-surface py-section">
+      <div className="container-page mb-block text-center">
+        <h2 className="text-h2 text-balance text-foreground">
+          Khách hàng tin tưởng Dev Pồ
         </h2>
-        <p className="mt-4 text-slate-500 dark:text-slate-400">
-          Hàng ngàn khách hàng đã trải nghiệm và hài lòng với chất lượng máy tại
-          shop
+        <p className="text-lead mx-auto mt-3 max-w-2xl text-pretty text-muted-foreground">
+          Hàng ngàn khách đã trải nghiệm và hài lòng với chất lượng máy tại shop.
         </p>
       </div>
 
-      {/* Vùng chứa Gallery */}
+      {/* Dải ảnh cuộn ngang, mờ dần hai mép để không bị cắt cụt */}
       <div
         className="relative flex w-full flex-col items-center justify-center overflow-hidden"
         style={{
@@ -107,7 +106,7 @@ export function CustomerGallery(): React.ReactElement {
             __html: `
           @keyframes scroll-gallery {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 0.75rem)); } 
+            100% { transform: translateX(calc(-50% - 0.75rem)); }
           }
           .animate-scroll-gallery {
             animation: scroll-gallery 40s linear infinite;
@@ -115,16 +114,18 @@ export function CustomerGallery(): React.ReactElement {
           .animate-scroll-gallery:hover {
             animation-play-state: paused;
           }
+          @media (prefers-reduced-motion: reduce) {
+            .animate-scroll-gallery { animation: none; }
+          }
         `,
           }}
         />
 
-        {/* Khối chứa cuộn ngang */}
-        <div className="flex w-max gap-6 animate-scroll-gallery py-4 px-3">
+        <div className="flex w-max animate-scroll-gallery gap-6 px-3 py-4">
           {duplicatedImages.map((img, idx) => (
             <div
               key={`${img.id}-${idx}`}
-              className="relative h-60 w-44 shrink-0 overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-xl hover:z-10 md:h-72 md:w-56 bg-slate-200 dark:bg-slate-800"
+              className="media-frame h-60 w-44 shrink-0 transition-transform duration-300 hover:scale-[1.03] md:h-72 md:w-56"
             >
               <Image
                 src={img.src}

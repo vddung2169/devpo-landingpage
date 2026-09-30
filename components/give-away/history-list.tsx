@@ -33,7 +33,7 @@ export function HistoryList({ history }: { history: Giveaway[] }) {
             <Card className="gap-0 py-0">
               <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-foreground">
+                  <h3 className="text-h4 text-foreground">
                     {g.title}
                   </h3>
                   {g.endAt && (
@@ -50,7 +50,7 @@ export function HistoryList({ history }: { history: Giveaway[] }) {
 
                 {g.winner && (
                   <div className="mt-2 flex items-center gap-1.5 text-sm">
-                    <Trophy className="h-3.5 w-3.5 shrink-0 text-amber-500" />
+                    <Trophy className="size-3.5 shrink-0 text-warning" />
                     <span className="font-medium text-foreground">
                       {g.winner.name}
                     </span>

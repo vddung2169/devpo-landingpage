@@ -92,17 +92,19 @@ export function GlobalSearch() {
         onClick={() => setOpen(true)}
         aria-label="Tìm kiếm"
         className={cn(
-          "inline-flex items-center gap-2 rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/20",
-          // mobile/tablet nhỏ: nút icon tròn 44px (đủ chuẩn vùng chạm);
-          // từ tablet lớn trở lên mới bung thành ô tìm kiếm
-          "h-11 w-11 justify-center min-[900px]:h-10 min-[900px]:w-56 min-[900px]:justify-start min-[900px]:px-3 xl:w-64",
+          "inline-flex items-center gap-2 rounded-full bg-surface text-muted-foreground transition-colors hover:bg-surface-strong hover:text-foreground",
+          // Tới 1279px: nút icon tròn 44px (đủ chuẩn vùng chạm của Apple).
+          // Chỉ bung thành ô tìm kiếm từ 1280px — vì trong khoảng 1024-1279px
+          // thanh nav đầy đủ đã chiếm gần hết chiều ngang, ô tìm kiếm rộng
+          // 224px sẽ đẩy nav xuống dòng (đúng lỗi đã gặp trên iPad Mini).
+          "h-11 w-11 shrink-0 justify-center xl:h-10 xl:w-64 xl:justify-start xl:px-3",
         )}
       >
         <Search className="h-4 w-4 shrink-0" />
-        <span className="hidden flex-1 truncate whitespace-nowrap text-left text-sm min-[900px]:inline">
+        <span className="hidden flex-1 truncate whitespace-nowrap text-left text-body xl:inline">
           Tìm sản phẩm, cẩm nang…
         </span>
-        <kbd className="hidden items-center gap-0.5 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground xl:inline-flex">
+        <kbd className="hidden items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground xl:inline-flex">
           ⌘K
         </kbd>
       </button>

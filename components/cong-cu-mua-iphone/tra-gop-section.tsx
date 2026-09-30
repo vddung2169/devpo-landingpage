@@ -164,7 +164,7 @@ function CalculatorCard({
   const [term, result] = Array.isArray(children) ? children : [children, null];
 
   return (
-    <div className="grid gap-6 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8 lg:grid-cols-2 lg:gap-10">
+    <div className="grid gap-6 rounded-media bg-surface p-5 shadow-sm sm:p-8 lg:grid-cols-2 lg:gap-10">
       {/* Cột trái: đầu vào */}
       <div className="flex flex-col gap-6">
         <div>
@@ -301,7 +301,7 @@ function CreditCardTable() {
   const rows = useMemo(() => bankCreditCardOptions, []);
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+    <div className="rounded-media bg-surface p-5 shadow-sm sm:p-6">
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <Badge variant="secondary">Bảng tham khảo</Badge>
         <span className="text-sm text-muted-foreground">

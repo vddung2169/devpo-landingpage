@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { ChevronDown, MessageCircle } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,67 +20,87 @@ const MESSENGER_LINK = "https://www.messenger.com/channel/61576332353912";
 // NHÓM Zalo riêng thì đổi hằng số dưới đây.
 const ZALO_GROUP_LINK = "https://zalo.me/g/5unozsp2e9ij0s5b37pe";
 
-export function QuoteCTA() {
+const CHANNELS = [
+  {
+    href: MESSENGER_LINK,
+    image: "/mess.jpg",
+    title: "Nhắn qua Messenger",
+    desc: "Vào nhóm chat Messenger",
+  },
+  {
+    href: ZALO_GROUP_LINK,
+    image: "/zalo.jpg",
+    title: "Nhắn qua Zalo",
+    desc: "Vào nhóm chat Zalo",
+  },
+];
+
+/**
+ * Nút CTA chính "Nhận báo giá" — mở danh sách kênh chat.
+ *
+ * Bản cũ có viền glow gradient xanh→tím nhấp nháy liên tục và hiệu ứng shimmer
+ * quét ngang. Giao diện mới bỏ hẳn: nút đặc màu primary, chỉ đổi độ đậm khi rê
+ * chuột. Ánh nhìn dồn vào ảnh sản phẩm và giá, đúng tinh thần tối giản.
+ */
+export function QuoteCTA({ className }: { className?: string }) {
   return (
-    <div className="hero-tablet-landscape-primary relative group inline-flex w-full sm:w-auto">
-      {/* Hiệu ứng Glow nhịp thở */}
-      <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-blue-500 via-primary to-purple-600 opacity-70 blur-md animate-pulse transition duration-500 group-hover:opacity-100 group-hover:blur-lg" />
-
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="group/btn relative h-14 w-full overflow-hidden rounded-xl bg-primary text-primary-foreground transition-all duration-300 hover:scale-[1.02] active:scale-95 sm:w-auto sm:px-6 xl:px-8">
-            {/* Shimmer Sweep */}
-            <span className="absolute left-[-100%] top-0 z-10 h-full w-full skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[250%]" />
-
-            <span className="relative z-20 flex items-center gap-3">
-              <MessageCircle className="h-6 w-6 transition-transform duration-300 group-hover:rotate-12" />
-              <span className="text-base font-bold sm:text-lg xl:text-xl">Nhận báo giá Sale ngay</span>
-              <ChevronDown className="h-5 w-5 opacity-80 transition-transform duration-200 group-data-[state=open]/btn:rotate-180" />
-            </span>
-          </Button>
-        </DropdownMenuTrigger>
-
-        <DropdownMenuContent
-          align="start"
-          sideOffset={10}
-          className="w-[min(20rem,calc(100vw-2rem))] rounded-xl p-2"
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          size="xl"
+          className={cn("group/btn w-full", className)}
         >
-          <DropdownMenuLabel className="px-2 text-xs font-medium text-muted-foreground">
-            Chọn kênh chat để nhận báo giá
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+          <MessageCircle className="size-5" aria-hidden="true" />
+          Nhận báo giá ngay
+          <ChevronDown
+            className="size-4 opacity-70 transition-transform duration-200 group-data-[state=open]/btn:rotate-180"
+            aria-hidden="true"
+          />
+        </Button>
+      </DropdownMenuTrigger>
 
-          <DropdownMenuItem asChild className="cursor-pointer rounded-lg p-2.5">
-            <a href={MESSENGER_LINK} target="_blank" rel="noopener noreferrer">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/mess.jpg"
-                alt="Messenger"
-                className="h-10 w-10 shrink-0 rounded-full object-cover"
+      <DropdownMenuContent
+        align="start"
+        sideOffset={10}
+        className="w-[min(20rem,calc(100vw-2rem))] rounded-xl p-2 shadow-e3"
+      >
+        <DropdownMenuLabel className="px-2 text-caption font-medium text-muted-foreground">
+          Chọn kênh chat để nhận báo giá
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        {CHANNELS.map((channel) => (
+          <DropdownMenuItem
+            key={channel.href}
+            asChild
+            className="cursor-pointer rounded-lg p-2.5"
+          >
+            <a
+              href={channel.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3"
+            >
+              <Image
+                src={channel.image}
+                alt=""
+                width={40}
+                height={40}
+                loading="lazy"
+                className="size-10 shrink-0 rounded-full object-cover"
               />
               <span className="flex flex-col">
-                <span className="font-semibold text-foreground">Nhắn qua Messenger</span>
-                <span className="text-xs text-muted-foreground">Vào nhóm chat Messenger</span>
+                <span className="text-body font-semibold text-foreground">
+                  {channel.title}
+                </span>
+                <span className="text-caption text-muted-foreground">
+                  {channel.desc}
+                </span>
               </span>
             </a>
           </DropdownMenuItem>
-
-          <DropdownMenuItem asChild className="cursor-pointer rounded-lg p-2.5">
-            <a href={ZALO_GROUP_LINK} target="_blank" rel="noopener noreferrer">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/zalo.jpg"
-                alt="Zalo"
-                className="h-10 w-10 shrink-0 rounded-full object-cover"
-              />
-              <span className="flex flex-col">
-                <span className="font-semibold text-foreground">Nhắn qua Zalo</span>
-                <span className="text-xs text-muted-foreground">Vào nhóm chat Zalo</span>
-              </span>
-            </a>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

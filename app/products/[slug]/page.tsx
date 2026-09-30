@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Check, ChevronRight, Facebook, MessageCircle } from "lucide-react";
+import { Check, Facebook, MessageCircle } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import { Price } from "@/components/ds/price";
+import { Breadcrumbs } from "@/components/ds/breadcrumbs";
+import {
+  InstallmentBadge,
+  ProductBadge,
+  SaleBadge,
+  hasDiscount,
+} from "@/components/ds/product-badge";
 import {
   JsonLd,
   breadcrumbSchema,
@@ -146,186 +154,153 @@ export default async function ProductDetailPage({
   ]);
 
   return (
-    <main className="min-h-screen dark:bg-background">
+    <main className="container-page py-section-sm">
       <JsonLd data={[productJsonLd, breadcrumbJsonLd]} />
 
-      <div className="container mx-auto max-w-6xl px-4 pt-8 pb-16">
-        {/* Breadcrumb */}
-        <nav
-          aria-label="Breadcrumb"
-          className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted-foreground"
-        >
-          <Link href="/" className="transition-colors hover:text-primary">
-            Trang chủ
-          </Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link
-            href="/products"
-            className="transition-colors hover:text-primary"
-          >
-            Sản phẩm
-          </Link>
-          <ChevronRight className="h-4 w-4" />
-          <span className="font-medium text-foreground line-clamp-1">
-            {product.name}
-          </span>
-        </nav>
+      <Breadcrumbs
+        className="mb-block"
+        items={[
+          { label: "Trang chủ", href: "/" },
+          { label: "Sản phẩm", href: "/products" },
+          { label: product.name },
+        ]}
+      />
 
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          {/* Cột ảnh sản phẩm */}
-          <div className="relative">
-            <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border bg-slate-100 dark:bg-slate-800">
-              {product.badge && (
-                <div className="absolute top-4 left-4 z-10 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-sm">
-                  {product.badge}
-                </div>
-              )}
-              <Image
-                src={product.image}
-                alt={`${product.name} ${product.storage} giá tốt tại TP.HCM - Dev Pồ`}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Cột thông tin */}
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-              {product.name}
-            </h1>
-
-            <div className="mt-2 flex items-center gap-2 text-sm font-medium text-muted-foreground">
-              <span>{categoryLabel[product.category]}</span>
-              <span className="h-1 w-1 rounded-full bg-muted-foreground/50" />
-              <span className="text-foreground">{product.storage}</span>
-            </div>
-
-            {/* Giá */}
-            <div className="mt-4 flex flex-wrap items-baseline gap-3">
-              <span className="text-3xl font-bold text-red-500 sm:text-4xl">
-                {product.priceFrom}
-              </span>
-              {product.priceOriginal && (
-                <span className="text-lg text-muted-foreground line-through">
-                  {product.priceOriginal}
-                </span>
-              )}
-            </div>
-
-            {/* Thông số kỹ thuật */}
-            <div className="mt-6 rounded-xl border border-border">
-              <h2 className="border-b border-border px-4 py-3 text-sm font-semibold text-foreground">
-                Thông số kỹ thuật
-              </h2>
-              <dl className="divide-y divide-border">
-                {specs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="flex items-center justify-between px-4 py-2.5 text-sm"
-                  >
-                    <dt className="text-muted-foreground">{spec.label}</dt>
-                    <dd className="font-medium text-foreground text-right">
-                      {spec.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
-            {/* Đặc điểm nổi bật */}
-            <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground">
-              {product.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-500" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* CTA */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className="flex-1 font-semibold h-12 text-base"
-              >
-                <a
-                  href={product.zaloLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  Nhắn Zalo Báo Giá
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="flex-1 font-semibold h-12 text-base"
-              >
-                <a
-                  href={MESSENGER_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Facebook className="mr-2 h-5 w-5" />
-                  Chat Messenger
-                </a>
-              </Button>
-            </div>
+      <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+        {/* --- Cột ảnh: nền xám, máy nằm trọn trong khung, không bị cắt --- */}
+        <div className="media-frame aspect-square w-full lg:sticky lg:top-24">
+          <Image
+            src={product.image}
+            alt={`${product.name} ${product.storage} chính hãng giá tốt tại Dev Pồ TP.HCM`}
+            fill
+            priority
+            sizes="(max-width: 1023px) 92vw, 46vw"
+            className="object-contain p-8 sm:p-12"
+          />
+          <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+            {product.badge && <ProductBadge label={product.badge} />}
+            {hasDiscount(product) && <SaleBadge />}
           </div>
         </div>
 
-        {/* Cấu hình chi tiết (hiển thị khi sản phẩm có techSpecs) */}
-        {product.techSpecs && product.techSpecs.length > 0 && (
-          <section className="mt-12">
-            <h2 className="mb-4 text-xl font-bold text-foreground sm:text-2xl">
-              Cấu hình chi tiết
+        {/* --- Cột thông tin --- */}
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
+            <p className="text-caption text-muted-foreground">
+              {categoryLabel[product.category]} · {product.storage}
+            </p>
+            <h1 className="text-h1 text-balance text-foreground">
+              {product.name}
+            </h1>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <Price
+              value={product.priceFrom}
+              original={product.priceOriginal}
+              size="lg"
+            />
+            <div>
+              <InstallmentBadge />
+            </div>
+          </div>
+
+          {/* Đặc điểm nổi bật */}
+          <ul className="flex flex-col gap-2 text-body text-muted-foreground">
+            {product.features.map((feature) => (
+              <li key={feature} className="flex items-start gap-2.5">
+                <Check
+                  className="mt-0.5 size-4 shrink-0 text-success"
+                  aria-hidden="true"
+                />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA — hai kênh chat chính của cửa hàng */}
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="flex-1">
+              <a
+                href={product.zaloLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="size-5" aria-hidden="true" />
+                Nhắn Zalo báo giá
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="flex-1">
+              <a href={MESSENGER_LINK} target="_blank" rel="noopener noreferrer">
+                <Facebook className="size-5" aria-hidden="true" />
+                Chat Messenger
+              </a>
+            </Button>
+          </div>
+
+          {/* Thông số nhanh */}
+          <div className="overflow-hidden rounded-media bg-surface">
+            <h2 className="px-5 py-3 text-h4 text-foreground">
+              Thông số nhanh
             </h2>
-            <div className="grid gap-6 sm:grid-cols-2">
-              {product.techSpecs.map((group) => (
+            <dl className="divide-y divide-border">
+              {specs.map((spec) => (
                 <div
-                  key={group.group}
-                  className="overflow-hidden rounded-xl border border-border"
+                  key={spec.label}
+                  className="flex items-center justify-between gap-4 px-5 py-3 text-body"
                 >
-                  <h3 className="border-b border-border bg-muted/50 px-4 py-2.5 text-sm font-semibold text-foreground">
-                    {group.group}
-                  </h3>
-                  <dl className="divide-y divide-border">
-                    {group.rows.map((row) => (
-                      <div
-                        key={row.label}
-                        className="flex gap-4 px-4 py-2.5 text-sm"
-                      >
-                        <dt className="w-2/5 shrink-0 text-muted-foreground">
-                          {row.label}
-                        </dt>
-                        <dd className="flex-1 font-medium text-foreground">
-                          {row.value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <dt className="text-muted-foreground">{spec.label}</dt>
+                  <dd className="text-right font-medium text-foreground">
+                    {spec.value}
+                  </dd>
                 </div>
               ))}
-            </div>
-          </section>
-        )}
+            </dl>
+          </div>
+        </div>
+      </div>
 
-        {/* Mô tả sản phẩm */}
-        <section className="mt-12">
-          <h2 className="mb-4 text-xl font-bold text-foreground sm:text-2xl">
-            Mô tả sản phẩm
-          </h2>
-          <div className="prose prose-lg dark:prose-invert max-w-none leading-relaxed text-muted-foreground whitespace-pre-line">
-            <p>{product.description}</p>
+      {/* --- Cấu hình chi tiết (khi sản phẩm có techSpecs) --- */}
+      {product.techSpecs && product.techSpecs.length > 0 && (
+        <section className="mt-section">
+          <h2 className="text-h2 mb-block text-foreground">Cấu hình chi tiết</h2>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {product.techSpecs.map((group) => (
+              <div
+                key={group.group}
+                className="overflow-hidden rounded-media bg-surface"
+              >
+                <h3 className="px-5 py-3 text-h4 text-foreground">
+                  {group.group}
+                </h3>
+                <dl className="divide-y divide-border">
+                  {group.rows.map((row) => (
+                    <div
+                      key={row.label}
+                      className="flex gap-4 px-5 py-3 text-body"
+                    >
+                      <dt className="w-2/5 shrink-0 text-muted-foreground">
+                        {row.label}
+                      </dt>
+                      <dd className="flex-1 font-medium text-foreground">
+                        {row.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
           </div>
         </section>
-      </div>
+      )}
+
+      {/* --- Mô tả sản phẩm --- */}
+      <section className="mt-section max-w-prose">
+        <h2 className="text-h2 mb-block text-foreground">Mô tả sản phẩm</h2>
+        <div className="rich-text whitespace-pre-line">
+          <p>{product.description}</p>
+        </div>
+      </section>
     </main>
   );
 }

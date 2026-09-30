@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Be_Vietnam_Pro, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
 import { FloatingContacts } from "./components/floating-contacts";
@@ -12,9 +12,14 @@ import { ThemeProvider } from "./components/theme-provider";
 import { JsonLd, storeSchema, websiteSchema } from "@/components/seo/JsonLd";
 import { Analytics } from "@vercel/analytics/next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// Be Vietnam Pro — font Việt, dấu cân đối ở mọi cỡ chữ. Chỉ tải 4 độ đậm thật
+// sự dùng tới (400 body, 500 nav/nhãn, 600 tiêu đề phụ, 700 tiêu đề chính) để
+// không phình dung lượng. Biến --font-be-vietnam được nối vào --font-sans trong
+// app/globals.css, nên mọi thẻ đều thừa hưởng mà không cần class riêng.
+const beVietnamPro = Be_Vietnam_Pro({
+  variable: "--font-be-vietnam",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
   display: "swap", // tránh FOIT / layout shift; next/font tự preload + self-host
 });
 
@@ -34,7 +39,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0f19" },
+    { media: "(prefers-color-scheme: dark)", color: "#131313" },
   ],
 };
 
@@ -114,7 +119,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.facebook.com" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${beVietnamPro.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

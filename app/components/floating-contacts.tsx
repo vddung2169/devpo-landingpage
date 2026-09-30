@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 // Cụm nút chat nổi. Vị trí + kích thước khi xoay ngang màn hình thấp được xử lý
 // ở `.floating-contacts` trong globals.css (xếp ngang, thu nhỏ, sát mép dưới).
 const CONTACTS = [
@@ -32,20 +34,19 @@ export function FloatingContacts() {
           href={c.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-400 shadow-lg transition-all hover:scale-110 hover:shadow-xl animate-wiggle"
+          className="group relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-background shadow-e2 transition-transform hover:scale-110"
           aria-label={c.label}
         >
           {/* inset-0 + object-contain: ảnh luôn vừa khít nút, kể cả khi nút thu nhỏ
               lúc xoay ngang. Trước đây ảnh absolute không có kích thước nên hiển
               thị theo kích thước gốc của file. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={c.src}
             alt={c.alt}
-            width={48}
-            height={48}
+            fill
+            sizes="48px"
             loading="lazy"
-            className="absolute inset-0 h-full w-full rounded-full object-contain p-1"
+            className="rounded-full object-contain p-1"
           />
         </a>
       ))}

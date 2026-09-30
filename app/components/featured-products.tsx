@@ -1,52 +1,60 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-// Nhớ import thêm icon Search từ lucide-react nhé
-import { ArrowRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { Section, SectionHeader } from "@/components/ds/section";
+import { EmptyState, FilterChips, SearchField } from "@/components/ds/filters";
 import { categoryLabel, featuredRank, products } from "@/data/products";
 import { ProductCard } from "./product-card";
 
 interface FeaturedProductsProps {
+  /** Có giá trị = bản rút gọn ở trang chủ; bỏ trống = bản đầy đủ có phân trang */
   limit?: number;
 }
 
-const categories = ["Tất cả", "iPhone Lock", "iPhone Quốc tế", "iPad"];
+const CATEGORIES = ["Tất cả", "iPhone Lock", "iPhone Quốc tế", "iPad"].map(
+  (label) => ({ value: label, label }),
+);
 const ITEMS_PER_PAGE = 8;
 
 export function FeaturedProducts({ limit }: FeaturedProductsProps) {
   const [activeTab, setActiveTab] = useState("Tất cả");
   const [currentPage, setCurrentPage] = useState(1);
-  // Thêm State để lưu từ khóa tìm kiếm
   const [searchQuery, setSearchQuery] = useState("");
 
   // BƯỚC 1: LỌC SẢN PHẨM THEO CẢ TAB VÀ TỪ KHÓA TÌM KIẾM
-  const filteredProducts = products.filter((product) => {
-    const matchCategory =
-      activeTab === "Tất cả" || categoryLabel[product.category] === activeTab;
+  const filteredProducts = useMemo(
+    () =>
+      products.filter((product) => {
+        const matchCategory =
+          activeTab === "Tất cả" ||
+          categoryLabel[product.category] === activeTab;
 
-    const targetString =
-      `${product.name} ${categoryLabel[product.category]} ${product.storage}`
-        .toLowerCase()
-        .replace(/\s+/g, "");
+        const targetString =
+          `${product.name} ${categoryLabel[product.category]} ${product.storage}`
+            .toLowerCase()
+            .replace(/\s+/g, "");
 
-    const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/);
+        const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/);
+        const matchSearch = searchTerms.every((term) =>
+          targetString.includes(term),
+        );
 
-    const matchSearch = searchTerms.every((term) =>
-      targetString.includes(term),
-    );
-
-    return matchCategory && matchSearch;
-  });
+        return matchCategory && matchSearch;
+      }),
+    [activeTab, searchQuery],
+  );
 
   const isPaginated = !limit;
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
   // BƯỚC 2: CẮT MẢNG ĐÃ LỌC ĐỂ HIỂN THỊ
-  // Ở bản rút gọn (trang chủ) sắp lại theo thứ tự nổi bật đã chọn sẵn — iPhone
-  // xen kẽ iPad để khối này không chỉ toàn iPhone. Bản đầy đủ giữ nguyên thứ tự
-  // theo id để phân trang ổn định.
+  // Bản rút gọn (trang chủ) sắp lại theo thứ tự nổi bật đã chọn sẵn — iPhone xen
+  // kẽ iPad để khối này không chỉ toàn iPhone. Bản đầy đủ giữ nguyên thứ tự theo
+  // id để phân trang ổn định.
   const displayProducts = isPaginated
     ? filteredProducts.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
@@ -56,130 +64,112 @@ export function FeaturedProducts({ limit }: FeaturedProductsProps) {
         .sort((a, b) => featuredRank(a) - featuredRank(b))
         .slice(0, limit);
 
-  // Hàm xử lý khi bấm chuyển Tab
   const handleTabChange = (category: string) => {
     setActiveTab(category);
     setCurrentPage(1);
   };
 
-  // Hàm xử lý khi gõ tìm kiếm
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1); // Gõ tìm kiếm thì cũng phải tự động về Trang 1
   };
 
   return (
-    <section className="py-12" id="products">
-      <div className="container mx-auto px-2 sm:px-4">
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-4xl">
-            SẢN PHẨM <span className="text-primary">NỔI BẬT</span>
-          </h2>
-          <p className="mt-2 sm:mt-4 text-sm sm:text-base text-muted-foreground">
-            Các dòng máy nguyên zin, chất lượng cao tại DEV PỒ
-          </p>
-        </div>
-
-        {/* CỤM THANH TÌM KIẾM VÀ TABS */}
-        <div className="mb-8 flex flex-col items-center gap-4">
-          {/* Thanh tìm kiếm */}
-          <div className="relative w-full max-w-sm md:max-w-md">
-            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Tìm kiếm iPhone, iPad..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="flex h-11 w-full rounded-full border border-input bg-background px-10 py-2 text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground sm:h-12"
-            />
-          </div>
-
-          {/* Cụm Tabs Filter */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={activeTab === category ? "default" : "outline"}
-                className="rounded-full h-8 px-3 text-xs sm:h-10 sm:px-6 sm:text-sm transition-all duration-300"
-                onClick={() => handleTabChange(category)}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        {/* LƯỚI SẢN PHẨM */}
-        {displayProducts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-            {displayProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className="py-16 text-center text-muted-foreground flex flex-col items-center gap-2">
-            <Search className="h-12 w-12 text-muted-foreground/50 mb-2" />
-            <p className="text-lg font-medium">Không tìm thấy sản phẩm nào</p>
-            <p className="text-sm">
-              Vui lòng thử lại với từ khóa khác (VD: Pro Max, iPad...)
-            </p>
-          </div>
-        )}
-
-        {/* XEM TẤT CẢ VÀ PHÂN TRANG */}
-        {limit && filteredProducts.length > limit && (
-          <div className="mt-12 flex justify-center">
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-full px-8"
-            >
+    <Section id="products" tone="plain">
+      <SectionHeader
+        eyebrow="Kho máy Dev Pồ"
+        title="Sản phẩm nổi bật"
+        description=""
+        action={
+          limit ? (
+            <Button asChild variant="outline">
               <Link href="/featured-products">
-                Xem tất cả sản phẩm <ArrowRight className="ml-2 h-4 w-4" />
+                Xem tất cả
+                <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </Button>
-          </div>
-        )}
+          ) : undefined
+        }
+      />
 
-        {isPaginated && totalPages > 1 && (
-          <div className="mt-12 flex items-center justify-center gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className="rounded-full"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
+      {/* --- Thanh lọc: chip danh mục + ô tìm kiếm --- */}
+      <div className="mb-block flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <FilterChips
+          label="Lọc theo loại máy"
+          options={CATEGORIES}
+          active={activeTab}
+          onChange={handleTabChange}
+        />
 
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <Button
-                key={i}
-                variant={currentPage === i + 1 ? "default" : "outline"}
-                size="icon"
-                onClick={() => setCurrentPage(i + 1)}
-                className={`rounded-full ${currentPage === i + 1 ? "font-bold" : ""}`}
-              >
-                {i + 1}
-              </Button>
-            ))}
-
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              disabled={currentPage === totalPages}
-              className="rounded-full"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        )}
+        <SearchField
+          label="Tìm kiếm sản phẩm"
+          placeholder="Tìm iPhone, iPad…"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="md:max-w-xs"
+        />
       </div>
-    </section>
+
+      {/* --- Lưới sản phẩm --- */}
+      {displayProducts.length > 0 ? (
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 xl:grid-cols-4">
+          {displayProducts.map((product, index) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              priority={index < 4}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyState
+          title="Không tìm thấy sản phẩm nào"
+          description="Thử lại với từ khóa khác (VD: Pro Max, iPad Air…)"
+        />
+      )}
+
+      {/* --- Phân trang (chỉ ở bản đầy đủ) --- */}
+      {isPaginated && totalPages > 1 && (
+        <nav
+          aria-label="Phân trang sản phẩm"
+          className="mt-block flex items-center justify-center gap-2"
+        >
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            aria-label="Trang trước"
+          >
+            <ChevronLeft className="size-4" aria-hidden="true" />
+          </Button>
+
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <Button
+              key={i}
+              variant={currentPage === i + 1 ? "default" : "outline"}
+              size="icon"
+              onClick={() => setCurrentPage(i + 1)}
+              aria-label={`Trang ${i + 1}`}
+              aria-current={currentPage === i + 1 ? "page" : undefined}
+            >
+              {i + 1}
+            </Button>
+          ))}
+
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            aria-label="Trang sau"
+          >
+            <ChevronRight className="size-4" aria-hidden="true" />
+          </Button>
+        </nav>
+      )}
+    </Section>
   );
 }

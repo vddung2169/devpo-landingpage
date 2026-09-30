@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Section, SectionHeader } from "@/components/ds/section";
 
 export function CarrierTable() {
   const carriers = [
@@ -193,34 +194,43 @@ export function CarrierTable() {
   ];
 
   return (
-    <section className="flex justify-center" id="carriers">
-      <div className="container max-w-4xl px-4 py-8">
-        <h2 className="text-3xl font-bold mb-8 text-center text-foreground">
-          Danh sách mã IMSI nhà mạng iPhone Lock
-        </h2>
-        <div className="overflow-x-auto rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="text-center">Nhà mạng</TableHead>
-                <TableHead className="text-center">IMSI</TableHead>
-                <TableHead className="text-center">GID1</TableHead>
-                <TableHead className="text-center">GID2</TableHead>
+    <Section id="carriers" tone="plain" containerClassName="max-w-4xl">
+      <SectionHeader
+        align="center"
+        title="Danh sách mã IMSI nhà mạng iPhone Lock"
+        description="Tra nhanh mã IMSI, GID1 và GID2 của từng nhà mạng để chọn đúng sim ghép."
+      />
+
+      <div className="overflow-x-auto rounded-media border border-border">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-surface">
+              <TableHead>Nhà mạng</TableHead>
+              <TableHead className="text-center">IMSI</TableHead>
+              <TableHead className="text-center">GID1</TableHead>
+              <TableHead className="text-center">GID2</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {carriers.map((c, i) => (
+              <TableRow key={i}>
+                <TableCell className="font-medium text-foreground">
+                  {c.carrier}
+                </TableCell>
+                <TableCell className="text-center font-mono text-caption">
+                  {c.imsi}
+                </TableCell>
+                <TableCell className="text-center font-mono text-caption">
+                  {c.gid1 || "—"}
+                </TableCell>
+                <TableCell className="text-center font-mono text-caption">
+                  {c.gid2 || "—"}
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {carriers.map((c, i) => (
-                <TableRow key={i}>
-                  <TableCell className="font-medium">{c.carrier}</TableCell>
-                  <TableCell className="text-center">{c.imsi}</TableCell>
-                  <TableCell className="text-center">{c.gid1}</TableCell>
-                  <TableCell className="text-center">{c.gid2}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+            ))}
+          </TableBody>
+        </Table>
       </div>
-    </section>
+    </Section>
   );
 }

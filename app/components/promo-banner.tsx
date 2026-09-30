@@ -100,8 +100,9 @@ export function PromoBanner() {
 
           <div className="relative flex flex-col items-center gap-4 px-6 pt-7 pb-6 text-center">
             <Badge
-              variant="outline"
-              className="border-border bg-background text-md font-bold shadow-sm"
+              variant="neutral"
+              tint="outline"
+              className="bg-background font-bold shadow-e1"
             >
               Deal hot hôm nay
             </Badge>

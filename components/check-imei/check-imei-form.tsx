@@ -148,8 +148,8 @@ const formatClock = (ms: number) =>
     minute: "2-digit",
   });
 
-const TONE_GOOD = "text-green-600 dark:text-green-500";
-const TONE_BAD = "text-red-600 dark:text-red-500";
+const TONE_GOOD = "text-success-ink";
+const TONE_BAD = "text-sale-ink";
 
 /**
  * Tô màu ngữ nghĩa cho giá trị kết quả: tin tốt xanh lá, tin xấu đỏ.
@@ -523,7 +523,7 @@ function ResultCard({
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center gap-2 text-lg">
           Kết quả
-          <Badge className="border-transparent bg-green-600 text-white">
+          <Badge variant="success" tint="solid">
             Thành công
           </Badge>
         </CardTitle>

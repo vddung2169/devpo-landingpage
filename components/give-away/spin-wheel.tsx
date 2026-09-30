@@ -117,12 +117,12 @@ export function SpinWheel({
       aria-modal="true"
       aria-label="Quay thưởng"
     >
-      <div className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-xl sm:p-8">
+      <div className="w-full max-w-lg rounded-media bg-surface p-6 shadow-xl sm:p-8">
         <div className="text-center">
           <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
             {revealed ? "Kết quả" : "Đang quay thưởng…"}
           </div>
-          <h2 className="mt-1 text-xl font-bold text-foreground sm:text-2xl">
+          <h2 className="text-h2 mt-1 text-foreground">
             {revealed ? "🎉 Chúc mừng người trúng!" : "Ai sẽ là người may mắn?"}
           </h2>
         </div>
@@ -196,8 +196,8 @@ export function SpinWheel({
         {/* Kết quả sau khi dừng */}
         {revealed ? (
           <div className="mt-8 flex flex-col items-center gap-3 animate-in fade-in zoom-in duration-500">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15">
-              <PartyPopper className="h-6 w-6 text-amber-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-warning-soft">
+              <PartyPopper className="size-6 text-warning-ink" />
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-foreground">

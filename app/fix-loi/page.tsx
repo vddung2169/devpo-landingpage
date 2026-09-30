@@ -81,7 +81,7 @@ export default function FixLoiPage() {
 
         {/* Lưu ý chung trước khi thao tác */}
         <div className="mt-10 rounded-2xl border border-border bg-secondary/40 p-5 md:p-6">
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-h3 text-foreground">
             Lưu ý trước khi fix
           </h2>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
@@ -105,7 +105,7 @@ export default function FixLoiPage() {
 
         {/* Nội dung đầy đủ — render sẵn cho SEO và để khách xem/in toàn bộ */}
         <section className="mt-12">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+          <h2 className="text-h2 text-foreground">
             Toàn bộ hướng dẫn theo từng loại máy
           </h2>
 
@@ -114,9 +114,9 @@ export default function FixLoiPage() {
               <article
                 key={device.id}
                 id={device.id}
-                className="scroll-mt-24 rounded-2xl border border-border bg-card p-5 md:p-7"
+                className="scroll-mt-24 rounded-media bg-surface p-5 md:p-7"
               >
-                <h3 className="text-xl font-bold text-foreground">
+                <h3 className="text-h3 text-foreground">
                   {di + 1}. {device.label}
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -146,7 +146,7 @@ export default function FixLoiPage() {
                             <span
                               className={
                                 step.warning
-                                  ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-amber-500/60 text-amber-600 dark:text-amber-400"
+                                  ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-warning/60 text-warning-ink"
                                   : step.contact
                                     ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-foreground/60 text-foreground"
                                     : "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-xs font-semibold text-muted-foreground"
@@ -183,7 +183,7 @@ export default function FixLoiPage() {
 
         {/* Liên hệ — dành cho khách đọc hết hướng dẫn mà chưa xử lý được */}
         <section className="mt-10 rounded-2xl border border-border bg-secondary/40 p-5 md:p-7">
-          <h2 className="text-lg font-bold text-foreground md:text-xl">
+          <h2 className="text-h3 text-foreground">
             Làm hết các cách trên mà vẫn chưa được?
           </h2>
           <p className="mt-2 text-sm text-muted-foreground md:text-base">
@@ -226,7 +226,7 @@ export default function FixLoiPage() {
             <Link
               key={item.href}
               href={item.href}
-              className="group flex items-start justify-between gap-4 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-foreground/40"
+              className="group flex items-start justify-between gap-4 rounded-media bg-surface p-5 transition-colors hover:border-foreground/40"
             >
               <span>
                 <span className="block font-semibold text-foreground">

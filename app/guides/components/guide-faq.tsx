@@ -19,17 +19,15 @@ export function GuideFaq({ faq }: GuideFaqProps) {
   if (!faq || faq.length === 0) return null;
 
   return (
-    <section className="mt-12">
-      <h2 className="mb-4 text-xl font-bold text-foreground sm:text-2xl">
-        Câu hỏi thường gặp
-      </h2>
+    <section className="mt-section">
+      <h2 className="text-h2 mb-4 text-foreground">Câu hỏi thường gặp</h2>
       <Accordion type="single" collapsible defaultValue="faq-0" className="w-full">
         {faq.map((item, index) => (
           <AccordionItem key={item.question} value={`faq-${index}`}>
-            <AccordionTrigger className="text-base font-semibold text-foreground">
+            <AccordionTrigger className="text-h4 text-foreground">
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+            <AccordionContent className="text-body leading-relaxed text-muted-foreground">
               {item.answer}
             </AccordionContent>
           </AccordionItem>

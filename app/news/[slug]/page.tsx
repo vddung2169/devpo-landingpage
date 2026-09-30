@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, ChevronLeft } from "lucide-react";
+import { Calendar } from "lucide-react";
+
+import { Breadcrumbs } from "@/components/ds/breadcrumbs";
 import { GuideArticle } from "../../components/guide-article";
 import { newsGuides } from "@/data/guides";
 import { newsArticles } from "@/lib/data";
@@ -82,41 +83,43 @@ export default async function NewsDetailPage({
   }
 
   return (
-    <main className="container mx-auto max-w-5xl px-4 pt-12 pb-16 min-h-screen">
-      {/* Nút quay lại */}
-      <Link
-        href="/news"
-        className="mb-8 inline-flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        <ChevronLeft className="mr-1 h-4 w-4" /> Quay lại danh sách
-      </Link>
-
-      {/* Header bài viết */}
+    <main className="container-prose py-section-sm">
       <article>
-        <h1 className="mb-4 text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl">
+        <Breadcrumbs
+          className="mb-block"
+          items={[
+            { label: "Trang chủ", href: "/" },
+            { label: "Tin tức", href: "/news" },
+            { label: article.title },
+          ]}
+        />
+
+        <h1 className="text-h1 text-balance text-foreground">
           {article.title}
         </h1>
 
-        <div className="mb-8 flex items-center text-muted-foreground">
-          <Calendar className="mr-2 h-4 w-4" />
-          <span>{article.date}</span>
-        </div>
+        <p className="mt-4 flex items-center gap-1.5 text-caption text-muted-foreground">
+          <Calendar className="size-4" aria-hidden="true" />
+          {article.date}
+        </p>
 
         {/* Ảnh bìa */}
-        <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl shadow-sm">
+        <div className="media-frame mt-6 aspect-[16/9] w-full">
           <Image
             src={article.image}
             alt={article.title}
             fill
+            priority
+            sizes="(max-width: 768px) 92vw, 736px"
             className="object-cover"
-            priority // Ưu tiên tải ảnh bìa này thật nhanh
           />
         </div>
 
-        {/* Nội dung bài viết */}
-        {/* Class prose giúp các thẻ text tự động có margin, line-height chuẩn như đọc báo */}
-        <div className="prose prose-lg dark:prose-invert max-w-none text-foreground leading-relaxed whitespace-pre-line">
-          <p className="font-semibold text-xl mb-6">{article.excerpt}</p>
+        {/* Nội dung — .rich-text thay cho class `prose` (dự án không cài typography) */}
+        <div className="rich-text mt-8 whitespace-pre-line">
+          <p className="text-lead font-semibold text-foreground">
+            {article.excerpt}
+          </p>
           <p>{article.content}</p>
         </div>
       </article>
