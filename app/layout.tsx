@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "./components/header";
-import { FloatingContacts } from "./components/floating-contacts";
 // import { PromoBanner } from "./components/promo-banner"; // popup quảng cáo — đang tắt
+import { Header } from "./components/header";
+// Thanh chữ chạy (Ticker) đã bỏ khỏi giao diện mới — cam kết nằm ở dải đen trên trang chủ.
 import {
-  ConditionalTicker,
   ConditionalFooter,
+  ConditionalFloatingContacts,
 } from "./components/conditional-chrome";
 import { ThemeProvider } from "./components/theme-provider";
 import { JsonLd, storeSchema, websiteSchema } from "@/components/seo/JsonLd";
@@ -128,12 +128,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <ConditionalTicker />
 
           <main className="h-full">{children}</main>
 
           <ConditionalFooter />
-          <FloatingContacts />
+          <ConditionalFloatingContacts />
           {/* Popup quảng cáo — đang TẮT; bỏ comment dòng dưới (và import ở đầu file) để bật lại */}
           {/* <PromoBanner /> */}
         </ThemeProvider>

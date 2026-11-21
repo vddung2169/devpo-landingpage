@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Dev Pồ · Bản demo bố cục mới</title>
+  <meta name="description" content="Bản demo bố cục mới cho devpo.vn: giữ nguyên tông màu, sắp xếp lại thông tin theo hành trình mua máy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Bỏ qua, tới nội dung chính</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="wrap header-bar">
+      <a href="#" class="logo" aria-label="Dev Pồ, về trang chủ">
+        <img src="../public/devpo_logo.jpg" alt="Dev Pồ" class="logo-light" width="137" height="56" />
+        <img src="../public/devpo_logo_white.png" alt="Dev Pồ" class="logo-dark" width="137" height="56" />
+      </a>
+      <nav class="nav" aria-label="Điều hướng chính">
+        <a href="#may">Máy có sẵn</a>
+        <a href="#lock">iPhone Lock là gì</a>
+        <a href="#mua">Cách mua</a>
+        <a href="#khach">Khách hàng</a>
+        <a href="#cua-hang">Cửa hàng</a>
+      </nav>
+      <a class="header-call" href="tel:0399208037">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+        <span>0399 208 037</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO: bảng so giá ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="hero-kicker"><span class="dot" aria-hidden="true"></span> Cửa hàng iPhone Lock tại Tân Bình, TP.HCM</p>
+          <h1 id="hero-title">Cùng một chiếc iPhone.<br /><span class="hero-em">Rẻ hơn vài triệu.</span></h1>
+          <p class="hero-lead">
+            iPhone Lock zin nguyên bản, phần cứng y hệt bản Quốc tế. Dev Pồ cài sim ghép sẵn,
+            bao lỗi khoá mạng trọn đời, kiểm tra máy cùng bạn trước khi nhận.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://zalo.me/4289073059490896771" target="_blank" rel="noopener">
+              Nhắn Zalo báo giá
+            </a>
+            <a class="btn btn-ghost" href="#may">Xem máy đang có
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></svg>
+            </a>
+          </div>
+          <p class="hero-note">Phản hồi trong giờ mở cửa <span class="ph" title="Cần bổ sung: thời gian phản hồi trung bình">[~5 phút?]</span> · Ship toàn quốc · Trả góp 0%</p>
+        </div>
+
+        <!-- Phiếu so giá: điểm nhấn chuyển động duy nhất của trang -->
+        <div class="receipt" aria-labelledby="receipt-title">
+          <div class="receipt-head">
+            <h2 id="receipt-title" class="receipt-title">Phiếu so giá</h2>
+            <div class="chips" role="radiogroup" aria-label="Chọn đời máy để so giá" id="model-chips"></div>
+          </div>
+          <div class="receipt-body">
+            <div class="receipt-phone"><img id="receipt-img" src="../public/products/17promax.png" alt="" width="500" height="500" /></div>
+            <dl class="ledger" aria-live="polite">
+              <div class="ledger-row">
+                <dt>iPhone Quốc tế <span class="ph" title="Cần bổ sung: giá Quốc tế thật của từng đời máy">giá tạm</span></dt>
+                <dd><span class="strike-wrap"><span id="qt-price" class="mono">31.490.000đ</span><span class="strike" aria-hidden="true"></span></span></dd>
+              </div>
+              <div class="ledger-row is-lock">
+                <dt>iPhone Lock tại Dev Pồ</dt>
+                <dd><span id="lock-price" class="mono price">25.590.000đ</span></dd>
+              </div>
+              <div class="ledger-total">
+                <dt>Bạn giữ lại</dt>
+                <dd><span id="saving" class="stamp mono">5.900.000đ</span></dd>
+              </div>
+            </dl>
+          </div>
+          <p class="receipt-foot"><span id="receipt-spec">256GB · Pin 100% · Likenew / Fullbox</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAM KẾT (tĩnh, không chạy chữ) ============ -->
+    <section class="promise" aria-label="Cam kết của Dev Pồ">
+      <ul class="wrap promise-list">
+        <li><strong>Trọn đời</strong><span>bao lỗi sim ghép, kể cả sau khi cập nhật iOS</span></li>
+        <li><strong>Test tận tay</strong><span>kiểm tra máy cùng bạn trước khi thanh toán</span></li>
+        <li><strong>0đ ship</strong><span>giao toàn quốc, kiểm hàng khi nhận</span></li>
+        <li><strong>Trả góp 0%</strong><span>qua thẻ tín dụng và app tài chính</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ MÁY CÓ SẴN ============ -->
+    <section id="may" class="section" aria-labelledby="may-title">
+      <div class="wrap">
+        <div class="section-head split">
+          <div>
+            <h2 id="may-title">Máy đang có ở cửa hàng</h2>
+            <p class="muted">Giá đã gồm sim ghép và cài đặt. Cập nhật <span class="ph" title="Cần bổ sung: ngày cập nhật bảng giá">[ngày cập nhật]</span>.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Loại máy">
+            <button role="tab" aria-selected="true" data-cat="lock">iPhone Lock</button>
+            <button role="tab" aria-selected="false" data-cat="quocte">iPhone Quốc tế</button>
+            <button role="tab" aria-selected="false" data-cat="ipad">iPad</button>
+          </div>
+        </div>
+        <div id="product-grid" class="product-grid" role="tabpanel"></div>
+        <div class="grid-foot">
+          <a class="link-arrow" href="#">Xem toàn bộ <span id="product-count">39</span> mẫu máy</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LOCK KHÁC QUỐC TẾ Ở ĐÂU ============ -->
+    <section id="lock" class="section surface" aria-labelledby="lock-title">
+      <div class="wrap lock-grid">
+        <div class="lock-intro">
+          <h2 id="lock-title">iPhone Lock khác bản Quốc tế đúng <em>một</em> chỗ: cái khay sim.</h2>
+          <p class="muted">
+            Lock là máy Apple làm riêng cho nhà mạng Mỹ, Nhật (AT&amp;T, Verizon, Softbank…). Chip, camera,
+            màn hình, iCloud đều như nhau. Khác biệt duy nhất là cần sim ghép để nhận sim Việt Nam, và
+            phần đó Dev Pồ lo trọn đời.
+          </p>
+          <img class="lock-img" src="../public/iplock.png" alt="Khay sim ghép dùng cho iPhone Lock" width="790" height="500" loading="lazy" />
+          <a class="link-arrow" href="#">Đọc cẩm nang iPhone Lock đầy đủ</a>
+        </div>
+
+        <div class="compare" role="table" aria-label="So sánh iPhone Lock và iPhone Quốc tế">
+          <div class="compare-row compare-headrow" role="row">
+            <span role="columnheader"></span>
+            <span role="columnheader">Quốc tế</span>
+            <span role="columnheader">Lock ở Dev Pồ</span>
+          </div>
+          <div class="compare-row" role="row"><span role="rowheader">Chip, camera, màn hình</span><span role="cell">Apple</span><span role="cell">Giống hệt</span></div>
+          <div class="compare-row" role="row"><span role="rowheader">iCloud, App Store, Face ID</span><span role="cell">Đầy đủ</span><span role="cell">Giống hệt</span></div>
+          <div class="compare-row" role="row"><span role="rowheader">Cập nhật iOS</span><span role="cell">Bình thường</span><span role="cell">Bình thường, Dev Pồ fix nếu lỗi sim</span></div>
+          <div class="compare-row is-diff" role="row"><span role="rowheader">Lắp sim Việt Nam</span><span role="cell">Lắp thẳng</span><span role="cell">Qua sim ghép, cài sẵn khi giao</span></div>
+          <div class="compare-row is-diff" role="row"><span role="rowheader">2 sim 2 sóng</span><span role="cell">Có</span><span role="cell">Có (1 sim + 1 eSIM, tuỳ đời)</span></div>
+          <div class="compare-row is-diff is-price" role="row"><span role="rowheader">Giá cùng đời, cùng dung lượng</span><span role="cell">Cao hơn</span><span role="cell"><strong>Rẻ hơn 3 – 10 triệu</strong></span></div>
+
+          <details class="ipad-note">
+            <summary>Đang tìm iPad? Xem iPad Lock khác iPad Wi-Fi thế nào</summary>
+            <ul>
+              <li><strong>Wi-Fi only:</strong> không có khe sim nên không bao giờ dính khoá mạng. Rẻ nhất.</li>
+              <li><strong>Wi-Fi + Cellular:</strong> lắp sim Viettel, Mobifone, Vinaphone là chạy. Đắt hơn 2 – 4 triệu.</li>
+              <li><strong>iPad Lock:</strong> bản Cellular bị khoá khe sim. Wi-Fi, iCloud, Apple Pencil vẫn dùng đủ 100%.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CÁCH MUA ============ -->
+    <section id="mua" class="section" aria-labelledby="mua-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="mua-title">Mua máy ở Dev Pồ diễn ra thế nào</h2>
+          <p class="muted">Ở xa hay ở gần đều cùng một quy trình, chỉ khác bước nhận máy.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-n mono">01</span>
+            <h3>Nhắn đời máy bạn muốn</h3>
+            <p>Qua Zalo hoặc Messenger. Dev Pồ gửi ảnh, video máy thật kèm giá chốt, không báo giá ảo.</p>
+          </li>
+          <li>
+            <span class="step-n mono">02</span>
+            <h3>Xem máy, test sóng</h3>
+            <p>Ghé 3/39A Bình Giã, hoặc gọi video để xem máy, kiểm tra IMEI, pin, sóng sim của bạn.</p>
+          </li>
+          <li>
+            <span class="step-n mono">03</span>
+            <h3>Nhận máy, trả tiền sau</h3>
+            <p>Lấy tại cửa hàng hoặc ship toàn quốc miễn phí. Kiểm tra máy rồi mới thanh toán <span class="ph" title="Cần xác nhận: tuỳ đơn vị vận chuyển?">[xác nhận]</span>.</p>
+          </li>
+          <li>
+            <span class="step-n mono">04</span>
+            <h3>Lỗi sim? Dev Pồ fix</h3>
+            <p>Mất sóng sau khi cập nhật iOS, lỗi sim ghép: được xử lý miễn phí trọn đời máy.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ KHÁCH HÀNG ============ -->
+    <section id="khach" class="section surface" aria-labelledby="khach-title">
+      <div class="wrap">
+        <div class="section-head split">
+          <div>
+            <h2 id="khach-title">Khách nhận máy tại cửa hàng</h2>
+            <p class="muted">Ảnh thật khách chụp khi nhận máy. <span class="ph" title="Cần bổ sung: số khách đã mua có nguồn kiểm chứng">[2.800+ khách?]</span></p>
+          </div>
+          <a class="link-arrow" href="https://www.tiktok.com/@devpo_iphone" target="_blank" rel="noopener">Xem thêm trên TikTok</a>
+        </div>
+
+        <div class="reviews">
+          <figure class="review-quote">
+            <blockquote>“<span class="ph" title="Cần bổ sung: trích lời khách thật (Google Maps, Facebook)">Lời nhận xét thật của khách, lấy từ Google Maps hoặc Facebook.</span>”</blockquote>
+            <figcaption><span class="ph">Tên khách</span> · iPhone 16 Pro Max Lock</figcaption>
+          </figure>
+          <figure class="review-quote">
+            <blockquote>“<span class="ph" title="Cần bổ sung">Câu nhận xét thứ hai, ưu tiên khách ở tỉnh mua qua ship.</span>”</blockquote>
+            <figcaption><span class="ph">Tên khách</span> · Đà Nẵng</figcaption>
+          </figure>
+          <div class="review-score">
+            <span class="mono score"><span class="ph" title="Cần bổ sung: điểm Google Maps thật">4.9</span></span>
+            <span class="muted">trên Google Maps<br /><span class="ph">[số lượt đánh giá]</span></span>
+          </div>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section class="section" aria-labelledby="video-title">
+      <div class="wrap">
+        <div class="section-head split">
+          <h2 id="video-title">Xem trước khi mua</h2>
+          <a class="link-arrow" href="#">Tất cả cẩm nang</a>
+        </div>
+        <div class="videos">
+          <a class="video" href="https://vt.tiktok.com/ZGduqTg8w/" target="_blank" rel="noopener">
+            <img src="../public/tiktok-videos/image1.png" alt="" loading="lazy" width="854" height="458" />
+            <span>Thông tin về iPhone Lock năm 2026</span>
+          </a>
+          <a class="video" href="https://vt.tiktok.com/ZGduqE1jj/" target="_blank" rel="noopener">
+            <img src="../public/tiktok-videos/image3.png" alt="" loading="lazy" width="854" height="458" />
+            <span>Giải đáp 999 câu hỏi về iPhone Lock</span>
+          </a>
+          <a class="video" href="https://vt.tiktok.com/ZGdasxNv2/" target="_blank" rel="noopener">
+            <img src="../public/tiktok-videos/image4.png" alt="" loading="lazy" width="854" height="458" />
+            <span>Fix lỗi iPhone Lock EID mới</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HỎI ĐÁP + CỬA HÀNG ============ -->
+    <section id="cua-hang" class="section surface" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <div>
+          <h2 id="faq-title">Câu hỏi khách hay nhắn</h2>
+          <div class="faq" id="faq"></div>
+          <a class="link-arrow" href="#">Xem 13 câu hỏi khác</a>
+        </div>
+
+        <aside class="store" aria-label="Thông tin cửa hàng">
+          <img src="../public/background-2.jpg" alt="Bên trong cửa hàng Dev Pồ ở Bình Giã, Tân Bình" loading="lazy" width="1536" height="2048" />
+          <div class="store-info">
+            <h3>Ghé Dev Pồ</h3>
+            <p>3/39A Bình Giã, Phường Tân Bình, TP.HCM</p>
+            <p>Mở cửa: <span class="ph" title="Cần bổ sung: giờ mở cửa">[9:00 – 21:00?]</span></p>
+            <p>Bán hàng: <a href="tel:0399208037">0399 208 037</a><br />Kỹ thuật: <a href="tel:0909097177">0909 097 177</a></p>
+            <a class="btn btn-primary btn-sm" href="https://www.google.com/maps?cid=0xaf29110ccb4bcf5d" target="_blank" rel="noopener">Chỉ đường Google Maps</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ CTA CUỐI ============ -->
+    <section class="final-cta" aria-labelledby="cta-title">
+      <div class="wrap final-inner">
+        <h2 id="cta-title">Chưa chắc đời nào hợp với bạn?</h2>
+        <p>Nhắn ngân sách và nhu cầu, Dev Pồ gợi ý 2 – 3 máy kèm giá chốt.</p>
+        <div class="hero-actions">
+          <a class="btn btn-invert" href="https://zalo.me/4289073059490896771" target="_blank" rel="noopener">Nhắn Zalo</a>
+          <a class="btn btn-outline-invert" href="https://www.messenger.com/channel/61576332353912" target="_blank" rel="noopener">Nhắn Messenger</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <img src="../public/devpo_logo_white.png" alt="Dev Pồ" width="137" height="56" class="footer-logo" />
+        <p>Cửa hàng iPhone Lock, iPhone Quốc tế và iPad cũ tại TP.HCM.</p>
+      </div>
+      <nav aria-label="Mua máy"><h3>Mua máy</h3><a href="#">iPhone Lock</a><a href="#">iPad</a><a href="#">Đặt cọc iPhone 18 Pro</a><a href="#">Tính trả góp</a></nav>
+      <nav aria-label="Hỗ trợ"><h3>Hỗ trợ</h3><a href="#">Fix lỗi iPhone Lock</a><a href="#">Check IMEI</a><a href="#">Mã IMSI nhà mạng</a><a href="#">Bypass MDM</a></nav>
+      <nav aria-label="Kênh"><h3>Theo dõi</h3><a href="https://www.tiktok.com/@devpo_iphone" target="_blank" rel="noopener">TikTok</a><a href="https://youtube.com/@devpo-iphonehcm" target="_blank" rel="noopener">YouTube</a><a href="https://www.facebook.com/share/1H5cf45rLH/" target="_blank" rel="noopener">Facebook</a></nav>
+    </div>
+  </footer>
+
+  <!-- Thanh liên hệ cố định trên mobile (thay cho 3 bong bóng nổi) -->
+  <nav class="dock" aria-label="Liên hệ nhanh">
+    <a href="tel:0399208037">Gọi</a>
+    <a href="https://zalo.me/4289073059490896771" target="_blank" rel="noopener" class="dock-main">Zalo báo giá</a>
+    <a href="https://www.facebook.com/share/1H5cf45rLH/" target="_blank" rel="noopener">Messenger</a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>

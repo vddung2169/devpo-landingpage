@@ -1,0 +1,104 @@
+/* Hiệu ứng riêng của trang chủ. Màu chỉ dùng biến có sẵn trong app/globals.css. */
+
+/* Mép răng cưa ở đáy phiếu so giá, giống phiếu in từ máy POS */
+.receipt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 12px;
+  background: radial-gradient(circle at 10px 6px, var(--surface) 5.5px, transparent 6px) 0 0 / 20px 12px repeat-x;
+}
+
+.strike {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 52%;
+  height: 2px;
+  background: var(--price);
+  transform-origin: left center;
+}
+
+/* Chuỗi chuyển động duy nhất của trang: chạy khi phiếu có class .playing */
+.playing .phone {
+  animation: phone-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.playing .strike {
+  animation: strike 0.45s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.playing .stamp {
+  animation: stamp 0.5s 1.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes phone-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes strike {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes stamp {
+  0% { opacity: 0; transform: scale(1.35) rotate(-6deg); }
+  60% { opacity: 1; transform: scale(0.96) rotate(1deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Ảnh sản phẩm nền trắng hoà vào khung xám ở chế độ sáng */
+.blend {
+  mix-blend-mode: multiply;
+}
+
+:global(.dark) .blend {
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playing .phone,
+  .playing .strike,
+  .playing .stamp {
+    animation: none;
+  }
+}
+
+/* Dải ảnh khách chạy ngang 1 hàng. Danh sách được lặp 2 lần và mỗi ảnh tự
+   mang khoảng cách bên phải, nên dịch đúng -50% là vòng lặp liền mạch. */
+.marquee {
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: marquee 150s linear infinite;
+}
+
+.marquee:hover .marqueeTrack,
+.marquee:focus-within .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Giảm chuyển động: dừng hẳn, cho khách tự vuốt ngang */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .marqueeTrack {
+    animation: none;
+  }
+}

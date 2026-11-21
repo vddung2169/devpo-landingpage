@@ -1,5 +1,6 @@
 import { Reveal } from "@/app/components/reveal";
 import { Breadcrumbs } from "@/components/ds/breadcrumbs";
+import { WithSideBanners } from "@/app/components/side-banners";
 
 /**
  * Khung chung cho từng trang công cụ con (Trả góp / Bypass MDM / Tư vấn máy).
@@ -12,6 +13,7 @@ export function ToolPageLayout({
   icon: Icon,
   parent = { href: "/cong-cu-mua-iphone", label: "Công cụ mua iPhone" },
   children,
+  sideBanners,
 }: {
   eyebrow: string;
   title: string;
@@ -20,6 +22,8 @@ export function ToolPageLayout({
   /** Cấp giữa của breadcrumb; đặt null nếu công cụ nằm ngay dưới trang chủ. */
   parent?: { href: string; label: string } | null;
   children: React.ReactNode;
+  /** Bật banner dọc hai bên (chỉ hiện trên màn hình ≥1440px). Truyền đường dẫn trang hiện tại. */
+  sideBanners?: string;
 }) {
   return (
     <>
@@ -51,9 +55,15 @@ export function ToolPageLayout({
 
       {/* Thân công cụ */}
       <div className="py-4">
-        <div className="mx-auto max-w-5xl">
-          <Reveal>{children}</Reveal>
-        </div>
+        {sideBanners ? (
+          <WithSideBanners currentPath={sideBanners}>
+            <Reveal>{children}</Reveal>
+          </WithSideBanners>
+        ) : (
+          <div className="mx-auto max-w-5xl">
+            <Reveal>{children}</Reveal>
+          </div>
+        )}
       </div>
     </>
   );

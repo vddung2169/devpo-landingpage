@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default function BypassMdmPage() {
   return (
     <ToolPageLayout
+      sideBanners="/cong-cu-mua-iphone/bypass-mdm"
       eyebrow="Bypass MDM"
       icon={ShieldCheck}
       title="Bỏ qua khoá quản lý MDM"

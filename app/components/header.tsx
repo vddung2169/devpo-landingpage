@@ -8,7 +8,9 @@ import {
   Calculator,
   ChevronDown,
   Menu,
+  Phone,
   ShieldCheck,
+  Signal,
   Sparkles,
   Wrench,
   X,
@@ -33,14 +35,20 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { GlobalSearch } from "./global-search";
 
-/** Liên kết chính — thứ tự đặt mua hàng trước, nội dung sau. */
+/** Số chính của cửa hàng — hiện ở nút gọi trên header mọi trang. */
+const SHOP_PHONE = { label: "090909 7177", tel: "tel:0909097177" };
+
+/** Liên kết chính — mua máy trước, nội dung sau. "/#..." nhảy tới khối trên trang chủ. */
 const NAV_LINKS = [
-  { href: "/featured-products", label: "Sản phẩm" },
+  { href: "/featured-products", label: "iPhone" },
   { href: "/ipad", label: "iPad" },
+  { href: "/#lock", label: "Lock hay Quốc tế" },
   { href: "/guides", label: "Cẩm nang" },
-  { href: "/news", label: "Tin tức" },
-  { href: "/imsi-codes", label: "Mã IMSI" },
+  { href: "/#cua-hang", label: "Cửa hàng" },
 ];
+
+/** Chỉ hiện trong menu mobile (desktop đã có ở footer) */
+const MOBILE_EXTRA_LINKS = [{ href: "/news", label: "Tin tức" }];
 
 // 3 công cụ con — dùng chung cho dropdown desktop lẫn menu mobile
 const TOOL_LINKS = [
@@ -71,6 +79,12 @@ const SUPPORT_LINKS = [
     icon: Wrench,
     title: "Fix lỗi iPhone Lock",
     desc: "Không dịch vụ, không có sim, sim lỗi",
+  },
+  {
+    href: "/imsi-codes",
+    icon: Signal,
+    title: "Mã IMSI nhà mạng",
+    desc: "Tra IMSI, GID để ghép sim đúng",
   },
 ];
 
@@ -108,15 +122,17 @@ export function Header() {
   // Đổi trang thì đóng menu mobile (bấm link trong Sheet không tự đóng).
   useEffect(() => setIsOpen(false), [pathname]);
 
+  // Link dạng "/#khoi" chỉ là neo trên trang chủ, không đánh dấu "đang ở trang này".
   const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+    !href.includes("#") &&
+    (pathname === href || pathname.startsWith(`${href}/`));
 
   return (
     // transform-gpu: đẩy header lên compositor layer riêng, hết giật sticky
     // trên iOS Safari. backdrop-blur chỉ bật từ md trở lên — trên mobile, blur
     // phải tính lại từng frame khi nội dung (đặc biệt là ticker marquee) trượt
     // bên dưới lúc cuộn, gây rung; nền đặc 95% nhìn gần như không khác.
-    <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border bg-background/95 md:backdrop-blur-xl md:supports-[backdrop-filter]:bg-background/75">
+    <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border bg-background/95 md:backdrop-blur-xl md:supports-[backdrop-filter]:bg-background/85">
       <div className="site-header-bar container-page flex h-16 items-center justify-between gap-3 lg:h-18">
         {/* --- Logo + menu desktop --- */}
         <div className="flex min-w-0 items-center gap-4 lg:gap-6 xl:gap-10">
@@ -131,7 +147,7 @@ export function Header() {
               width={137}
               height={56}
               priority
-              className="site-header-logo h-9 w-auto sm:h-14 dark:hidden"
+              className="site-header-logo h-9 w-auto lg:h-11 dark:hidden"
             />
             <Image
               src="/devpo_logo_white.png"
@@ -139,7 +155,7 @@ export function Header() {
               width={137}
               height={56}
               priority
-              className="site-header-logo hidden h-8 w-auto sm:h-8 dark:block"
+              className="site-header-logo hidden h-7 w-auto dark:block"
             />
           </Link>
 
@@ -163,8 +179,11 @@ export function Header() {
               </Link>
             ))}
 
-            {/* "Công cụ" mở dropdown 3 công cụ con + hỗ trợ sau mua */}
-            <DropdownMenu>
+            {/* "Công cụ" mở dropdown công cụ + hỗ trợ sau mua.
+                modal={false}: bản modal khoá cuộn bằng cách đặt overflow:hidden
+                lên <body>, làm header sticky "rơi" về đầu trang khi đang cuộn
+                giữa trang -> menu bị đẩy ra ngoài màn hình, không bấm được. */}
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger className="group flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-body font-medium text-muted-foreground outline-none transition-colors hover:text-foreground data-[state=open]:text-foreground xl:px-3">
                 Công cụ
                 <ChevronDown
@@ -187,8 +206,8 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                 ))}
-                <DropdownMenuLabel className="px-2.5 pb-1 pt-3 text-overline uppercase text-muted-foreground">
-                  Hỗ trợ sau mua
+                <DropdownMenuLabel className="px-2.5 pb-1 pt-3 text-caption font-semibold text-muted-foreground">
+                  Sau khi mua
                 </DropdownMenuLabel>
                 {SUPPORT_LINKS.map((item) => (
                   <DropdownMenuItem
@@ -210,6 +229,16 @@ export function Header() {
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <GlobalSearch />
           <ThemeToggle />
+
+          {/* Nút gọi số chính — icon trên mobile, hiện số từ xl */}
+          <a
+            href={SHOP_PHONE.tel}
+            aria-label={`Gọi Dev Pồ ${SHOP_PHONE.label}`}
+            className="inline-flex size-10 items-center justify-center gap-2 rounded-full bg-surface font-mono text-caption font-semibold text-foreground transition-colors hover:bg-surface-strong sm:size-auto sm:min-h-10 sm:px-4"
+          >
+            <Phone className="size-4" aria-hidden="true" />
+            <span className="hidden sm:inline">{SHOP_PHONE.label}</span>
+          </a>
 
           {/* Menu mobile dạng Sheet: cao hết màn hình, dễ chạm hơn dropdown nhỏ */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -264,8 +293,20 @@ export function Header() {
                   </SheetClose>
                 ))}
 
-                <p className="px-3 pb-2 pt-5 text-overline uppercase text-muted-foreground">
-                  Công cụ mua iPhone
+                {MOBILE_EXTRA_LINKS.map((link) => (
+                  <SheetClose asChild key={link.href}>
+                    <Link
+                      href={link.href}
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                      className="rounded-lg px-3 py-3 text-lead font-medium text-foreground transition-colors hover:bg-surface"
+                    >
+                      {link.label}
+                    </Link>
+                  </SheetClose>
+                ))}
+
+                <p className="px-3 pb-2 pt-5 text-caption font-semibold text-muted-foreground">
+                  Trước khi mua
                 </p>
                 {TOOL_LINKS.map((tool) => (
                   <SheetClose asChild key={tool.href}>
@@ -278,8 +319,8 @@ export function Header() {
                   </SheetClose>
                 ))}
 
-                <p className="px-3 pb-2 pt-5 text-overline uppercase text-muted-foreground">
-                  Hỗ trợ sau mua
+                <p className="px-3 pb-2 pt-5 text-caption font-semibold text-muted-foreground">
+                  Sau khi mua
                 </p>
                 {SUPPORT_LINKS.map((item) => (
                   <SheetClose asChild key={item.href}>

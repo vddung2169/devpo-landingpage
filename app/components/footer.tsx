@@ -52,7 +52,6 @@ const SHOP_LINKS = [
   { href: "/iphonelock", label: "iPhone Lock" },
   { href: "/ipad", label: "iPad cũ giá tốt" },
   { href: "/cong-cu-mua-iphone/tra-gop", label: "Tính trả góp" },
-  { href: "/check-imei", label: "Kiểm tra IMEI" },
 ];
 
 const SUPPORT_LINKS = [

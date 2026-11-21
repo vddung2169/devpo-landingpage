@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { CarrierTable } from "../components/carrier-table";
 import { Section, SectionHeader } from "@/components/ds/section";
+import { WithSideBanners } from "../components/side-banners";
 
 export const metadata: Metadata = {
   title: "Bảng mã IMSI iPhone Lock mới nhất 2026",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function ImsiCodesPage() {
   return (
-    <>
+    <WithSideBanners currentPath="/imsi-codes">
       <CarrierTable />
 
       <Section tone="surface" containerClassName="max-w-4xl">
@@ -54,6 +55,6 @@ export default function ImsiCodesPage() {
           </div>
         </div>
       </Section>
-    </>
+    </WithSideBanners>
   );
 }

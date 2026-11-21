@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default function TuVanMayPage() {
   return (
     <ToolPageLayout
+      sideBanners="/cong-cu-mua-iphone/tu-van-may"
       eyebrow="Tư vấn máy"
       icon={Sparkles}
       title="Chưa biết chọn máy nào?"

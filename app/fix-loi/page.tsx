@@ -73,6 +73,7 @@ export default function FixLoiPage() {
         eyebrow="Fix lỗi iPhone Lock"
         icon={Wrench}
         parent={null}
+        sideBanners="/fix-loi"
         title="Hướng dẫn fix lỗi iPhone Lock"
         description="Máy báo Không dịch vụ, Không có sim hay Sim không hợp lệ? Chọn đúng loại máy và lỗi đang gặp, làm lần lượt các cách bên dưới — phần lớn trường hợp tự xử lý được tại nhà trong vài phút."
       >

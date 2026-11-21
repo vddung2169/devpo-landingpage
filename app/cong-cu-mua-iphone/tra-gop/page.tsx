@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default function TraGopPage() {
   return (
     <ToolPageLayout
+      sideBanners="/cong-cu-mua-iphone/tra-gop"
       eyebrow="Trả góp"
       icon={Calculator}
       title="Ước tính trả góp khi mua iPhone"
