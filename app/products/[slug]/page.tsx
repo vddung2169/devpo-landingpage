@@ -6,6 +6,7 @@ import { Check, Facebook, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Price } from "@/components/ds/price";
 import { Breadcrumbs } from "@/components/ds/breadcrumbs";
+import { ProductInstallment } from "@/components/ds/product-installment";
 import {
   InstallmentBadge,
   ProductBadge,
@@ -201,7 +202,9 @@ export default async function ProductDetailPage({
               size="lg"
             />
             <div>
-              <InstallmentBadge />
+              <a href="#tra-gop" aria-label="Xem cách tính trả góp">
+                <InstallmentBadge />
+              </a>
             </div>
           </div>
 
@@ -259,6 +262,14 @@ export default async function ProductDetailPage({
           </div>
         </div>
       </div>
+
+      {/* --- Tính trả góp: Mirae/HD cho mọi máy, MDM/iCloud chỉ iPhone, thẻ tín dụng mọi máy --- */}
+      <ProductInstallment
+        price={priceToNumber(product.priceFrom)}
+        isIphone={product.category !== "ipad"}
+        productName={`${product.name} ${product.storage}`}
+        zaloLink={product.zaloLink}
+      />
 
       {/* --- Cấu hình chi tiết (khi sản phẩm có techSpecs) --- */}
       {product.techSpecs && product.techSpecs.length > 0 && (
