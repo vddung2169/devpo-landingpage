@@ -214,12 +214,15 @@ export function WithSideBanners({
   children,
   currentPath,
   className,
+  popup = true,
 }: {
   children: React.ReactNode;
   currentPath?: string;
   className?: string;
+  /** Tắt cửa sổ quảng cáo ở màn nhỏ (vd. trang form, tránh che khi khách đang điền). */
+  popup?: boolean;
 }) {
-  const promo = promoPopupProducts();
+  const promo = popup ? promoPopupProducts() : [];
   return (
     <div
       className={cn(
